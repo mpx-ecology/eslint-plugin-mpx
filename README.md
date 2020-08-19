@@ -1,6 +1,6 @@
 # eslint-plugin-mpx
 
-mpx eslint
+mpx的eslint插件
 
 ## Installation
 
