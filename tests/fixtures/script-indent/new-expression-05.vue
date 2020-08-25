@@ -1,5 +1,0 @@
-<!--{}-->
-<script>
-new foo(a,
-        b)
-</script>

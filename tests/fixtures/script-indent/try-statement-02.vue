@@ -1,9 +1,0 @@
-<!--{}-->
-<script>
-try
-{
-}
-finally
-{
-}
-</script>

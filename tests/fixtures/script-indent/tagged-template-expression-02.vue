@@ -1,5 +1,0 @@
-<!--{}-->
-<script>
-foo
-  `test`
-</script>
