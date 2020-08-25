@@ -1,0 +1,23 @@
+<!--{}-->
+<script>
+var foo, bar
+export
+{
+  foo
+    as
+    a,
+  bar
+    as
+    b
+}
+;
+export
+{
+  foo
+    as
+    c,
+  bar
+    as
+    d
+}
+</script>
