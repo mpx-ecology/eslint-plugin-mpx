@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-mpx",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "Official ESLint plugin for Mpx.js",
   "main": "lib/index.js",
   "scripts": {
@@ -75,8 +75,5 @@
     "typescript": "^3.9.5",
     "vue-eslint-editor": "^1.1.0",
     "vuepress": "^1.4.1"
-  },
-  "publishConfig": {
-    "tag": "next"
   }
 }
