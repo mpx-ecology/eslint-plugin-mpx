@@ -1,5 +1,5 @@
 import { VisitorKeys } from 'eslint-visitor-keys'
-import * as VAST from '../eslint-plugin-vue/util-types/ast'
+import * as VAST from '../eslint-plugin-mpx/util-types/ast'
 export namespace AST {
   function getFallbackKeys(node: VAST.ASTNode): string[]
   export interface Visitor {

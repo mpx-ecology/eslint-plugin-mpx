@@ -1,5 +1,5 @@
-import * as VAST from '../eslint-plugin-vue/util-types/ast'
-import { ParserServices } from '../eslint-plugin-vue/util-types/parser-services'
+import * as VAST from '../eslint-plugin-mpx/util-types/ast'
+import { ParserServices } from '../eslint-plugin-mpx/util-types/parser-services'
 import eslint from 'eslint'
 
 export function findVariable(
