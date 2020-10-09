@@ -40,7 +40,7 @@ describe('comment-directive', () => {
   const resolveFilename = Module._resolveFilename
   before(() => {
     Module._resolveFilename = function (id, ...args) {
-      if (id === 'eslint-plugin-vue') {
+      if (id === 'eslint-plugin-mpx') {
         return path.resolve(__dirname, '../../../lib/index.js')
       }
       return resolveFilename.call(this, id, ...args)
