@@ -47,7 +47,7 @@ tester.run('valid-wx-if', rule, {
       filename: 'test.mpx',
       code: '<template><div><div wx:if="foo" wx:else></div></div></template>',
       errors: [
-        "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:else-if' directives."
+        "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives."
       ]
     },
     {
@@ -55,7 +55,7 @@ tester.run('valid-wx-if', rule, {
       code:
         '<template><div><div wx:if="foo" wx:elif="bar"></div></div></template>',
       errors: [
-        "'wx:if' and 'wx:else-if' directives can't exist on the same element."
+        "'wx:if' and 'wx:elif' directives can't exist on the same element."
       ]
     },
     {
