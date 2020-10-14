@@ -29,23 +29,23 @@ tester.run('valid-wx-if', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><div><div wx:if="foo"></div></div></template>'
+      code: '<template><view><view wx:if="foo"></view></view></template>'
     },
     // parsing error
     {
       filename: 'parsing-error.mpx',
-      code: '<template><div wx:if="."></div></template>'
+      code: '<template><view wx:if="."></view></template>'
     },
     // comment value (parsing error)
     {
       filename: 'comment-value.mpx',
-      code: '<template><div wx:if="/**/"></div></template>'
+      code: '<template><view wx:if="/**/"></view></template>'
     }
   ],
   invalid: [
     {
       filename: 'test.mpx',
-      code: '<template><div><div wx:if="foo" wx:else></div></div></template>',
+      code: '<template><view><view wx:if="foo" wx:else></view></view></template>',
       errors: [
         "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives."
       ]
@@ -53,30 +53,30 @@ tester.run('valid-wx-if', rule, {
     {
       filename: 'test.mpx',
       code:
-        '<template><div><div wx:if="foo" wx:elif="bar"></div></div></template>',
+        '<template><view><view wx:if="foo" wx:elif="bar"></view></view></template>',
       errors: [
         "'wx:if' and 'wx:elif' directives can't exist on the same element."
       ]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div><div wx:if:aaa="foo"></div></div></template>',
+      code: '<template><view><view wx:if:aaa="foo"></view></view></template>',
       errors: ["'wx:if' directives require no argument."]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div><div wx:if.aaa="foo"></div></div></template>',
+      code: '<template><view><view wx:if.aaa="foo"></view></view></template>',
       errors: ["'wx:if' directives require no modifier."]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div><div wx:if></div></div></template>',
+      code: '<template><view><view wx:if></view></view></template>',
       errors: ["'wx:if' directives require that attribute value."]
     },
     // empty value
     {
       filename: 'empty-value.mpx',
-      code: '<template><div><div wx:if=""></div></div></template>',
+      code: '<template><view><view wx:if=""></view></view></template>',
       errors: ["'wx:if' directives require that attribute value."]
     }
   ]
