@@ -41,15 +41,11 @@ tester.run('valid-wx-model', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><input type="password" wx:model.trim="foo"></template>'
+      code: '<template><input type="idcard" wx:model.trim="foo"></template>'
     },
     {
       filename: 'test.mpx',
-      code: '<template><input type="checkbox" wx:model="foo.bar"></template>'
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><input type="radio" wx:model="foo"></template>'
+      code: '<template><input type="digit" wx:model="foo.bar"></template>'
     },
     {
       filename: 'test.mpx',
