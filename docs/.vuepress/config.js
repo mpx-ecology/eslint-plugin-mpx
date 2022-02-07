@@ -129,8 +129,8 @@ module.exports = {
   },
 
   base: '/',
-  title: 'eslint-plugin-vue',
-  description: 'Official ESLint plugin for Vue.js',
+  title: 'eslint-plugin-mpx',
+  description: 'Mpx的官方ESLint插件',
   evergreen: true,
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
 
@@ -142,17 +142,14 @@ module.exports = {
   },
 
   themeConfig: {
-    repo: 'vuejs/eslint-plugin-vue',
-    docsRepo: 'vuejs/eslint-plugin-vue',
+    repo: 'mpx-ecology/eslint-plugin-mpx',
+    docsRepo: 'mpx-ecology/eslint-plugin-mpx',
     docsDir: 'docs',
     docsBranch: 'master',
-    editLinks: true,
-    lastUpdated: true,
-
     nav: [
-      { text: 'User Guide', link: '/user-guide/' },
-      { text: 'Developer Guide', link: '/developer-guide/' },
-      { text: 'Rules', link: '/rules/' },
+      { text: '用户指南', link: '/user-guide/' },
+      { text: '开发指南', link: '/developer-guide/' },
+      { text: '规则', link: '/rules/' },
       { text: 'Demo', link: 'https://mysticatea.github.io/vue-eslint-demo' }
     ],
 
@@ -172,7 +169,7 @@ module.exports = {
 
     algolia: {
       apiKey: 'b2b69365da747a9a9635cda391317c36',
-      indexName: 'eslint-plugin-vue'
+      indexName: 'eslint-plugin-mpx'
     }
   }
 }

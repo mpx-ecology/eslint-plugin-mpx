@@ -2,26 +2,17 @@
 sidebarDepth: 0
 ---
 
-# Introduction
+# 介绍
 
-Official ESLint plugin for Vue.js.
+Mpx的官方ESLint插件
 
-This plugin allows us to check the `<template>` and `<script>` of `.vue` files with ESLint.
+这个插件允许我们检查`<template>`,`<script>`和`.mpx`文件与ESLint。
 
-- Finds syntax errors.
-- Finds the wrong use of [Vue.js Directives](https://v3.vuejs.org/api/directives.html).
-- Finds the violation for [Vue.js Style Guide](https://v3.vuejs.org/style-guide/).
+- 查找语法错误
+- 发现错误使用 [Mpx.js 模版指令](https://www.mpxjs.cn/api/directives.html)。
 
-ESLint editor integrations are useful to check your code in real-time.
+ESLint编辑器集成对于实时检查代码非常有用。
 
-## :traffic_light: Versioning policy
+## 仓库地址
 
-This plugin is following [Semantic Versioning](https://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
-
-## :newspaper: Changelog
-
-We are using [GitHub Releases](https://github.com/vuejs/eslint-plugin-vue/releases).
-
-## :lock: License
-
-See the [LICENSE](https://github.com/vuejs/eslint-plugin-vue/blob/master/LICENSE) file for license rights and limitations (MIT).
+[GitHub](https://github.com/mpx-ecology/eslint-plugin-mpx).
