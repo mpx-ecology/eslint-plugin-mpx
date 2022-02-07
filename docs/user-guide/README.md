@@ -1,20 +1,15 @@
 # 用户指南
 
-## :cd: Installation
-
-Via `vue-cli` (**Recommended**):
-```bash
-vue add @vue/cli-plugin-eslint
-```
+## :cd: 安装
 
 Via [npm](https://www.npmjs.com/):
 ```bash
-npm install --save-dev eslint eslint-plugin-vue@next
+npm install --save-dev eslint eslint-plugin-mpx@next
 ```
 
 Via [yarn](https://yarnpkg.com/):
 ```bash
-yarn add -D eslint eslint-plugin-vue@next
+yarn add -D eslint eslint-plugin-mpx@next
 ```
 
 ::: tip Requirements
@@ -22,134 +17,94 @@ yarn add -D eslint eslint-plugin-vue@next
 - Node.js v8.10.0 and above
 :::
 
-## :book: Usage
+## :book: 使用
 
-### Configuration
+### 配置
 
-Use `.eslintrc.*` file to configure rules. See also: [https://eslint.org/docs/user-guide/configuring](https://eslint.org/docs/user-guide/configuring).
+使用`.eslintrc.*`文件来配置规则。另见：[https://eslint.org/docs/user-guide/configuring](https://eslint.org/docs/user-guide/configuring).
 
-Example **.eslintrc.js**:
+示例 **.eslintrc.js**:
 
 ```js
 module.exports = {
   extends: [
     // add more generic rulesets here, such as:
     // 'eslint:recommended',
-    'plugin:vue/vue3-recommended'
+    'plugin:mpx/mpx-essential'
   ],
   rules: {
     // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
+    // 'mpx/no-unused-vars': 'error'
   }
 }
 ```
 
-See [the rule list](../rules/README.md) to get the `extends` &amp; `rules` that this plugin provides.
+请参阅[规则列表](../rules/README.md)以获取“extends”的配置提供的规则。
 
-:::warning Reporting rules
-By default all rules from **base** and **essential** categories report ESLint errors. Other rules - because they're not covering potential bugs in the application - report warnings. What does it mean? By default - nothing, but if you want - you can set up a treshold and break the build after a certain amount of warnings, instead of any. More information [here](https://eslint.org/docs/user-guide/command-line-interface#handling-warnings).
+:::warning 报告规则
+默认情况下，来自 **base** 和 **essential** 类别的所有规则都会报告 ESLint 错误。其他规则——因为它们没有涵盖应用程序中的潜在错误——报告警告。 这是什么意思？ 默认情况下 - 什么都没有，但如果你愿意 - 你可以设置一个阈值并在一定数量的警告后中断构建，而不是任何警告。 [更多信息](https://eslint.org/docs/user-guide/command-line-interface#handling-warnings).
 :::
 
-### Running ESLint from the command line
+### 命令行运行ESLint
 
-If you want to run `eslint` from the command line, make sure you include the `.vue` extension using [the `--ext` option](https://eslint.org/docs/user-guide/configuring#specifying-file-extensions-to-lint) or a glob pattern, because ESLint targets only `.js` files by default.
+如果要从命令行运行 `eslint`，请确保使用 [`--ext` 选项](https://eslint.org/docs/user-guide/configuring#specifying-file-extensions-to-lint)包含 `.mpx` 扩展名或 glob 模式，因为 ESLint 默认只针对 `.js` 文件。
 
-Examples:
+示例:
 
 ```bash
-eslint --ext .js,.vue src
-eslint "src/**/*.{js,vue}"
+eslint --ext .js,.mpx src
+eslint "src/**/*.{js,mpx}"
 ```
 
-::: tip
-If you installed [@vue/cli-plugin-eslint](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint), you should have the `lint` script added to your `package.json`. That means you can just run `yarn lint` or `npm run lint`.
-:::
+### 如何使用自定义解析器？
 
-### How to use a custom parser?
-
-If you want to use custom parsers such as [babel-eslint](https://www.npmjs.com/package/babel-eslint) or [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser), you have to use the `parserOptions.parser` option instead of the `parser` option. Because this plugin requires [vue-eslint-parser](https://www.npmjs.com/package/vue-eslint-parser) to parse `.vue` files, this plugin doesn't work if you overwrite the `parser` option.
+如果您想使用自定义解析器，例如[babel-eslint](https://www.npmjs.com/package/babel-eslint)或[@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)，您必须使用 parserOptions.parser 选项而不是 parser 选项。 因为这个插件需要[mpx-eslint-parser](https://github.com/mpx-ecology/mpx-eslint-parser)来解析 .mpx 文件，所以如果你覆盖 parser 选项，这个插件就不起作用。
 
 ```diff
 - "parser": "babel-eslint",
-+ "parser": "vue-eslint-parser",
++ "parser": "mpx-eslint-parser",
   "parserOptions": {
 +     "parser": "babel-eslint",
       "sourceType": "module"
   }
 ```
 
-### How does ESLint detect components?
+### 通过`<!-- eslint-disable -->`禁用规则
 
-All component-related rules are applied to code that passes any of the following checks:
+您可以在`.mpx`文件的`<template>`块级别使用 `<!-- eslint-disable -->`类似 HTML 注释来临时禁用某个规则。
 
-- `Vue.component()` expression
-- `Vue.extend()` expression
-- `Vue.mixin()` expression
-- `app.component()` expression
-- `app.mixin()` expression
-- `createApp()` expression
-- `defineComponent()` expression
-- `export default {}` in `.vue` or `.jsx` file
-
-However, if you want to take advantage of the rules in any of your custom objects that are Vue components, you might need to use the special comment `// @vue/component` that marks an object in the next line as a Vue component in any file, e.g.:
-
-```js
-// @vue/component
-const CustomComponent = {
-  name: 'custom-component',
-  template: '<div></div>'
-}
-```
-
-```js
-Vue.component('AsyncComponent', (resolve, reject) => {
-  setTimeout(() => {
-    // @vue/component
-    resolve({
-      name: 'async-component',
-      template: '<div></div>'
-    })
-  }, 500)
-})
-```
-
-### Disabling rules via `<!-- eslint-disable -->`
-
-You can use `<!-- eslint-disable -->`-like HTML comments in the `<template>` and in the block level of `.vue` files to disable a certain rule temporarily.
-
-For example:
+示例:
 
 ```vue
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div a="1" b="2" c="3" d="4">
-  </div>
+  <!-- eslint-disable-next-line mpx/valid-wx-if -->
+  <view wx:if=""></view>
 </template>
 ```
 
-If you want to disallow `eslint-disable` functionality in `<template>`, disable the [vue/comment-directive](../rules/comment-directive.md) rule.
+如果你想在 `<template>` 中禁用 `eslint-disable` 功能，请禁用 [mpx/comment-directive](../rules/comment-directive.md) 规则。
 
-## :computer: Editor integrations
+## :computer: 编辑器集成
 
 ### Visual Studio Code
 
-Use the [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension that Microsoft provides officially.
+使用 Microsoft 官方提供的 [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 扩展。
 
-You have to configure the `eslint.validate` option of the extension to check `.vue` files, because the extension targets only `*.js` or `*.jsx` files by default.
+您必须配置扩展的 `eslint.validate` 选项来检查 `.mpx` 文件，因为默认情况下扩展只针对 `*.js`文件。
 
-Example **.vscode/settings.json**:
+示例 **.vscode/settings.json**:
 
 ```json
 {
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    "vue"
+    "mpx"
   ]
 }
 ```
 
-If you use the `Vetur` plugin, set `"vetur.validation.template": false` to avoid default Vetur template validation. Check out [vetur documentation](https://vuejs.github.io/vetur/linting-error.html) for more info.
+如果您使用 `Mpx` 插件，请设置 `"Mpx.validation.template": false` 以避免默认的 Mpx 模板验证。 查看 [Mpx 文档](https://github.com/mpx-ecology/vscode-mpx) 了解更多信息。
 
 ### Sublime Text
 
