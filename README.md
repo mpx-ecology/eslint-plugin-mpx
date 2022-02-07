@@ -23,8 +23,8 @@ Add `mpx` to the plugins section of your `.eslintrc` configuration file. You can
 
 ```json
 {
-    "plugins": [
-        "mpx"
+    "extends": [
+       "plugin:mpx/mpx-essential"
     ]
 }
 ```
