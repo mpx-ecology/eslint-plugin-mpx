@@ -1,13 +1,13 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/valid-v-if
+title: mpx/valid-wx-if
 description: enforce valid `v-if` directives
 ---
-# vue/valid-v-if
+# mpx/valid-wx-if
 > enforce valid `v-if` directives
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: This rule is included in all of `"plugin:mpx/mpx-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
 
 This rule checks whether every `v-if` directive is valid.
 

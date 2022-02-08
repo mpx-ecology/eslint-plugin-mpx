@@ -21,39 +21,10 @@ const uncategorizedExtensionRule = rules.filter(
 const deprecatedRules = rules.filter((rule) => rule.meta.deprecated)
 
 const sidebarCategories = [
-  { title: 'Base Rules', categoryIds: ['base'] },
+  { title: 'base', categoryIds: ['base'] },
   {
-    title: 'Priority A: Essential',
-    categoryIds: ['vue3-essential', 'essential']
-  },
-  {
-    title: 'Priority A: Essential for Vue.js 3.x',
-    categoryIds: ['vue3-essential']
-  },
-  { title: 'Priority A: Essential for Vue.js 2.x', categoryIds: ['essential'] },
-  {
-    title: 'Priority B: Strongly Recommended',
-    categoryIds: ['vue3-strongly-recommended', 'strongly-recommended']
-  },
-  {
-    title: 'Priority B: Strongly Recommended for Vue.js 3.x',
-    categoryIds: ['vue3-strongly-recommended']
-  },
-  {
-    title: 'Priority B: Strongly Recommended for Vue.js 2.x',
-    categoryIds: ['strongly-recommended']
-  },
-  {
-    title: 'Priority C: Recommended',
-    categoryIds: ['vue3-recommended', 'recommended']
-  },
-  {
-    title: 'Priority C: Recommended for Vue.js 3.x',
-    categoryIds: ['vue3-recommended']
-  },
-  {
-    title: 'Priority C: Recommended for Vue.js 2.x',
-    categoryIds: ['recommended']
+    title: 'Essential',
+    categoryIds: ['mpx-essential']
   }
 ]
 
@@ -84,7 +55,9 @@ for (const { title, categoryIds } of sidebarCategories) {
     children
   })
 }
-
+categorizedRules.map(item => {
+  console.log(item)
+})
 const extraCategories = []
 if (uncategorizedRules.length > 0) {
   extraCategories.push({
@@ -149,8 +122,7 @@ module.exports = {
     nav: [
       { text: '用户指南', link: '/user-guide/' },
       { text: '开发指南', link: '/developer-guide/' },
-      { text: '规则', link: '/rules/' },
-      { text: 'Demo', link: 'https://mysticatea.github.io/vue-eslint-demo' }
+      { text: '规则', link: '/rules/' }
     ],
 
     sidebar: {

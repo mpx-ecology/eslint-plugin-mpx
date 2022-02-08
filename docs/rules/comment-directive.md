@@ -1,10 +1,10 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/comment-directive
+title: mpx/comment-directive
 description: support comment-directives in `<template>`
 ---
-# vue/comment-directive
+# mpx/comment-directive
 > support comment-directives in `<template>`
 
 - :gear: This rule is included in all of `"plugin:vue/base"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-essential"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/recommended"` and `"plugin:vue/vue3-recommended"`.

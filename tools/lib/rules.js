@@ -21,7 +21,7 @@ module.exports = fs
       meta.docs.categories = [meta.docs.category]
     }
     return {
-      ruleId: `vue/${name}`,
+      ruleId: `mpx/${name}`,
       name,
       meta
     }

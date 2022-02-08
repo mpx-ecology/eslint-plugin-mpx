@@ -1,59 +1,59 @@
 # 开发指南
 
-Contributing is welcome.
+欢迎贡献。
 
-## :bug: Bug reporting
+## :bug: 错误报告
 
-If you think you’ve found a bug in ESLint, please [create a new issue](https://github.com/vuejs/eslint-plugin-vue/issues/new?labels=&template=bug_report.md) or a pull request on GitHub.
+如果您认为在 ESLint 中发现了错误，请[创建一个新问题](https://github.com/mpx-ecology/eslint-plugin-mpx/issues/new?labels=&template=bug_report.md)或 GitHub 上的拉取请求。
 
-Please include as much detail as possible to help us properly address your issue. If we need to triage issues and constantly ask people for more detail, that’s time taken away from actually fixing issues. Help us be as efficient as possible by including a lot of detail in your issues.
+请提供尽可能多的详细信息，以帮助我们正确解决您的问题。 如果我们需要对问题进行分类并不断向人们询问更多细节，那就是实际解决问题的时间。 通过在您的问题中包含大量细节来帮助我们尽可能提高效率。
 
-## :sparkles: Proposing a new rule or a rule change
+## :sparkles: 提出新规则或规则变更
 
-In order to add a new rule or a rule change, you should:
+为了添加新规则或规则更改，您应该：
 
-- Create issue on GitHub with description of proposed rule
-- Generate a new rule using the [official yeoman generator](https://github.com/eslint/generator-eslint)
-- Run `npm start`
-- Write test scenarios & implement logic
-- Describe the rule in the generated `docs` file
-- Make sure all tests are passing
-- Run `npm run lint` and fix any errors
-- Run `npm run update` in order to update readme and recommended configuration
-- Create PR and link created issue in description
+- 在 GitHub 上创建带有提议规则描述的问题
+- 使用 [official yeoman generator](https://github.com/eslint/generator-eslint) 生成新规则
+- 运行`npm start`
+- 编写测试场景和实现逻辑
+- 在生成的 `docs` 文件中描述规则
+- 确保所有测试都通过
+- 运行 `npm run lint` 并修复所有错误
+- 运行 `npm run update` 以更新自述文件和推荐配置
+- 在描述中创建 PR 和链接创建的问题
 
-We're more than happy to see potential contributions, so don't hesitate. If you have any suggestions, ideas or problems feel free to add new [issue](https://github.com/vuejs/eslint-plugin-vue/issues), but first please make sure your question does not repeat previous ones.
+我们很高兴看到潜在的贡献，所以不要犹豫。 如果您有任何建议、想法或问题，请随时添加新的 [issue](https://github.com/mpx-ecology/eslint-plugin-mpx/issues)，但首先请确保您的问题不重复之前的问题。
 
-## :fire: Working with rules
+## :fire: 使用规则
 
-Before you start writing new rule, please read the [official ESLint guide](https://eslint.org/docs/developer-guide/working-with-rules).
+在开始编写新规则之前，请阅读[官方 ESLint 指南](https://eslint.org/docs/developer-guide/working-with-rules)。
 
-Next, in order to get an idea how does the AST of the code that you want to check looks like, use the [astexplorer.net].
-The [astexplorer.net] is a great tool to inspect ASTs, also Vue templates are supported.
+接下来，为了了解您要检查的代码的 AST 是什么样的，请使用 [astexplorer.net]。
+[astexplorer.net] 是检查 AST 的绝佳工具，暂未支持Mpx,可选择Vue类似查看
 
-After opening [astexplorer.net], select `Vue` as the syntax and `vue-eslint-parser` as the parser.
+打开[astexplorer.net]后，选择`Vue`作为语法，选择`vue-eslint-parser`作为解析器。
 
-[astexplorer.net]: https://astexplorer.net/
+[astexplorer.net](https://astexplorer.net/)
 
-Since single file components in Vue are not plain JavaScript, we can't use the default parser, and we had to introduce additional one: `vue-eslint-parser`, that generates enhanced AST with nodes that represent specific parts of the template syntax, as well as what's inside the `<script>` tag.
+由于 Vue 中的单个文件组件不是纯 JavaScript，我们不能使用默认解析器，我们不得不引入额外的一个：`vue-eslint-parser`，它生成增强的 AST，节点代表模板语法的特定部分，以及 `<script>` 标签内的内容。
 
-To know more about certain nodes in produced ASTs, go here:
-- [ESTree docs](https://github.com/estree/estree)
-- [vue-eslint-parser AST docs](https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md)
+要了解有关生成的 AST 中某些节点的更多信息，请访问此处：
+- [ESTree 文档](https://github.com/estree/estree)
+- [vue-eslint-parser AST 文档](https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md)
 
-The `vue-eslint-parser` provides few useful parser services, to help traverse the produced AST and access tokens of the template:
-- `context.parserServices.defineTemplateBodyVisitor(visitor, scriptVisitor)`
-- `context.parserServices.getTemplateBodyTokenStore()`
+`Mpx-eslint-parser` 提供了一些有用的解析器服务，以帮助遍历生成的 AST 和访问模板的令牌：
+-`context.parserServices.defineTemplateBodyVisitor（访问者，scriptVisitor）`
+-`context.parserServices.getTemplateBodyTokenStore()`
 
-Check out an [example rule](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/mustache-interpolation-spacing.js) to get a better understanding of how these work.
+查看 [示例规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/mustache-interpolation-spacing.js) 以更好地了解这些规则是如何工作的。
 
-Please be aware that regarding what kind of code examples you'll write in tests, you'll have to accordingly setup the parser in `RuleTester` (you can do it on per test case basis though). [See an example here](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/attribute-hyphenation.js#L19)
+请注意，关于您将在测试中编写什么样的代码示例，您必须在“RuleTester”中相应地设置解析器（不过，您可以根据每个测试用例进行设置）。 [在此处查看示例](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/attribute-hyphenation.js#L19)
 
-If you'll stuck, remember there are plenty of rules you can learn from already, and if you can't find the right solution - don't hesitate to reach out in issues. We're happy to help!
+如果您遇到困难，请记住您已经可以学习很多规则，如果您找不到正确的解决方案 - 请不要犹豫，解决问题。我们很乐意提供帮助！
 
-## :white_check_mark: JSDoc type checking with TypeScript
+## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
-We have type checking enabled via TypeScript and JSDoc.  
-The command to perform type checking is: `npm run tsc`
+我们通过 TypeScript 和 JSDoc 启用了类型检查。
+执行类型检查的命令是：`npm run tsc`
 
-This is just to help you write the rules, not to do strict type checking. If you find it difficult to resolve type checking warnings, feel free to suppress warnings using the `// @ts-nocheck` and `// @ts-ignore` comment.
+这只是为了帮助您编写规则，而不是进行严格的类型检查。 如果您发现难以解决类型检查警告，请随意使用 `// @ts-nocheck` 和 `// @ts-ignore` 注释来抑制警告。

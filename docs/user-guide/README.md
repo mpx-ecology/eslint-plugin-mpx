@@ -104,149 +104,31 @@ eslint "src/**/*.{js,mpx}"
 }
 ```
 
-如果您使用 `Mpx` 插件，请设置 `"Mpx.validation.template": false` 以避免默认的 Mpx 模板验证。 查看 [Mpx 文档](https://github.com/mpx-ecology/vscode-mpx) 了解更多信息。
+您必须使用[Mpx](https://marketplace.visualstudio.com/items?itemName=pagnkelly.mpx) 插件，请设置 `"Mpx.validation.template": false` 以避免默认的 Mpx 模板验证。 查看 [Mpx 文档](https://github.com/mpx-ecology/vscode-mpx) 了解更多信息。
 
-### Sublime Text
+### 其他ide支持暂未推出
 
-Use Package Control to install **SublimeLinter** and its ESLint extension **[SublimeLinter-eslint](https://github.com/SublimeLinter/SublimeLinter-eslint)**.
-
-In the menu go to `Preferences > Package Settings > SublimeLinter > Settings` and paste in this:
-
-```json
-{
-  "linters": {
-    "eslint": {
-      "selector": "text.html.vue, source.js - meta.attribute-with-value"
-    }
-  }
-}
-```
-
-### Atom editor
-
-Go into `Settings -> Packages -> linter-eslint`, under the option "List of scopes to run eslint on", add `text.html.vue`. You may need to restart Atom.
-
-### IntelliJ IDEA / JetBrains WebStorm
-
-In the **Settings/Preferences** dialog (`Cmd+,`/`Ctrl+Alt+S`), choose JavaScript under **Languages and Frameworks** and then choose **ESLint** under **Code Quality Tools**.
-On the **ESLint page** that opens, select the *Enable* checkbox.
-
-If your ESLint configuration is updated (manually or from your version control), open it in the editor and choose **Apply ESLint Code Style Rules** in the context menu.
-
-read more: [JetBrains - ESLint](https://www.jetbrains.com/help/idea/eslint.html)
 
 ## :question: FAQ
 
-### What is the "Use the latest vue-eslint-parser" error?
+### 什么是“使用最新的mpx-eslint-parser”错误？
 
-Most `eslint-plugin-vue` rules require `vue-eslint-parser` to check `<template>` ASTs.
+大多数 `eslint-plugin-mpx` 规则需要 `mpx-eslint-parser` 来检查 `<template>` AST。
 
-Make sure you have one of the following settings in your **.eslintrc**:
+确保您的 **.eslintrc** 中有以下设置之一：
 
-- `"extends": ["plugin:vue/vue3-recommended"]`
-- `"extends": ["plugin:vue/base"]`
+- `"extends": ["plugin:mpx/mpx-essential"]`
+- `"extends": ["plugin:mpx/base"]`
 
-If you already use another parser (e.g. `"parser": "babel-eslint"`), please move it into `parserOptions`, so it doesn't collide with the `vue-eslint-parser` used by this plugin's configuration:
+如果你已经使用了另一个解析器（例如 `"parser": "babel-eslint"`），请将它移到 `parserOptions` 中，这样它就不会与该插件配置使用的 `mpx-eslint-parser` 冲突：
 
 ```diff
 - "parser": "babel-eslint",
-+ "parser": "vue-eslint-parser",
++ "parser": "mpx-eslint-parser",
   "parserOptions": {
 +     "parser": "babel-eslint",
       "ecmaVersion": 2020,
       "sourceType": "module"
   }
 ```
-
-See also: "[How to use a custom parser?](#how-to-use-a-custom-parser)" section.
-
-### Why doesn't it work on .vue files?
-
-1. Make sure you don't have `eslint-plugin-html` in your config. The `eslint-plugin-html` extracts the content from `<script>` tags, but `eslint-plugin-vue` requires `<script>` tags and `<template>` tags in order to distinguish template and script in single file components.
-
-  ```diff
-    "plugins": [
-      "vue",
-  -   "html"
-    ]
-  ```
-
-2. Make sure your tool is set to lint `.vue` files.
-  - CLI targets only `.js` files by default. You have to specify additional extensions with the `--ext` option or glob patterns. E.g. `eslint "src/**/*.{js,vue}"` or `eslint src --ext .vue`. If you use `@vue/cli-plugin-eslint` and the `vue-cli-service lint` command - you don't have to worry about it.
-  - If you are having issues with configuring editor, please read [editor integrations](#editor-integrations)
-
-### Conflict with [Prettier].
-
-If the [Prettier] conflicts with the shareable config provided by this plugin, use [eslint-config-prettier] to resolve it.
-
-Example **.eslintrc.js**:
-
-```js
-module.exports = {
-  // ...
-  extends: [
-    // ...
-    // 'eslint:recommended',
-    // ...
-    'plugin:vue/vue3-recommended',
-    // ...
-    "prettier",
-    "prettier/vue",
-    // "prettier/@typescript-eslint", // required if you are using @typescript-eslint.
-    // Other settings may be required depending on the plugin you are using. See the eslint-config-prettier documentation for more details.
-  ],
-  // ...
-}
-```
-
-If the [Prettier] conflicts with the rule you have set, turn off that rule.
-
-Example **.eslintrc.js**:
-
-When the `vue/html-indent` rule conflict with [Prettier].
-
-```diff
-module.exports = {
-  // ...
-  rules: {
-    // ...
--    "vue/html-indent": "error",
-+    "vue/html-indent": "off",
-    // ...
-  },
-  // ...
-}
-```
-
-[prettier]: https://prettier.io/
-[eslint-config-prettier]: https://github.com/prettier/eslint-config-prettier
-
-### Using JSX.
-
-If you are using JSX, you need to enable JSX in your ESLint configuration.
-
-```diff
-  "parserOptions": {
-      "ecmaVersion": 2020,
-      "ecmaFeatures": {
-+         "jsx": true
-      }
-  }
-```
-
-See also [ESLint - Specifying Parser Options](https://eslint.org/docs/user-guide/configuring#specifying-parser-options).
-
-The same configuration is required when using JSX with TypeScript (TSX) in the `.vue` file.  
-See also [here](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser/README.md#parseroptionsecmafeaturesjsx).  
-Note that you cannot use angle-bracket type assertion style (`var x = <foo>bar;`) when using `jsx: true`.
-
-### Trouble with Visual Studio Code
-
-- Turning off the rule in the ESLint configuration file does not ignore the warning.
-- Using the `<!-- eslint-disable -->` comment does not suppress warnings.
-- Duplicate warnings are displayed.
-- Used `babel-eslint`, but the template still show `vue/no-parsing-error` warnings.
-
-You need to turn off Vetur's template validation by adding `vetur.validation.template: false` to your `.vscode/settings.json`.
-
-See also: "[Visual Studio Code](#editor-integrations)" section and [Vetur - Linting](https://vuejs.github.io/vetur/linting-error.html#linting).
+可以看看: "[如何使用自定义解析器？](#如何使用自定义解析器)" 模块.
