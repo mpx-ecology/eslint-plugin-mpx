@@ -1,13 +1,13 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-unused-vars
+title: mpx/no-unused-vars
 description: disallow unused variable definitions of v-for directives or scope attributes
 ---
-# vue/no-unused-vars
+# mpx/no-unused-vars
 > disallow unused variable definitions of v-for directives or scope attributes
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:mpx/mpx-essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
 
 ## :book: Rule Details
 

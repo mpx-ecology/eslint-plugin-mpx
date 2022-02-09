@@ -55,9 +55,7 @@ for (const { title, categoryIds } of sidebarCategories) {
     children
   })
 }
-categorizedRules.map(item => {
-  console.log(item)
-})
+
 const extraCategories = []
 if (uncategorizedRules.length > 0) {
   extraCategories.push({
@@ -89,7 +87,7 @@ if (deprecatedRules.length > 0) {
     ])
   })
 }
-
+console.log(categorizedRules[1])
 module.exports = {
   configureWebpack(_config, _isServer) {
     return {
@@ -128,7 +126,11 @@ module.exports = {
     sidebar: {
       '/rules/': [
         '/rules/',
-
+        {
+          title: 'eeeee',
+          collapsable: false,
+          children: [['/rules/valid-wx-if', 'ddddddd']]
+        },
         // Rules in each category.
         ...categorizedRules,
 
