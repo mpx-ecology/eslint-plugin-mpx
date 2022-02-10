@@ -1,19 +1,19 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-arrow-functions-in-watch
-description: disallow using arrow functions to define watcher
+title: mpx/no-arrow-functions-in-watch
+description: 不允许使用箭头函数定义观察者
 ---
-# vue/no-arrow-functions-in-watch
-> disallow using arrow functions to define watcher
+# mpx/no-arrow-functions-in-watch
+> 不允许使用箭头函数定义观察者
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rules disallows using arrow functions to defined watcher.The reason is arrow functions bind the parent context, so `this` will not be the Vue instance as you expect.([see here for more details](https://v3.vuejs.org/api/options-data.html#watch))
+此规则不允许使用箭头函数定义观察者。原因是箭头函数绑定父上下文，所以“this”不会像您预期的那样成为Mpx实例
 
-<eslint-code-block :rules="{'vue/no-arrow-functions-in-watch': ['error']}">
+<eslint-code-block :rules="{'mpx/no-arrow-functions-in-watch': ['error']}">
 
 ```vue
 <script>
@@ -53,11 +53,11 @@ export default {
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
-Nothing.
+无
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-arrow-functions-in-watch.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-arrow-functions-in-watch.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-arrow-functions-in-watch.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-arrow-functions-in-watch.js)

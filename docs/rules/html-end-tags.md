@@ -1,43 +1,40 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/html-end-tags
-description: enforce end tag style
+title: mpx/html-end-tags
+description: 强制结束标记样式
 ---
-# vue/html-end-tags
-> enforce end tag style
+# mpx/html-end-tags
+> 强制结束标记样式
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
-- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
+- :wrench: `--fix`选项[命令行](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)可以自动修复此规则报告的一些问题。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule aims to disallow lacking end tags.
+该规则旨在禁止缺少结束标记。
 
-<eslint-code-block fix :rules="{'vue/html-end-tags': ['error']}">
+<eslint-code-block fix :rules="{'mpx/html-end-tags': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <div></div>
-  <p></p>
-  <p></p>
-  <input>
-  <br>
+  <view></view>
+  <input />
 
   <!-- ✗ BAD -->
-  <div>
-  <p>
+  <view>
+  <input>
 </template>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
-Nothing.
+无
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/html-end-tags.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/html-end-tags.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/comment-directive.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/html-end-tags.js)

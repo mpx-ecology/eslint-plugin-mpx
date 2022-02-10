@@ -2,15 +2,14 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: mpx/comment-directive
-description: support comment-directives in `<template>`
+description: 支持 `<template>` 中的注释指令
 ---
 # mpx/comment-directive
-> support comment-directives in `<template>`
+> 支持 `<template>` 中的注释指令
 
-- :gear: This rule is included in all of `"plugin:vue/base"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-essential"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/recommended"` and `"plugin:vue/vue3-recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-Sole purpose of this rule is to provide `eslint-disable` functionality in the `<template>` and in the block level.
-It supports usage of the following comments:
+此规则的唯一目的是在`<template>`和块级别提供 eslint-disable 功能。 它支持使用以下注释：
 
 - `eslint-disable`
 - `eslint-enable`
@@ -18,46 +17,46 @@ It supports usage of the following comments:
 - `eslint-disable-next-line`
 
 ::: warning Note
-We can't write HTML comments in tags.
+我们不能在标签中写 HTML 注释。
 :::
 
-## :book: Rule Details
+## :book: 规则详情
 
-ESLint doesn't provide any API to enhance `eslint-disable` functionality and ESLint rules cannot affect other rules. But ESLint provides [processors API](https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins).
+ESLint 不提供任何 API 来增强 `eslint-disable` 功能，并且 ESLint 规则不会影响其他规则。 但是 ESLint 提供了 [处理器 API](https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins).
 
-This rule sends all `eslint-disable`-like comments as errors to the post-process of the `.vue` file processor, then the post-process removes all `vue/comment-directive` errors and the reported errors in disabled areas.
+该规则将所有类似于`eslint-disable`的评论作为错误发送到`.mpx`文件处理器的后处理，然后后处理删除所有`mpx/comment-directive`错误和禁用区域中报告的错误。
 
-<eslint-code-block :rules="{'vue/comment-directive': ['error'], 'vue/max-attributes-per-line': ['error']}">
+<eslint-code-block :rules="{'mpx/comment-directive': ['error'], 'mpx/valid-wx-if': ['error']}">
 
 ```vue
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div a="1" b="2" c="3" d="4" />
+  <!-- eslint-disable-next-line mpx/valid-wx-if -->
+  <view wx:if=""/>
 </template>
 ```
 
 </eslint-code-block>
 
-The `eslint-disable`-like comments can be used in the `<template>` and in the block level.
+类似`eslint-disable`的注释可以在`<template>`和块级中使用。
 
-<eslint-code-block :rules="{'vue/comment-directive': ['error'], 'vue/max-attributes-per-line': ['error'], 'vue/component-tags-order': ['error'] }">
+<eslint-code-block :rules="{'mpx/comment-directive': ['error'], 'mpx/valid-wx-if': ['error'], 'mpx/component-tags-order': ['error']}">
 
 ```vue
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div a="1" b="2" c="3" d="4" />
+  <!-- eslint-disable-next-line mpx/valid-wx-if -->
+  <view wx:if=""/>
 </template>
 
-<!-- eslint-disable-next-line vue/component-tags-order -->
+<!-- eslint-disable-next-line mpx/component-tags-order -->
 <style>
 </style>
 ```
 
 </eslint-code-block>
 
-The `eslint-disable` comments has no effect after one block.
+`eslint-disable` 注释在一个块后无效。
 
-<eslint-code-block :rules="{'vue/comment-directive': ['error'], 'vue/max-attributes-per-line': ['error'], 'vue/component-tags-order': ['error'] }">
+<eslint-code-block :rules="{'mpx/comment-directive': ['error'], 'mpx/component-tags-order': ['error']}">
 
 ```vue
 <style>
@@ -74,14 +73,14 @@ The `eslint-disable` comments has no effect after one block.
 
 </eslint-code-block>
 
-The `eslint-disable`-like comments can include descriptions to explain why the comment is necessary. The description must occur after the directive and is separated from the directive by two or more consecutive `-` characters. For example:
+类似`eslint-disable`的注释可以包括解释为什么需要注释的描述。 描述必须出现在指令之后，并由两个或多个连续的 - 字符与指令隔开。 例如：
 
-<eslint-code-block :rules="{'vue/comment-directive': ['error'], 'vue/max-attributes-per-line': ['error']}">
+<eslint-code-block :rules="{'mpx/comment-directive': ['error'], 'mpx/valid-wx-if': ['error']}">
 
 ```vue
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -- Here's a description about why this disabling is necessary. -->
-  <div a="1" b="2" c="3" d="4" />
+  <!-- eslint-disable-next-line mpx/valid-wx-if -- 这是关于为什么需要禁用此功能的说明。 -->
+  <view wx:if=""/>
 </template>
 ```
 
@@ -91,43 +90,43 @@ The `eslint-disable`-like comments can include descriptions to explain why the c
 
 ```json
 {
-  "vue/comment-directive": ["error", {
+  "mpx/comment-directive": ["error", {
     "reportUnusedDisableDirectives": false
   }]
 }
 ```
 
-- `reportUnusedDisableDirectives` ... If `true`, to report unused `eslint-disable` HTML comments. default `false`
+- `reportUnusedDisableDirectives` ... 如果为 `true`，报告未使用的 `eslint-disable` HTML 注释。 默认`false`
 
 ### `{ "reportUnusedDisableDirectives": true }`
 
-<eslint-code-block :rules="{'vue/comment-directive': ['error', {reportUnusedDisableDirectives: true} ], 'vue/max-attributes-per-line': ['error']}">
+<eslint-code-block :rules="{'mpx/comment-directive': ['error', {reportUnusedDisableDirectives: true} ], 'mpx/valid-wx-if': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div a="1" b="2" c="3" d="4" />
+  <!-- eslint-disable-next-line mpx/valid-wx-if -->
+  <view wx:if=""/>
 
   <!-- ✗ BAD -->
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div a="1" />
+  <!-- eslint-disable-next-line mpx/valid-wx-if -->
+  <view wx:if="{{abc}}"/>
 </template>
 ```
 
 </eslint-code-block>
 
 ::: warning Note
-Unused reports cannot be suppressed with `eslint-disable` HTML comments.
+无法使用 `eslint-disable` HTML 注释禁止未使用的报告。
 :::
 
-## :books: Further Reading
+## :books: 延伸阅读
 
-- [Disabling rules with inline comments]
+- [使用内联注释禁用规则]
 
-[Disabling rules with inline comments]: https://eslint.org/docs/user-guide/configuring#disabling-rules-with-inline-comments
+[使用内联注释禁用规则]: https://eslint.org/docs/user-guide/configuring#disabling-rules-with-inline-comments
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/comment-directive.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/comment-directive.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/comment-directive.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/comment-directive.js)

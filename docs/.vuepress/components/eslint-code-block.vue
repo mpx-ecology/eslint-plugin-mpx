@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       linter: null,
-      preprocess: processors['.vue'].preprocess,
-      postprocess: processors['.vue'].postprocess,
+      preprocess: processors['.mpx'].preprocess,
+      postprocess: processors['.mpx'].postprocess,
       format: {
         insertSpaces: true,
         tabSize: 2
@@ -87,7 +87,7 @@ export default {
           SharedArrayBuffer: false
         },
         rules: this.rules,
-        parser: 'vue-eslint-parser',
+        parser: 'mpx-eslint-parser',
         parserOptions: {
           ecmaVersion: 2020,
           sourceType: 'module',
@@ -123,16 +123,16 @@ export default {
     // Load linter.
     const [{ default: Linter }, { parseForESLint }] = await Promise.all([
       import('eslint4b/dist/linter'),
-      import('espree').then(() => import('vue-eslint-parser'))
+      import('espree').then(() => import('mpx-eslint-parser'))
     ])
 
     const linter = (this.linter = new Linter())
 
     for (const ruleId of Object.keys(rules)) {
-      linter.defineRule(`vue/${ruleId}`, rules[ruleId])
+      linter.defineRule(`mpx/${ruleId}`, rules[ruleId])
     }
 
-    linter.defineParser('vue-eslint-parser', { parseForESLint })
+    linter.defineParser('mpx-eslint-parser', { parseForESLint })
   }
 }
 </script>

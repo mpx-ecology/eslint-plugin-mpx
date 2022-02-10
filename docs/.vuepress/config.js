@@ -87,7 +87,7 @@ if (deprecatedRules.length > 0) {
     ])
   })
 }
-console.log(categorizedRules[1])
+
 module.exports = {
   configureWebpack(_config, _isServer) {
     return {
@@ -126,24 +126,20 @@ module.exports = {
     sidebar: {
       '/rules/': [
         '/rules/',
-        {
-          title: 'eeeee',
-          collapsable: false,
-          children: [['/rules/valid-wx-if', 'ddddddd']]
-        },
         // Rules in each category.
-        ...categorizedRules,
+        ...categorizedRules
 
         // Rules in no category.
-        ...extraCategories
+        // ...extraCategories
       ],
 
       '/': ['/', '/user-guide/', '/developer-guide/', '/rules/']
     },
-
-    algolia: {
-      apiKey: 'b2b69365da747a9a9635cda391317c36',
-      indexName: 'eslint-plugin-mpx'
-    }
+    search: true,
+    searchMaxSuggestions: 10
+    // algolia: {
+    //   apiKey: 'b2b69365da747a9a9635cda391317c36',
+    //   indexName: 'eslint-plugin-vue'
+    // }
   }
 }
