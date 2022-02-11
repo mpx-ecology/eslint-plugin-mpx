@@ -1,90 +1,84 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-dupe-v-else-if
-description: disallow duplicate conditions in `v-if` / `v-else-if` chains
+title: mpx/no-dupe-wx-elif
+description: 在'wx:if`/'wx:elif`链中不允许重复
 ---
-# vue/no-dupe-v-else-if
-> disallow duplicate conditions in `v-if` / `v-else-if` chains
+# mpx/no-dupe-wx-elif
+> 在'wx:if`/'wx:elif`链中不允许重复
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule disallows duplicate conditions in the same `v-if` / `v-else-if` chain.
+此规则不允许在同一个`wx:if`/`wx:elif`链中重复条件。
 
-<eslint-code-block :rules="{'vue/no-dupe-v-else-if': ['error']}">
+<eslint-code-block :rules="{'mpx/no-dupe-wx-elif': ['error']}">
 
 ```vue
 <template>
   <!-- ✗ BAD -->
-  <div v-if="isSomething(x)" />
-  <div v-else-if="isSomething(x)" />
+  <view wx:if="{{a}}" />
+  <view wx:elif="{{b}}" />
+  <view wx:elif="{{c && d}}" />
+  <view wx:elif="{{c && d}}" />
 
-  <div v-if="a" />
-  <div v-else-if="b" />
-  <div v-else-if="c && d" />
-  <div v-else-if="c && d" />
-
-  <div v-if="n === 1" />
-  <div v-else-if="n === 2" />
-  <div v-else-if="n === 3" />
-  <div v-else-if="n === 2" />
-  <div v-else-if="n === 5" />
+  <view wx:if="{{n === 1}}" />
+  <view wx:elif="{{n === 2}}" />
+  <view wx:elif="{{n === 3}}" />
+  <view wx:elif="{{n === 2}}" />
+  <view wx:elif="{{n === 5}}" />
 
   <!-- ✓ GOOD -->
-  <div v-if="isSomething(x)" />
-  <div v-else-if="isSomethingElse(x)" />
+  <view wx:if="{{a}}" />
+  <view wx:elif="{{b}}" />
+  <view wx:elif="{{c && d}}" />
+  <view wx:elif="{{c && e}}" />
 
-  <div v-if="a" />
-  <div v-else-if="b" />
-  <div v-else-if="c && d" />
-  <div v-else-if="c && e" />
-
-  <div v-if="n === 1" />
-  <div v-else-if="n === 2" />
-  <div v-else-if="n === 3" />
-  <div v-else-if="n === 4" />
-  <div v-else-if="n === 5" />
+  <view wx:if="{{n === 1}}" />
+  <view wx:elif="{{n === 2}}" />
+  <view wx:elif="{{n === 3}}" />
+  <view wx:elif="{{n === 4}}" />
+  <view wx:elif="{{n === 5}}" />
 </template>
 ```
 
 </eslint-code-block>
 
-This rule can also detect some cases where the conditions are not identical, but the branch can never execute due to the logic of `||` and `&&` operators.
+此规则还可以检测某些情况，其中条件不相同，但由于`| ``和`&&`运算符的逻辑，分支永远无法执行。
 
-<eslint-code-block :rules="{'vue/no-dupe-v-else-if': ['error']}">
+<eslint-code-block :rules="{'mpx/no-dupe-wx-elif': ['error']}">
 
 ```vue
 <template>
   <!-- ✗ BAD -->
-  <div v-if="a || b" />
-  <div v-else-if="a" />
+  <view wx:if="a || b" />
+  <view wx:elif="a" />
 
-  <div v-if="a" />
-  <div v-else-if="b" />
-  <div v-else-if="a || b" />
+  <view wx:if="a" />
+  <view wx:elif="b" />
+  <view wx:elif="a || b" />
 
-  <div v-if="a" />
-  <div v-else-if="a && b" />
+  <view wx:if="a" />
+  <view wx:elif="a && b" />
 
-  <div v-if="a && b" />
-  <div v-else-if="a && b && c" />
+  <view wx:if="a && b" />
+  <view wx:elif="a && b && c" />
 
-  <div v-if="a || b" />
-  <div v-else-if="b && c" />
+  <view wx:if="a || b" />
+  <view wx:elif="b && c" />
 
-  <div v-if="a" />
-  <div v-else-if="b && c" />
-  <div v-else-if="d && (c && e && b || a)" />
+  <view wx:if="a" />
+  <view wx:elif="b && c" />
+  <view wx:elif="d && (c && e && b || a)" />
 </template>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
-Nothing.
+无
 
 ## :couple: Related Rules
 

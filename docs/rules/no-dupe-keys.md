@@ -1,27 +1,25 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-dupe-keys
-description: disallow duplication of field names
+title: mpx/no-dupe-keys
+description: 不允许重复字段名
 ---
-# vue/no-dupe-keys
-> disallow duplication of field names
+# mpx/no-dupe-keys
+> 不允许重复字段名
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-This rule prevents to use duplicated names.
+## :book: 规则详情
 
-## :book: Rule Details
+此规则禁止使用重复的名称。
 
-This rule is aimed at preventing duplicated property names.
-
-<eslint-code-block :rules="{'vue/no-dupe-keys': ['error']}">
+<eslint-code-block :rules="{'mpx/no-dupe-keys': ['error']}">
 
 ```vue
 <script>
 /* ✗ BAD */
-export default {
-  props: {
+createComponent({
+  properties: {
     foo: String
   },
   computed: {
@@ -35,45 +33,45 @@ export default {
   methods: {
     foo () {}
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
 ```json
 {
-  "vue/no-dupe-keys": ["error", {
+  "mpx/no-dupe-keys": ["error", {
     "groups": []
   }]
 }
 ```
 
-- `"groups"` (`string[]`) Array of additional groups to search for duplicates. Default is empty.
+- `"groups"` (`string[]`) 用于搜索重复项的其他组的数组。默认值为空。
 
 ### `"groups": ["firebase"]`
 
-<eslint-code-block :rules="{'vue/no-dupe-keys': ['error', {groups: ['firebase']}]}">
+<eslint-code-block :rules="{'mpx/no-dupe-keys': ['error', {groups: ['firebase']}]}">
 
 ```vue
 <script>
 /* ✗ BAD */
-export default {
+createComponent({
   computed: {
     foo () {}
   },
   firebase: {
     foo () {}
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-dupe-keys.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-dupe-keys.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-dupe-keys.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-dupe-keys.js)

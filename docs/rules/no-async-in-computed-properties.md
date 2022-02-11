@@ -1,26 +1,25 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-async-in-computed-properties
-description: disallow asynchronous actions in computed properties
+title: mpx/no-async-in-computed-properties
+description: 不允许计算属性中的异步操作
 ---
-# vue/no-async-in-computed-properties
-> disallow asynchronous actions in computed properties
+# mpx/no-async-in-computed-properties
+> 不允许计算属性中的异步操作
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-Computed properties should be synchronous. Asynchronous actions inside them may not work as expected and can lead to an unexpected behaviour, that's why you should avoid them.
-If you need async computed properties you might want to consider using additional plugin [vue-async-computed]
+计算属性应该是同步的。它们内部的异步操作可能无法按预期工作，并可能导致意外行为，这就是为什么应该避免它们。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule is aimed at preventing asynchronous methods from being called in computed properties.
+此规则旨在防止在计算属性中调用异步方法。
 
-<eslint-code-block :rules="{'vue/no-async-in-computed-properties': ['error']}">
+<eslint-code-block :rules="{'mpx/no-async-in-computed-properties': ['error']}">
 
 ```vue
 <script>
-export default {
+createComponent({
   computed: {
     /* ✓ GOOD */
     foo () {
@@ -54,21 +53,17 @@ export default {
       requestAnimationFrame(() => {})
     }
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
-Nothing.
+无
 
-## :books: Further Reading
+## :mag: 具体实现
 
-- [vue-async-computed](https://github.com/foxbenjaminfox/vue-async-computed)
-
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-async-in-computed-properties.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-async-in-computed-properties.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-async-in-computed-properties.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-async-in-computed-properties.js)

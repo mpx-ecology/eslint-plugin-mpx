@@ -17,7 +17,7 @@ description: 不允许使用箭头函数定义观察者
 
 ```vue
 <script>
-export default {
+createComponent({
   watch: {
     /* ✓ GOOD */
     a: function (val, oldVal) {
@@ -47,7 +47,7 @@ export default {
       console.log('new: %s, old: %s', val, oldVal)
     }
   }
-}
+})
 </script>
 ```
 
