@@ -52,25 +52,25 @@ description: 在'wx:if`/'wx:elif`链中不允许重复
 ```vue
 <template>
   <!-- ✗ BAD -->
-  <view wx:if="a || b" />
-  <view wx:elif="a" />
+  <view wx:if="{{a || b}}" />
+  <view wx:elif="{{a}}" />
 
-  <view wx:if="a" />
-  <view wx:elif="b" />
-  <view wx:elif="a || b" />
+  <view wx:if="{{a}}" />
+  <view wx:elif="{{b}}" />
+  <view wx:elif="{{a || b}}" />
 
-  <view wx:if="a" />
-  <view wx:elif="a && b" />
+  <view wx:if="{{a}}" />
+  <view wx:elif="{{a && b}}" />
 
-  <view wx:if="a && b" />
-  <view wx:elif="a && b && c" />
+  <view wx:if="{{a && b}}" />
+  <view wx:elif="{{a && b && c}}" />
 
-  <view wx:if="a || b" />
-  <view wx:elif="b && c" />
+  <view wx:if="{{a || b}}" />
+  <view wx:elif="{{b && c}}" />
 
-  <view wx:if="a" />
-  <view wx:elif="b && c" />
-  <view wx:elif="d && (c && e && b || a)" />
+  <view wx:if="{{a}}" />
+  <view wx:elif="{{b && c}}" />
+  <view wx:elif="{{d && (c && e && b || a)}}" />
 </template>
 ```
 
@@ -80,13 +80,13 @@ description: 在'wx:if`/'wx:elif`链中不允许重复
 
 无
 
-## :couple: Related Rules
+## :couple: 相关规则
 
 - [no-dupe-else-if]
 
 [no-dupe-else-if]: https://eslint.org/docs/rules/no-dupe-else-if
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-dupe-v-else-if.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-dupe-v-else-if.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-dupe-wx-elif.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-dupe-wx-elif.js)

@@ -1,26 +1,26 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-side-effects-in-computed-properties
-description: disallow side effects in computed properties
+title: mpx/no-side-effects-in-computed-properties
+description: 不允许在computed中的副作用
 ---
-# vue/no-side-effects-in-computed-properties
-> disallow side effects in computed properties
+# mpx/no-side-effects-in-computed-properties
+> 不允许在computed中的副作用
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule is aimed at preventing the code which makes side effects in computed properties.
+此规则旨在防止在computed中产生副作用的代码。
 
-It is considered a very bad practice to introduce side effects inside computed properties. It makes the code not predictable and hard to understand.
+在计算属性中引入副作用被认为是一种非常糟糕的做法。 它使代码不可预测且难以理解。
 
-<eslint-code-block :rules="{'vue/no-side-effects-in-computed-properties': ['error']}">
+<eslint-code-block :rules="{'mpx/no-side-effects-in-computed-properties': ['error']}">
 
 ```vue
 <script>
 /* ✓ GOOD */
-export default {
+createComponent({
   computed: {
     fullName () {
       return `${this.firstName} ${this.lastName}`
@@ -29,18 +29,18 @@ export default {
       return this.array.slice(0).reverse() // .slice makes a copy of the array, instead of mutating the orginal
     }
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-<eslint-code-block :rules="{'vue/no-side-effects-in-computed-properties': ['error']}">
+<eslint-code-block :rules="{'mpx/no-side-effects-in-computed-properties': ['error']}">
 
 ```vue
 <script>
 /* ✗ BAD */
-export default {
+createComponent({
   computed: {
     fullName () {
       this.firstName = 'lorem' // <- side effect
@@ -50,21 +50,17 @@ export default {
       return this.array.reverse() // <- side effect - orginal array is being mutated
     }
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
-Nothing.
+无.
 
-## :books: Further Reading
+## :mag: 具体实现
 
-- [Guide - Computed Caching vs Methods](https://v3.vuejs.org/guide/computed.html#computed-caching-vs-methods)
-
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-side-effects-in-computed-properties.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-side-effects-in-computed-properties.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-side-effects-in-computed-properties.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-side-effects-in-computed-properties.js)

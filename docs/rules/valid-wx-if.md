@@ -2,69 +2,63 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: mpx/valid-wx-if
-description: enforce valid `v-if` directives
+description: 强制执行有效的 `wx:if` 指令
 ---
 # mpx/valid-wx-if
-> enforce valid `v-if` directives
+> 强制执行有效的 `wx:if` 指令
 
-- :gear: This rule is included in all of `"plugin:mpx/mpx-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-This rule checks whether every `v-if` directive is valid.
+此规则检查每个 `wx:if` 指令是否有效。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule reports `v-if` directives in the following cases:
+此规则在以下情况下报告 `wx:if` 指令：
 
-- The directive has that argument. E.g. `<div v-if:aaa="foo"></div>`
-- The directive has that modifier. E.g. `<div v-if.bbb="foo"></div>`
-- The directive does not have that attribute value. E.g. `<div v-if></div>`
-- The directive is on the elements which have `v-else`/`v-else-if` directives. E.g. `<div v-else v-if="foo"></div>`
+- 该指令具有该参数。 例如。 `<view wx:if:aaa="{{a}}"></view>`
+- 该指令具有该修饰符。 例如。 `<view wx:if.bbb="{{a}}"></view>`
+- 该指令没有该属性值。 例如。 `<view wx:if></view>`
+- 该指令适用于具有 `wx:else`/`wx:elif` 指令的元素。 例如。 `<view wx:else wx:if="{{a}}"></view>`
 
-<eslint-code-block :rules="{'vue/valid-v-if': ['error']}">
+<eslint-code-block :rules="{'mpx/valid-wx-if': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <div v-if="foo"/>
-  <div v-else-if="bar"/>
-  <div v-else/>
+  <view wx:if="{{a}}"/>
+  <view wx:elif="{{b}}"/>
+  <view wx:else/>
 
   <!-- ✗ BAD -->
-  <div v-if/>
-  <div v-if:aaa="foo"/>
-  <div v-if.bbb="foo"/>
-  <div
-    v-if="foo"
-    v-else
+  <view wx:if/>
+  <view wx:if:aaa="{{a}}"/>
+  <view wx:if.bbb="{{a}}"/>
+  <view
+    wx:if="{{a}}"
+    wx:else
   />
-  <div
-    v-if="foo"
-    v-else-if="bar"
+  <view
+    wx:if="{{a}}"
+    wx:elif="{{b}}"
   />
 </template>
 ```
 
 </eslint-code-block>
 
-::: warning Note
-This rule does not check syntax errors in directives because it's checked by [vue/no-parsing-error] rule.
-:::
+## :wrench: 选项
 
-## :wrench: Options
+无。
 
-Nothing.
+## :couple: 相关规则
 
-## :couple: Related Rules
+- [vue/valid-wx-else]
+- [mpx/valid-wx-elif]
 
-- [vue/valid-v-else]
-- [vue/valid-v-else-if]
-- [vue/no-parsing-error]
+[vue/valid-wx-else]: ./valid-wx-else.md
+[mpx/valid-wx-elif]: ./valid-wx-elif.md
 
-[vue/valid-v-else]: ./valid-v-else.md
-[vue/valid-v-else-if]: ./valid-v-else-if.md
-[vue/no-parsing-error]: ./no-parsing-error.md
+## :mag: 具体实现
 
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/valid-v-if.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/valid-v-if.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/valid-wx-if.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-if.js)

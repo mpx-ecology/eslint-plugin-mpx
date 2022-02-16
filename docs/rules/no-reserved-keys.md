@@ -1,27 +1,24 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-reserved-keys
-description: disallow overwriting reserved keys
+title: mpx/no-reserved-keys
+description: 不允许覆盖保留关键词
 ---
-# vue/no-reserved-keys
-> disallow overwriting reserved keys
+# mpx/no-reserved-keys
+> 不允许覆盖保留关键词
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule prevents to use [reserved names](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/utils/vue-reserved.json) to avoid conflicts and unexpected behavior.
+此规则防止使用[保留关键词](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/vue-reserved.json)以避免冲突和意外行为。
 
-<eslint-code-block :rules="{'vue/no-reserved-keys': ['error']}">
+<eslint-code-block :rules="{'mpx/no-reserved-keys': ['error']}">
 
 ```vue
 <script>
 /* ✗ BAD */
-export default {
-  props: {
-    $el: String
-  },
+createComponent({
   computed: {
     $on: {
       get () {}
@@ -33,51 +30,51 @@ export default {
   methods: {
     $nextTick () {}
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
 ```json
 {
-  "vue/no-reserved-keys": ["error", {
+  "mpx/no-reserved-keys": ["error", {
     "reserved": [],
     "groups": []
   }]
 }
 ```
 
-- `reserved` (`string[]`) ... Array of additional restricted attributes inside `groups`. Default is empty.
-- `groups` (`string[]`) ... Array of additional group names to search for duplicates in. Default is empty.
+- `reserved` (`string[]`) ... `groups` 中的附加受限属性数组。 默认为空。
+- `groups` (`string[]`) ... 用于在其中搜索重复项的其他组名数组。默认为空。
 
 ### `"reserved": ["foo", "foo2"], "groups": ["firebase"]`
 
-<eslint-code-block :rules="{'vue/no-reserved-keys': ['error', {reserved: ['foo', 'foo2'], groups: ['firebase']}]}">
+<eslint-code-block :rules="{'mpx/no-reserved-keys': ['error', {reserved: ['foo', 'foo2'], groups: ['firebase']}]}">
 
 ```vue
 <script>
 /* ✗ BAD */
-export default {
+createComponent({
   computed: {
     foo () {}
   },
   firebase: {
     foo2 () {}
   }
-}
+})
 </script>
 ```
 
 </eslint-code-block>
 
-## :books: Further Reading
+## :books: 延伸阅读
 
-- [List of reserved keys](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/utils/vue-reserved.json)
+- [保留关键词列表](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/vue-reserved.json)
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-reserved-keys.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-reserved-keys.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-reserved-keys.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-reserved-keys.js)

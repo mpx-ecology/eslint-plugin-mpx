@@ -1,76 +1,64 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/valid-v-model
-description: enforce valid `v-model` directives
+title: mpx/valid-wx-model
+description: 强制执行有效的“wx:model”指令
 ---
-# vue/valid-v-model
-> enforce valid `v-model` directives
+# mpx/valid-wx-model
+> 强制执行有效的“wx:model”指令
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-This rule checks whether every `v-model` directive is valid.
+此规则检查每个 `wx:model` 指令是否有效。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule reports `v-model` directives in the following cases:
+此规则在以下情况下报告 `wx:model` 指令：
 
-- The directive used on HTMLElement has an argument. E.g. `<input v-model:aaa="foo">`
-- The directive used on HTMLElement has modifiers which are not supported. E.g. `<input v-model.bbb="foo">`
-- The directive does not have that attribute value. E.g. `<input v-model>`
-- The directive does not have the attribute value which is valid as LHS. E.g. `<input v-model="foo() + bar()">`, `<input v-model="a?.b">`
-- The directive has potential null object property access. E.g. `<input v-model="(a?.b).c">`
-- The directive is on unsupported elements. E.g. `<div v-model="foo"></div>`
-- The directive is on `<input>` elements which their types are `file`. E.g. `<input type="file" v-model="foo">`
-- The directive's reference is iteration variables. E.g. `<div v-for="x in list"><input type="file" v-model="x"></div>`
+- HTMLElement 上使用的指令有一个参数。 例如。 `<input wx:model:aaa="foo">`
+- HTMLElement 上使用的指令具有不受支持的修饰符。 例如。 `<input wx:model.bbb="foo">`
+- 该指令没有该属性值。 例如。 `<input wx:model>`
+- 该指令具有潜在的空对象属性访问权限。 例如。 `<input wx:model="(a?.b).c">`
+- 该指令适用于不受支持的元素。 例如。 `<view wx:model="foo"></view>`
+- 该指令针对 `<input>` 元素，它们的类型是 `file`。 例如。 `<input type="file" wx:model="foo">`
+- 指令的引用是迭代变量。 例如。 `<view wx:for="x in list"><input type="file" wx:model="x"></view>`
 
-<eslint-code-block :rules="{'vue/valid-v-model': ['error']}">
+<eslint-code-block :rules="{'mpx/valid-wx-model': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <input v-model="foo">
-  <input v-model.lazy="foo">
-  <textarea v-model="foo"/>
-  <MyComponent v-model="foo"/>
-  <MyComponent v-model:propName="foo"/>
-  <MyComponent v-model.modifier="foo"/>
-  <MyComponent v-model:propName.modifier="foo"/>
-  <div v-for="todo in todos">
-    <input v-model="todo.name">
-  </div>
+  <input wx:model="{{a}}">
+  <input wx:model.lazy="{{a}}">
+  <textarea wx:model="{{a}}"/>
+  <MyComponent wx:model="{{a}}"/>
+  <MyComponent wx:model:propName="{{a}}"/>
+  <MyComponent wx:model.modifier="{{a}}"/>
+  <MyComponent wx:model:propName.modifier="{{a}}"/>
+  <view wx:for="todo in todos">
+    <input wx:model="todo.name">
+  </view>
 
   <!-- ✗ BAD -->
-  <input v-model>
-  <input v-model:aaa="foo">
-  <input v-model.bbb="foo">
-  <input v-model="foo + bar">
-  <input v-model="a?.b.c">
-  <input v-model="(a?.b).c">
-  <div v-model="foo"/>
-  <div v-for="todo in todos">
-    <input v-model="todo">
-  </div>
+  <input wx:model>
+  <input wx:model:aaa="{{a}}">
+  <input wx:model.bbb="{{a}}">
+  <input wx:model="{{a?.b.c}}">
+  <input wx:model="{{(a?.b).c}}">
+  <view wx:model="{{a}}"/>
+  <view wx:for="todo in todos">
+    <input wx:model="todo">
+  </view>
 </template>
 ```
 
 </eslint-code-block>
 
-::: warning Note
-This rule does not check syntax errors in directives because it's checked by [vue/no-parsing-error] rule.
-:::
+## :wrench: 选项
 
-## :wrench: Options
+无.
 
-Nothing.
+## :mag: 具体实现
 
-## :couple: Related Rules
-
-- [vue/no-parsing-error]
-
-[vue/no-parsing-error]: ./no-parsing-error.md
-
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/valid-v-model.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/valid-v-model.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/valid-wx-model.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-model.js)

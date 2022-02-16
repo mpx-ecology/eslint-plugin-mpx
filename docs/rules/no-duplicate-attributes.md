@@ -1,74 +1,48 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/no-duplicate-attributes
-description: disallow duplication of attributes
+title: mpx/no-duplicate-attributes
+description: 不允许重复属性
 ---
-# vue/no-duplicate-attributes
-> disallow duplication of attributes
+# mpx/no-duplicate-attributes
+> 不允许重复属性
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-When duplicate arguments exist, only the last one is valid.
-It's possibly mistakes.
+当存在重复参数时，只有最后一个是有效的。
+很可能是错误。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule reports duplicate attributes.
-`v-bind:foo` directives are handled as the attributes `foo`.
+此规则报告重复的属性。
+`bindfoo` 指令作为属性 `foo` 处理。
 
-<eslint-code-block :rules="{'vue/no-duplicate-attributes': ['error']}">
+<eslint-code-block :rules="{'mpx/no-duplicate-attributes': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <MyComponent :foo="abc" />
+  <MyComponent bindfoo="abc" />
   <MyComponent foo="abc" />
-  <MyComponent class="abc" :class="def" />
 
   <!-- ✗ BAD -->
-  <MyComponent :foo="abc" foo="def" />
-  <MyComponent foo="abc" :foo="def" />
-  <MyComponent foo="abc" foo="def" />
-  <MyComponent :foo.a="abc" :foo.b="def" />
+  <MyComponent bindfoo="abc" foo="def" />
+  <MyComponent foo="abc" bindfoo="def" />
   <MyComponent class="abc" class="def" />
 </template>
 ```
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
 ```json
 {
-  "vue/no-duplicate-attributes": ["error", {
-    "allowCoexistClass": true,
-    "allowCoexistStyle": true
-  }]
+  "mpx/no-duplicate-attributes": ["error"]
 }
 ```
 
-- `allowCoexistClass` (`boolean`) ... Enables [`v-bind:class`] directive can coexist with the plain `class` attribute. Default is `true`.
-- `allowCoexistStyle` (`boolean`) ... Enables [`v-bind:style`] directive can coexist with the plain `style` attribute. Default is `true`.
+## :mag: 具体实现
 
-[`v-bind:class`]: https://v3.vuejs.org/guide/class-and-style.html
-[`v-bind:style`]: https://v3.vuejs.org/guide/class-and-style.html
-
-### `"allowCoexistClass": false, "allowCoexistStyle": false`
-
-<eslint-code-block :rules="{'vue/no-duplicate-attributes': ['error', {allowCoexistClass: false, allowCoexistStyle: false}]}">
-
-```vue
-<template>
-  <!-- ✗ BAD -->
-  <MyComponent class="abc" :class="def" />
-  <MyComponent style="abc" :style="def" />
-</template>
-```
-
-</eslint-code-block>
-
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-duplicate-attributes.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-duplicate-attributes.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-duplicate-attributes.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-duplicate-attributes.js)

@@ -1,10 +1,10 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/valid-v-for
-description: enforce valid `v-for` directives
+title: mpx/valid-wx-for
+description: 强制执行有效的 `wxfor` 指令
 ---
-# vue/valid-v-for
+# mpx/valid-wx-for
 > enforce valid `v-for` directives
 
 - :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.

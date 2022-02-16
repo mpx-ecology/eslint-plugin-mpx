@@ -1,62 +1,56 @@
 ---
 pageClass: rule-details
 sidebarDepth: 0
-title: vue/valid-v-else-if
-description: enforce valid `v-else-if` directives
+title: mpx/valid-wx-elif
+description: 强制执行有效的 `valid-wx-elif` 指令
 ---
-# vue/valid-v-else-if
-> enforce valid `v-else-if` directives
+# mpx/valid-wx-elif
+> 强制执行有效的 `valid-wx-elif` 指令
 
-- :gear: This rule is included in all of `"plugin:vue/vue3-essential"`, `"plugin:vue/essential"`, `"plugin:vue/vue3-strongly-recommended"`, `"plugin:vue/strongly-recommended"`, `"plugin:vue/vue3-recommended"` and `"plugin:vue/recommended"`.
+- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
 
-This rule checks whether every `v-else-if` directive is valid.
+该规则检查每个 `wx:elif` 指令是否有效。
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule reports `v-else-if` directives in the following cases:
+此规则在以下情况下报告 `wx:elif` 指令：
 
-- The directive has that argument. E.g. `<div v-if="foo"></div><div v-else-if:aaa="bar"></div>`
-- The directive has that modifier. E.g. `<div v-if="foo"></div><div v-else-if.bbb="bar"></div>`
-- The directive does not have that attribute value. E.g. `<div v-if="foo"></div><div v-else-if></div>`
-- The directive is on the elements that the previous element don't have `v-if`/`v-else-if` directives. E.g. `<div v-else-if="bar"></div>`
-- The directive is on the elements which have `v-if`/`v-else` directives. E.g. `<div v-if="foo" v-else-if="bar"></div>`
+- 该指令具有该参数。 例如。 `<view wx:if="{{a}}"></view><view wx:elif:aaa="{{b}}"></view>`
+- 该指令具有该修饰符。 例如。 `<view wx:if="{{a}}"></view><view wx:elif.bbb="{{b}}"></view>`
+- 该指令没有该属性值。 例如。 `<view wx:if="{{a}}"></view><view wx:elif></view>`
+- 该指令针对前一个元素没有 `wx:if`/`wx:elif` 指令的元素。 例如。 `<view wx:elif="{{b}}"></view>`
+- 该指令适用于具有 `wx:if`/`wx:else` 指令的元素。 例如。 `<view wx:if="{{a}}" wx:elif="{{b}}"></view>`
 
-<eslint-code-block :rules="{'vue/valid-v-else-if': ['error']}">
+<eslint-code-block :rules="{'mpx/valid-wx-elif': ['error']}">
 
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <div v-if="foo"/>
-  <div v-else-if="bar"/>
+  <view wx:if="{{a}}"/>
+  <view wx:elif="{{b}}"/>
 
   <!-- ✗ BAD -->
-  <div v-else-if/>
-  <div v-else-if:aaa="foo"/>
-  <div v-else-if.bbb="foo"/>
+  <view wx:elif/>
+  <view wx:elif:aaa="{{a}}"/>
+  <view wx:elif.bbb="{{a}}"/>
 </template>
 ```
 
 </eslint-code-block>
 
-::: warning Note
-This rule does not check syntax errors in directives because it's checked by [vue/no-parsing-error] rule.
-:::
+## :wrench: 选项
 
-## :wrench: Options
+无.
 
-Nothing.
+## :couple: 相关规则
 
-## :couple: Related Rules
+- [mpx/valid-wx-if]
+- [mpx/valid-wx-else]
 
-- [vue/valid-v-if]
-- [vue/valid-v-else]
-- [vue/no-parsing-error]
+[mpx/valid-wx-if]: ./valid-wx-if.md
+[mpx/valid-wx-else]: ./valid-wx-else.md
 
-[vue/valid-v-if]: ./valid-v-if.md
-[vue/valid-v-else]: ./valid-v-else.md
-[vue/no-parsing-error]: ./no-parsing-error.md
+## :mag: 具体实现
 
-## :mag: Implementation
-
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/valid-v-else-if.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/valid-v-else-if.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/valid-wx-elif.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-elif.js)

@@ -7,7 +7,7 @@ description: 支持 `<template>` 中的注释指令
 # mpx/comment-directive
 > 支持 `<template>` 中的注释指令
 
-- :gear: 这条规则包含在`"plugin:mpx/mpx-essential"`。
+- :gear: 这条规则包含在`"plugin:mpx/base"`, `"plugin:mpx/mpx-essential"`。
 
 此规则的唯一目的是在`<template>`和块级别提供 eslint-disable 功能。 它支持使用以下注释：
 
