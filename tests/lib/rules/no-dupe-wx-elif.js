@@ -8,7 +8,7 @@ const RuleTester = require('eslint').RuleTester
 const rule = require('../../../lib/rules/no-dupe-wx-elif')
 
 const tester = new RuleTester({
-  parser: require.resolve('mpx-eslint-parser'),
+  parser: require.resolve('@mpxjs/mpx-eslint-parser'),
   parserOptions: {
     ecmaVersion: 2019,
     sourceType: 'module'

@@ -23,11 +23,11 @@ description: 不允许重复属性
 <template>
   <!-- ✓ GOOD -->
   <MyComponent bindfoo="abc" />
-  <MyComponent foo="abc" />
+  <view foo="abc" />
 
   <!-- ✗ BAD -->
-  <MyComponent bindfoo="abc" foo="def" />
-  <MyComponent foo="abc" bindfoo="def" />
+  <view foo="abc" foo="def" />
+  <MyComponent foo="abc" foo="def" />
   <MyComponent class="abc" class="def" />
 </template>
 ```
