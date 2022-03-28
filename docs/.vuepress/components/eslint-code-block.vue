@@ -87,7 +87,7 @@ export default {
           SharedArrayBuffer: false
         },
         rules: this.rules,
-        parser: '@mpxjs/mpx-eslint-parser',
+        parser: 'mpx-eslint-parser',
         parserOptions: {
           ecmaVersion: 2020,
           sourceType: 'module',
@@ -123,7 +123,7 @@ export default {
     // Load linter.
     const [{ default: Linter }, { parseForESLint }] = await Promise.all([
       import('eslint4b/dist/linter'),
-      import('espree').then(() => import('@mpxjs/mpx-eslint-parser'))
+      import('espree').then(() => import('mpx-eslint-parser'))
     ])
 
     const linter = (this.linter = new Linter())
@@ -132,7 +132,7 @@ export default {
       linter.defineRule(`mpx/${ruleId}`, rules[ruleId])
     }
 
-    linter.defineParser('@mpxjs/mpx-eslint-parser', { parseForESLint })
+    linter.defineParser('mpx-eslint-parser', { parseForESLint })
   }
 }
 </script>

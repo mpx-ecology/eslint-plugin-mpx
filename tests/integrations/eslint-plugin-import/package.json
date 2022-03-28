@@ -10,6 +10,6 @@
   "dependencies": {
     "eslint": "~7.0.0",
     "eslint-plugin-import": "~2.18.2",
-    "@mpxjs/eslint-plugin-mpx": "file:../../.."
+    "eslint-plugin-mpx": "file:../../.."
   }
 }
