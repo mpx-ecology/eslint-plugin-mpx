@@ -8,7 +8,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: vuepress-deploy
-      uses: mpx-ecology/vuepress-deploy@master
+      uses: mpx-ecology/eslint-plugin-mpx@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: mpx-ecology/eslint-plugin-mpx
