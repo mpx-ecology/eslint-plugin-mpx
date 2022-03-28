@@ -1,0 +1,17 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: vuepress-deploy
+      uses: mpx-ecology/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        TARGET_REPO: mpx-ecology/eslint-plugin-mpx
+        TARGET_BRANCH: gh_pages
+        BUILD_SCRIPT: npm && npm run docs:build
+        BUILD_DIR: docs/.vuepress/dist/
