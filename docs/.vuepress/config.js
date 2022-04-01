@@ -99,7 +99,7 @@ module.exports = {
     }
   },
 
-  base: '/mpx-ecology/',
+  base: '/eslint-plugin-mpx/',
   title: 'eslint-plugin-mpx',
   description: 'Mpx的官方ESLint插件',
   evergreen: true,
