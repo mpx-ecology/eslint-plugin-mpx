@@ -16,6 +16,9 @@ Next, install `eslint-plugin-mpx`:
 $ npm install eslint-plugin-mpx --save-dev
 ```
 
+## Docs
+
+https://mpx-ecology.github.io/eslint-plugin-mpx/
 
 ## Usage
 
