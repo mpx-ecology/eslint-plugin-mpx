@@ -22,13 +22,13 @@ description: 不允许重复属性
 ```vue
 <template>
   <!-- ✓ GOOD -->
-  <MyComponent bindfoo="abc" />
-  <view foo="abc" />
-
+  <MyComponent foo="abc" bindfoo="def" />
+  <MyComponent foo="abc" bind:foo="def" />
+  <MyComponent foo="abc" />
+  <MyComponent bindfoo="def" />
   <!-- ✗ BAD -->
-  <view foo="abc" foo="def" />
-  <MyComponent foo="abc" foo="def" />
-  <MyComponent class="abc" class="def" />
+  <MyComponent bindfoo="def" bind:foo="def" />
+  <MyComponent foo="abc" foo="abc"/>
 </template>
 ```
 
