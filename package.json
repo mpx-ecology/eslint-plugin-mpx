@@ -48,8 +48,8 @@
     "eslint": "^6.2.0 || ^7.0.0"
   },
   "dependencies": {
-    "mpx-eslint-parser": "0.0.7",
     "eslint-utils": "^2.1.0",
+    "mpx-eslint-parser": "0.0.8",
     "natural-compare": "^1.4.0",
     "semver": "^7.3.2",
     "vue-eslint-parser": "^7.1.0"
