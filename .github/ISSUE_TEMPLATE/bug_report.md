@@ -17,7 +17,7 @@ assignees: ''
 <!--
   在发布问题之前，请确认您遇到的问题
   与您的代码编辑器配置无关。
-  要确保它不是，运行：yarn eslint src/your-file.vue
+  要确保它不是，运行：yarn eslint src/your-file.mpx
 -->
 
 **清单**
@@ -29,7 +29,7 @@ assignees: ''
 **告诉我们您的环境**
 
 - **ESLint 版本：**
-- **eslint-plugin-vue 版本：**
+- **eslint-plugin-mpx 版本：**
 - **节点版本：**
 - **操作系统：**
 
