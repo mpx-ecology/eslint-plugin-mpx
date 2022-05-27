@@ -5,13 +5,13 @@
 'use strict'
 
 const Linter = require('eslint').Linter
-const parser = require('vue-eslint-parser')
+const parser = require('mpx-eslint-parser')
 const assert = require('assert')
 
 const rules = require('../..').rules
 
 const baseConfig = {
-  parser: 'vue-eslint-parser',
+  parser: 'mpx-eslint-parser',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',

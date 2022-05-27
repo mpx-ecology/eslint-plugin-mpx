@@ -1,9 +1,0 @@
-<!--{}-->
-<template>
-  <div
-    v-bind:a="
-      foo(
-      )
-    "
-  ></div>
-</template>

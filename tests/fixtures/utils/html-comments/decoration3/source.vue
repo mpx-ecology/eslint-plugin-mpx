@@ -1,6 +1,0 @@
-<!--{ "exceptions": ["*", "+"] }-->
-<template>
-  <!--*****
-    comment
-  +++++-->
-</template>

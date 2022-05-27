@@ -1,6 +1,0 @@
-<!--{}-->
-<script>
-new (
-  foo
-)
-</script>

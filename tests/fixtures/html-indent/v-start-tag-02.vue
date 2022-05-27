@@ -1,5 +1,0 @@
-<!--{}-->
-<template>
-  <div
-    aaa>
-</template>

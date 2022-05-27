@@ -1,7 +1,0 @@
-<!--{}-->
-<script>
-(
-  foo
-)
-  `test`
-</script>
