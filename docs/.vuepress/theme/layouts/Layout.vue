@@ -19,8 +19,7 @@ export default {
   components: {
     BaseLayout
   },
-  computed: {
-  }
+  computed: {}
 }
 </script>
 

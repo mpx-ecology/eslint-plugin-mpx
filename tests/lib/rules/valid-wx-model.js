@@ -37,13 +37,11 @@ tester.run('valid-wx-model', rule, {
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><your-component wx:model="{{foo}}"></your-component></template>'
+      code: '<template><your-component wx:model="{{foo}}"></your-component></template>'
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><your-component wx:model="{{foo}}"wx:model-event="customInput" wx:model-prop="customValue"></your-component></template>'
+      code: '<template><your-component wx:model="{{foo}}"wx:model-event="customInput" wx:model-prop="customValue"></your-component></template>'
     }
   ],
   invalid: [

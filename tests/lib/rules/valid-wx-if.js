@@ -29,7 +29,7 @@ tester.run('valid-wx-if', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><view><view wx:if="foo"></view></view></template>'
+      code: '<template><view><view wx:if="{{foo}}"></view></view></template>'
     },
     // parsing error
     {

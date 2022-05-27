@@ -7,7 +7,7 @@ const RuleTester = require('eslint').RuleTester
 const rule = require('../../../lib/rules/camelcase')
 
 const tester = new RuleTester({
-  parser: require.resolve('vue-eslint-parser'),
+  parser: require.resolve('mpx-eslint-parser'),
   parserOptions: { ecmaVersion: 2015 }
 })
 

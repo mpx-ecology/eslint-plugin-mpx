@@ -20,6 +20,6 @@
     "paths": {
       "*": ["typings/*"]
     }
-  },
-  "include": ["lib/**/*", "typings/eslint-plugin-mpx/global.d.ts"]
+  }
+  // "include": ["lib/**/*", "typings/eslint-plugin-mpx/global.d.ts"]
 }

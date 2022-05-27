@@ -20,7 +20,7 @@ const eslint = require('eslint')
 
 // Initialize linter.
 const linter = new eslint.CLIEngine({
-  parser: require.resolve('vue-eslint-parser'),
+  parser: require.resolve('mpx-eslint-parser'),
   parserOptions: {
     ecmaVersion: 2015
   },

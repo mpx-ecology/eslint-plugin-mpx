@@ -29,13 +29,11 @@ tester.run('valid-wx:else', rule, {
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else></view></view></template>'
+      code: '<template><view><view wx:if="foo"></view><view wx:else></view></view></template>'
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:elif="foo"></view><view wx:else></view></view></template>'
+      code: '<template><view><view wx:if="foo"></view><view wx:elif="foo"></view><view wx:else></view></view></template>'
     },
     {
       filename: 'test.mpx',
@@ -73,52 +71,45 @@ tester.run('valid-wx:else', rule, {
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view if="foo"></view><view wx:else></view></view></template>',
+      code: '<template><view><view if="foo"></view><view wx:else></view></view></template>',
       errors: [
         "'wx:else' directives require being preceded by the element which has a 'wx:if' or 'wx:elif' directive."
       ]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view></view><view wx:else></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view></view><view wx:else></view></view></template>',
       errors: [
         "'wx:else' directives require being preceded by the element which has a 'wx:if' or 'wx:elif' directive."
       ]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else wx:if="bar"></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view wx:else wx:if="bar"></view></view></template>',
       errors: [
         "'wx:else' and 'wx:if' directives can't exist on the same element. You may want 'wx:elif' directives."
       ]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else wx:elif="foo"></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view wx:else wx:elif="foo"></view></view></template>',
       errors: [
         "'wx:else' and 'wx:elif' directives can't exist on the same element."
       ]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else:aaa></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view wx:else:aaa></view></view></template>',
       errors: ["'wx:else' directives require no argument."]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else.aaa></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view wx:else.aaa></view></view></template>',
       errors: ["'wx:else' directives require no modifier."]
     },
     {
       filename: 'test.mpx',
-      code:
-        '<template><view><view wx:if="foo"></view><view wx:else="foo"></view></view></template>',
+      code: '<template><view><view wx:if="foo"></view><view wx:else="foo"></view></view></template>',
       errors: ["'wx:else' directives require no attribute value."]
     },
     // parsing error
@@ -130,8 +121,7 @@ tester.run('valid-wx:else', rule, {
     // comment value
     {
       filename: 'comment-value.mpx',
-      code:
-        '<template><view wx:if="foo"></view><view wx:else="/**/"></view></template>',
+      code: '<template><view wx:if="foo"></view><view wx:else="/**/"></view></template>',
       errors: ["'wx:else' directives require no attribute value."]
     },
     // empty value
