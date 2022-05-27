@@ -24,12 +24,12 @@ const linter = new eslint.CLIEngine({
   parserOptions: {
     ecmaVersion: 2015
   },
-  plugins: ['vue'],
+  plugins: ['mpx'],
   rules: {
     'no-unused-vars': 'error',
-    'vue/comment-directive': 'error',
-    'vue/no-parsing-error': 'error',
-    'vue/no-duplicate-attributes': 'error'
+    'mpx/comment-directive': 'error',
+    'mpx/no-parsing-error': 'error',
+    'mpx/no-duplicate-attributes': 'error'
   },
   useEslintrc: false
 })
@@ -51,14 +51,14 @@ describe('comment-directive', () => {
   })
 
   describe('eslint-disable/eslint-enable', () => {
-    it('disable all rules if <!-- eslint-disable -->', () => {
+    it.only('disable all rules if <!-- eslint-disable -->', () => {
       const code = `
         <template>
           <!-- eslint-disable -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.vue').results[0]
+      const messages = linter.executeOnText(code, 'test.mpx').results[0]
         .messages
 
       assert.deepEqual(messages.length, 0)
