@@ -25,9 +25,9 @@ const ruleTester = new RuleTester()
 ruleTester.run('return-in-computed-property', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
               return true
@@ -51,14 +51,14 @@ ruleTester.run('return-in-computed-property', rule, {
               }
             }
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
               const options = []
@@ -68,29 +68,12 @@ ruleTester.run('return-in-computed-property', rule, {
               return options
             }
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
-      code: `
-        export default {
-          computed: {
-            foo () {
-              const options = []
-              this.matches.forEach(function (match) {
-                options.push(match)
-              })
-              return options
-            }
-          }
-        }
-      `,
-      parserOptions
-    },
-    {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
         export default {
           computed: {
@@ -109,14 +92,14 @@ ruleTester.run('return-in-computed-property', rule, {
 
   invalid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -127,14 +110,14 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
             }
           }
-        }
+        })
       `,
       parserOptions: { ecmaVersion: 6, sourceType: 'module' },
       errors: [
@@ -145,9 +128,9 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               if (a) {
@@ -155,7 +138,7 @@ ruleTester.run('return-in-computed-property', rule, {
               }
             }
           }
-        }
+        })
       `,
       parserOptions: { ecmaVersion: 6, sourceType: 'module' },
       errors: [
@@ -166,9 +149,9 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: {
               set () {
@@ -177,7 +160,7 @@ ruleTester.run('return-in-computed-property', rule, {
               }
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -188,9 +171,9 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               function bar () {
@@ -199,7 +182,7 @@ ruleTester.run('return-in-computed-property', rule, {
               bar()
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -210,9 +193,9 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
             },
@@ -220,7 +203,7 @@ ruleTester.run('return-in-computed-property', rule, {
               return
             }
           }
-        }
+        })
       `,
       parserOptions,
       options: [{ treatUndefinedAsUnspecified: false }],
@@ -232,15 +215,15 @@ ruleTester.run('return-in-computed-property', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
               return
             }
           }
-        }
+        })
       `,
       parserOptions,
       options: [{ treatUndefinedAsUnspecified: true }],
@@ -248,28 +231,6 @@ ruleTester.run('return-in-computed-property', rule, {
         {
           message: 'Expected to return a value in "foo" computed property.',
           line: 4
-        }
-      ]
-    },
-    {
-      filename: 'test.js',
-      code: `
-        // @vue/component
-        export default {
-          computed: {
-              my_FALSE_test() {
-                  let aa = 2;
-                  this.my_id = aa;
-              }
-          }
-        }
-      `,
-      parserOptions,
-      errors: [
-        {
-          message:
-            'Expected to return a value in "my_FALSE_test" computed property.',
-          line: 5
         }
       ]
     }

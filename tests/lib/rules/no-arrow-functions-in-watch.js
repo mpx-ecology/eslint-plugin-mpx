@@ -22,77 +22,77 @@ const ruleTester = new RuleTester({
 ruleTester.run('no-arrow-functions-in-watch', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {}
+      createComponent({ })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {}
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {
             foo() {}
           },
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {
             foo: function() {}
           },
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {
             foo() {},
             bar() {}
           },
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {
             foo: function() {},
             bar: function() {}
           },
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           watch: {
             ...obj,
             foo: function() {},
             bar: function() {}
           },
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data: {
           a: 1,
           b: 2,
@@ -127,29 +127,29 @@ ruleTester.run('no-arrow-functions-in-watch', rule, {
           ],
           'e.f': function (val, oldVal) { /* ... */ }
         }
-      }`
+      })`
     }
   ],
   invalid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         watch: {
           foo: () => {}
         },
-      }`,
+      })`,
       errors: ['You should not use an arrow function to define a watcher.']
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         watch: {
           foo() {},
           bar: () => {}
         }
-      }`,
+      })`,
       errors: [
         {
           message: 'You should not use an arrow function to define a watcher.',
@@ -158,14 +158,14 @@ ruleTester.run('no-arrow-functions-in-watch', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         watch: {
           foo: function() {},
           bar: () => {}
         }
-      }`,
+      })`,
       errors: [
         {
           message: 'You should not use an arrow function to define a watcher.',
@@ -174,9 +174,9 @@ ruleTester.run('no-arrow-functions-in-watch', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data: {
           a: 1,
           b: 2,
@@ -211,7 +211,7 @@ ruleTester.run('no-arrow-functions-in-watch', rule, {
           ],
           'e.f': function (val, oldVal) { /* ... */ }
         }
-      }`,
+      })`,
       errors: [
         {
           message: 'You should not use an arrow function to define a watcher.',

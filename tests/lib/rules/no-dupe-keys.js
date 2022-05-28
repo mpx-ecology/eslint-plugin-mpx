@@ -24,10 +24,10 @@ const ruleTester = new RuleTester({
 ruleTester.run('no-dupe-keys', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             bar () {
             }
@@ -45,14 +45,14 @@ ruleTester.run('no-dupe-keys', rule, {
             test () {
             }
           }
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           data () {
             return {
               dat: null
@@ -75,15 +75,15 @@ ruleTester.run('no-dupe-keys', rule, {
               bar
             }
           }
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             bar () {
             }
@@ -101,15 +101,15 @@ ruleTester.run('no-dupe-keys', rule, {
             test () {
             }
           }
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             bar () {
             }
@@ -125,16 +125,16 @@ ruleTester.run('no-dupe-keys', rule, {
             test () {
             }
           }
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           ...foo(),
-          props: {
+          properties: {
             ...foo(),
             foo: String
           },
@@ -161,16 +161,16 @@ ruleTester.run('no-dupe-keys', rule, {
               ...dat
             }
           },
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           ...foo(),
-          props: {
+          properties: {
             ...foo(),
             foo: String
           },
@@ -205,16 +205,16 @@ ruleTester.run('no-dupe-keys', rule, {
               com
             }
           }
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           ...foo(),
-          props: {
+          properties: {
             ...foo(),
             foo: String
           },
@@ -241,16 +241,16 @@ ruleTester.run('no-dupe-keys', rule, {
               ...dat
             }
           },
-        }
+        })
       `
     },
 
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           ...foo(),
-          props: {
+          properties: {
             ...foo(),
             foo: String
           },
@@ -275,64 +275,13 @@ ruleTester.run('no-dupe-keys', rule, {
           data: () => ({
             ...dat
           }),
-        }
-      `
-    },
-
-    {
-      filename: 'test.js',
-      code: `
-        // @vue/component
-        export const compA = {
-          props: {
-            propA: String
-          }
-        }
-
-        // @vue/component
-        export const compB = {
-          props: {
-            propA: String
-          }
-        }
+        })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        // @vue/component
-        export const compA = {
-          props: {
-            propA: String
-          },
-          setup (props) {
-            const com = computed(() => props.propA)
-
-            return {
-              com
-            }
-          }
-        }
-
-        // @vue/component
-        export const compB = {
-          props: {
-            propA: String
-          },
-          setup (props) {
-            const com = computed(() => props.propA)
-
-            return {
-              com
-            }
-          }
-        }
-      `
-    },
-    {
-      filename: 'test.vue',
-      code: `
-      export default {
+      createComponent({
         data () {
           return {
             get foo() {
@@ -343,13 +292,13 @@ ruleTester.run('no-dupe-keys', rule, {
             }
           }
         }
-      }
+      })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data () {
           return {
             set foo(v) {
@@ -360,13 +309,13 @@ ruleTester.run('no-dupe-keys', rule, {
             }
           }
         }
-      }
+      })
       `
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data () {
           return {
             get foo() {
@@ -378,17 +327,17 @@ ruleTester.run('no-dupe-keys', rule, {
             }
           }
         }
-      }
+      })
       `
     }
   ],
 
   invalid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             foo () {
             }
@@ -409,7 +358,7 @@ ruleTester.run('no-dupe-keys', rule, {
               foo
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -431,10 +380,10 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             foo () {
             }
@@ -455,7 +404,7 @@ ruleTester.run('no-dupe-keys', rule, {
               foo
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -477,10 +426,10 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: ['foo'],
+        createComponent({
+          properties: ['foo'],
           computed: {
             foo () {
             }
@@ -492,7 +441,7 @@ ruleTester.run('no-dupe-keys', rule, {
             foo () {
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -510,10 +459,10 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
-          props: {
+        createComponent({
+          properties: {
             foo: String
           },
           computed: {
@@ -536,7 +485,7 @@ ruleTester.run('no-dupe-keys', rule, {
               foo
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -558,29 +507,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
-        new Vue({
-          foo: {
-            bar: String
-          },
-          data: {
-            bar: null
-          },
-        })
-      `,
-      options: [{ groups: ['foo'] }],
-      errors: [
-        {
-          message: "Duplicated key 'bar'.",
-          line: 7
-        }
-      ]
-    },
-    {
-      filename: 'test.vue',
-      code: `
-        export default {
+        createComponent({
           methods: {
             foo () {
               return 0
@@ -593,7 +522,7 @@ ruleTester.run('no-dupe-keys', rule, {
               foo
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -603,9 +532,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           methods: {
             foo () {
               return 0
@@ -616,7 +545,7 @@ ruleTester.run('no-dupe-keys', rule, {
               foo: () => 0
             }
           }
-        }
+        })
       `,
       errors: [
         {
@@ -626,9 +555,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           methods: {
             foo () {
               return 0
@@ -637,7 +566,7 @@ ruleTester.run('no-dupe-keys', rule, {
           setup: () => ({
             foo: () => 0
           })
-        }
+        })
       `,
       errors: [
         {
@@ -647,9 +576,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo () {
               return 0
@@ -658,7 +587,7 @@ ruleTester.run('no-dupe-keys', rule, {
           setup: () => ({
             foo: computed(() => 0)
           })
-        }
+        })
       `,
       errors: [
         {
@@ -668,9 +597,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           data() {
             return {
               foo: 0
@@ -679,7 +608,7 @@ ruleTester.run('no-dupe-keys', rule, {
           setup: () => ({
             foo: ref(0)
           })
-        }
+        })
       `,
       errors: [
         {
@@ -689,9 +618,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           data() {
             return {
               foo: 0
@@ -700,7 +629,7 @@ ruleTester.run('no-dupe-keys', rule, {
           setup: () => ({
             foo: 0
           })
-        }
+        })
       `,
       errors: [
         {
@@ -710,50 +639,10 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
-        defineComponent({
-          foo: {
-            bar: String
-          },
-          data: {
-            bar: null
-          },
-        })
-      `,
-      options: [{ groups: ['foo'] }],
-      errors: [
-        {
-          message: "Duplicated key 'bar'.",
-          line: 7
-        }
-      ]
-    },
-    {
-      filename: 'test.js',
-      code: `
-        export default defineComponent({
-          foo: {
-            bar: String
-          },
-          data: {
-            bar: null
-          },
-        })
-      `,
-      options: [{ groups: ['foo'] }],
-      errors: [
-        {
-          message: "Duplicated key 'bar'.",
-          line: 7
-        }
-      ]
-    },
-    {
-      filename: 'test.vue',
-      code: `
-      export default {
-        props: ['foo'],
+      createComponent({
+        properties: ['foo'],
         data () {
           return {
             get foo() {
@@ -764,7 +653,7 @@ ruleTester.run('no-dupe-keys', rule, {
             }
           }
         }
-      }
+      })
       `,
       errors: [
         {
@@ -774,17 +663,17 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
-        props: ['foo'],
+      createComponent({
+        properties: ['foo'],
         data () {
           return {
             set foo(v) {},
             get foo() {}
           }
         }
-      }
+      })
       `,
       errors: [
         {
@@ -794,16 +683,16 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
-        props: ['foo'],
+      createComponent({
+        properties: ['foo'],
         data () {
           return {
             set foo(v) {}
           }
         }
-      }
+      })
       `,
       errors: [
         {
@@ -813,9 +702,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data () {
           return {
             get foo() {},
@@ -823,7 +712,7 @@ ruleTester.run('no-dupe-keys', rule, {
             get foo() {},
           }
         }
-      }
+      })
       `,
       errors: [
         {
@@ -833,9 +722,9 @@ ruleTester.run('no-dupe-keys', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         data () {
           return {
             get foo() {},
@@ -843,7 +732,7 @@ ruleTester.run('no-dupe-keys', rule, {
             set foo(v) {},
           }
         }
-      }
+      })
       `,
       errors: [
         {

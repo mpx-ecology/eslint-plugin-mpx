@@ -17,90 +17,35 @@ const rule = require('../../../lib/rules/no-duplicate-attributes')
 // ------------------------------------------------------------------------------
 
 const tester = new RuleTester({
-  parser: require.resolve('vue-eslint-parser'),
+  parser: require.resolve('mpx-eslint-parser'),
   parserOptions: { ecmaVersion: 2015 }
 })
 
 tester.run('no-duplicate-attributes', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: ''
     },
     {
-      filename: 'test.vue',
-      code: '<template><div><div foo :bar baz></div></div></template>'
+      filename: 'test.mpx',
+      code: '<template><view><view style="" wx:style="{}"></view></view></template>'
     },
     {
-      filename: 'test.vue',
-      code: '<template><div><div @click="foo" @click="bar"></div></div></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div style :style></div></div></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div class :class></div></div></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div :class="a" class="b"></div></div></template>',
-      options: [{ allowCoexistStyle: true }]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div :style="a" style="b"></div></div></template>',
-      options: [{ allowCoexistStyle: true }]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><my-component foo :[foo]></my-component></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><my-component :foo :[foo]></my-component></template>'
+      filename: 'test.mpx',
+      code: '<template><view><view class="" wx:class="{}"></view></view></template>'
     }
   ],
   invalid: [
-    // {
-    //   filename: 'test.vue',
-    //   code: '<template><div><div foo foo></div></div></template>',
-    //   errors: ["Duplicate attribute 'foo'."]
-    // },
     {
-      filename: 'test.vue',
-      code: '<template><div><div foo v-bind:foo></div></div></template>',
+      filename: 'test.mpx',
+      code: '<template><view><view foo foo></view></view></template>',
       errors: ["Duplicate attribute 'foo'."]
     },
     {
-      filename: 'test.vue',
-      code: '<template><div><div foo :foo></div></div></template>',
-      errors: ["Duplicate attribute 'foo'."]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div style :style></div></div></template>',
-      errors: ["Duplicate attribute 'style'."],
-      options: [{ allowCoexistStyle: false }]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div class :class></div></div></template>',
-      errors: ["Duplicate attribute 'class'."],
-      options: [{ allowCoexistClass: false }]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div :style style></div></div></template>',
-      errors: ["Duplicate attribute 'style'."],
-      options: [{ allowCoexistStyle: false }]
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><div :class class></div></div></template>',
-      errors: ["Duplicate attribute 'class'."],
-      options: [{ allowCoexistClass: false }]
+      filename: 'test.mpx',
+      code: '<template><view><view bindtap="foo" bindtap="bar"></view></view></template>',
+      errors: ["Duplicate attribute 'bindtap'."]
     }
   ]
 })

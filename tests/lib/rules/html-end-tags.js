@@ -24,59 +24,47 @@ const tester = new RuleTester({
 tester.run('html-end-tags', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: ''
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><div></div></div></template>'
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><p></p></div></template>'
     },
     {
-      filename: 'test.vue',
-      code: '<template><div><br></div></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><input></div></template>'
-    },
-    {
-      filename: 'test.vue',
-      code: '<template><div><img></div></template>'
-    },
-    {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><self-closing-custom-element/></div></template>'
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><div/></div></template>'
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div a="b>test</div></template>'
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><!--</div></template>'
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><svg><![CDATA[test</svg></div></template>'
     }
   ],
   invalid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><div></div></template>',
       output: '<template><div><div></div></div></template>',
       errors: ["'<div>' should have end tag."]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: '<template><div><p></div></template>',
       output: '<template><div><p></p></div></template>',
       errors: ["'<p>' should have end tag."]

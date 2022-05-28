@@ -25,22 +25,22 @@ const ruleTester = new RuleTester()
 ruleTester.run('no-async-in-computed-properties', rule, {
   valid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return;
             },
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           ...foo,
           computed: {
             ...mapGetters({
@@ -66,12 +66,12 @@ ruleTester.run('no-async-in-computed-properties', rule, {
               ...mapActions({ set: 'setBaz' })
             }
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
         async function resolveComponents(components) {
           return await Promise.all(components.map(async (component) => {
@@ -85,9 +85,9 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               return {
@@ -98,14 +98,14 @@ ruleTester.run('no-async-in-computed-properties', rule, {
               }
             }
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               const a = 'test'
@@ -119,14 +119,14 @@ ruleTester.run('no-async-in-computed-properties', rule, {
               ]
             }
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               return function () {
@@ -134,40 +134,40 @@ ruleTester.run('no-async-in-computed-properties', rule, {
               }
             },
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               return new Promise.resolve()
             },
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               return new Bar(async () => await baz())
             },
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo() {
               return someFunc.doSomething({
@@ -177,14 +177,14 @@ ruleTester.run('no-async-in-computed-properties', rule, {
               })
             },
           }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
             computed: {
                 foo() {
                     return this.bar
@@ -194,57 +194,49 @@ ruleTester.run('no-async-in-computed-properties', rule, {
                       : {}
                 }
             }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
             computed: {
                 foo() {
                     return this.bar ? () => Promise.resolve(1) : null
                 }
             }
-        }
+        })
       `,
       parserOptions
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
             computed: {
                 foo() {
                     return this.bar ? async () => 1 : null
                 }
             }
-        }
+        })
       `,
-      parserOptions
-    },
-    {
-      code: `
-        Vue.component('test',{
-          data1: new Promise(),
-          data2: Promise.resolve(),
-        })`,
       parserOptions
     }
   ],
 
   invalid: [
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: async function () {
               return await someFunc()
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -260,15 +252,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: async function () {
               return new Promise((resolve, reject) => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -284,15 +276,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return bar.then(response => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -303,43 +295,43 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return bar?.then?.(response => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: ['Unexpected asynchronous action in "foo" computed property.']
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return (bar?.then)?.(response => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: ['Unexpected asynchronous action in "foo" computed property.']
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return bar.catch(e => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -350,15 +342,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return Promise.all([])
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -369,15 +361,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default {
+        createComponent({
           computed: {
             foo: function () {
               return bar.finally(res => {})
             }
           }
-        }
+        })
       `,
       parserOptions,
       errors: [
@@ -388,15 +380,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             return Promise.race([])
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -407,15 +399,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             return Promise.reject([])
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -426,15 +418,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             return Promise.resolve([])
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -445,15 +437,15 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo () {
             return Promise.resolve([])
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -464,9 +456,9 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: {
             get () {
@@ -474,7 +466,7 @@ ruleTester.run('no-async-in-computed-properties', rule, {
             }
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -485,51 +477,9 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      new Vue({
-        computed: {
-          foo: {
-            get () {
-              return Promise.resolve([])
-            }
-          }
-        }
-      })
-      `,
-      parserOptions: { ecmaVersion: 6 },
-      errors: [
-        {
-          message: 'Unexpected asynchronous action in "foo" computed property.',
-          line: 6
-        }
-      ]
-    },
-    {
-      filename: 'test.vue',
-      code: `
-      new Vue({
-        computed: {
-          foo: {
-            get () {
-              return test.blabla.then([])
-            }
-          }
-        }
-      })
-      `,
-      parserOptions: { ecmaVersion: 6 },
-      errors: [
-        {
-          message: 'Unexpected asynchronous action in "foo" computed property.',
-          line: 6
-        }
-      ]
-    },
-    {
-      filename: 'test.vue',
-      code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             setTimeout(() => { }, 0)
@@ -542,7 +492,7 @@ ruleTester.run('no-async-in-computed-properties', rule, {
             window.requestAnimationFrame(() => {})
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -581,9 +531,9 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             setTimeout?.(() => { }, 0)
@@ -596,7 +546,7 @@ ruleTester.run('no-async-in-computed-properties', rule, {
             window?.requestAnimationFrame?.(() => {})
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [
@@ -611,9 +561,9 @@ ruleTester.run('no-async-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-      export default {
+      createComponent({
         computed: {
           foo: function () {
             setTimeout?.(() => { }, 0)
@@ -626,7 +576,7 @@ ruleTester.run('no-async-in-computed-properties', rule, {
             ;(window?.requestAnimationFrame)?.(() => {})
           }
         }
-      }
+      })
       `,
       parserOptions,
       errors: [

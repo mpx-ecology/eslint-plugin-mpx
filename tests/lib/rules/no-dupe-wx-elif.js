@@ -21,9 +21,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" />
-        <div wx:elif="bar" />
-        <div wx:elif="baz" />
+        <view wx:if="{{foo}}" />
+        <view wx:elif="{{bar}}" />
+        <view wx:elif="{{baz}}" />
       </template>
       `
     },
@@ -31,9 +31,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" >
-          <div wx:elif="foo" />
-        </div>
+        <view wx:if="{{foo}}" >
+          <view wx:elif="{{foo}}" />
+        </view>
       </template>
       `
     },
@@ -41,10 +41,10 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" />
-        <div wx:elif="bar" />
-        <div wx:if="bar" />
-        <div wx:elif="foo" />
+        <view wx:if="{{foo}}" />
+        <view wx:elif="{{bar}}" />
+        <view wx:if="{{bar}}" />
+        <view wx:elif="{{foo}}" />
       </template>
       `
     },
@@ -52,19 +52,17 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="isSomething(x)" />
-        <div wx:elif="isSomethingElse(x)" />
 
-        <div wx:if="a" />
-        <div wx:elif="b" />
-        <div wx:elif="c && d" />
-        <div wx:elif="c && e" />
+        <view wx:if="{{a}}" />
+        <view wx:elif="{{b}}" />
+        <view wx:elif="{{c && d}}" />
+        <view wx:elif="{{c && e}}" />
 
-        <div wx:if="n === 1" />
-        <div wx:elif="n === 2" />
-        <div wx:elif="n === 3" />
-        <div wx:elif="n === 4" />
-        <div wx:elif="n === 5" />
+        <view wx:if="{{n === 1}}" />
+        <view wx:elif="{{n === 2}}" />
+        <view wx:elif="{{n === 3}}" />
+        <view wx:elif="{{n === 4}}" />
+        <view wx:elif="{{n === 5}}" />
       </template>
       `
     },
@@ -72,9 +70,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" />
-        <div />
-        <div wx:elif="foo" />
+        <view wx:if="{{foo}}" />
+        <view />
+        <view wx:elif="{{foo}}" />
       </template>
       `
     },
@@ -82,8 +80,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if />
-        <div wx:elif />
+        <view wx:if />
+        <view wx:elif />
       </template>
       `
     },
@@ -92,8 +90,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo." />
-        <div wx:elif="foo." />
+        <view wx:if="{{foo.}}" />
+        <view wx:elif="{{foo.}}" />
       </template>
       `
     },
@@ -101,46 +99,43 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:elif="foo." />
-        <div wx:elif="foo" />
+        <view wx:elif="{{foo.}}" />
+        <view wx:elif="{{foo}}" />
       </template>
       `
     },
 
     // Referred to the ESLint core rule.
-    '<template><div wx:if="a" /><div wx:elif="b" /></template>',
-    '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c" /></template>',
-    '<template><div wx:if="true" /><div wx:elif="false" /></template>',
-    '<template><div wx:if="1" /><div wx:elif="2" /></template>',
-    '<template><div wx:if="f" /><div wx:elif="f()" /></template>',
-    '<template><div wx:if="f(a)" /><div wx:elif="g(a)" /></template>',
-    '<template><div wx:if="f(a)" /><div wx:elif="f(b)" /></template>',
-    '<template><div wx:if="a === 1" /><div wx:elif="a === 2" /></template>',
-    '<template><div wx:if="a === 1" /><div wx:elif="b === 1" /></template>',
-    '<template><div wx:if="a" /></template>',
-    '<template><div wx:if="a"><div wx:if="a" /></div></template>',
-    '<template><div wx:if="a"><div wx:if="b" /></div><div wx:elif="b" /></template>',
-    '<template><div wx:if="a"><div wx:if="b" /><div wx:elif="a" /></div></template>',
-    '<template><div wx:if="a" /><div wx:elif="!!a" /></template>',
-    '<template><div wx:if="a === 1" /><div wx:elif="a === (1)" /></template>',
-    '<template><div wx:if="a || b" /><div wx:elif="c || d" /></template>',
-    '<template><div wx:if="a || b" /><div wx:elif="a || c" /></template>',
-    '<template><div wx:if="a" /><div wx:elif="a || b" /></template>',
-    '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="a || b || c" /></template>',
-    '<template><div wx:if="a && b" /><div wx:elif="a" /><div wx:elif="b" /></template>',
-    '<template><div wx:if="a && b" /><div wx:elif="b && c" /><div wx:elif="a && c" /></template>',
-    '<template><div wx:if="a && b" /><div wx:elif="b || c" /></template>',
-    '<template><div wx:if="a" /><div wx:elif="b && (a || c)" /></template>',
-    '<template><div wx:if="a" /><div wx:elif="b && (c || d && a)" /></template>',
-    '<template><div wx:if="a && b && c" /><div wx:elif="a && b && (c || d)" /></template>'
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c}}" /></template>',
+    '<template><view wx:if="{{true}}" /><view wx:elif="{{false}}" /></template>',
+    '<template><view wx:if="{{1}}" /><view wx:elif="{{2}}" /></template>',
+    '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{a === 2}}" /></template>',
+    '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{b === 1}}" /></template>',
+    '<template><view wx:if="{{a}}" /></template>',
+    '<template><view wx:if="{{a}}"><view wx:if="{{a}}" /></view></template>',
+    '<template><view wx:if="{{a}}"><view wx:if="{{b}}" /></view><view wx:elif="{{b}}" /></template>',
+    '<template><view wx:if="{{a}}"><view wx:if="{{b}}" /><view wx:elif="{{a}}" /></view></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{!!a}}" /></template>',
+    '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{a === (1)}}" /></template>',
+    '<template><view wx:if="{{a || b}}" /><view wx:elif="{{c || d}}" /></template>',
+    '<template><view wx:if="{{a || b}}" /><view wx:elif="{{a || c}}" /></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{a || b}}" /></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="b" /><view wx:elif="{{a || b || c}}" /></template>',
+    '<template><view wx:if="{{a && b}}" /><view wx:elif="{{a}}" /><view wx:elif="{{b}}" /></template>',
+    '<template><view wx:if="{{a && b}}" /><view wx:elif="{{b && c}}" /><view wx:elif="{{a && c}}" /></template>',
+    '<template><view wx:if="{{a && b}}" /><view wx:elif="{{b || c}}" /></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{b && (a || c)}}" /></template>',
+    '<template><view wx:if="{{a}}" /><view wx:elif="{{b && (c || d && a)}}" /></template>',
+    '<template><view wx:if="{{a && b && c}}" /><view wx:elif="{{a && b && (c || d)}}" /></template>'
   ],
   invalid: [
     {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" />
-        <div wx:elif="foo" />
+        <view wx:if="{{foo}}" />
+        <view wx:elif="{{foo}}" />
       </template>
       `,
       errors: [
@@ -148,9 +143,9 @@ tester.run('no-dupe-wx-elif', rule, {
           message:
             'This branch can never execute. Its condition is a duplicate or covered by previous conditions in the `wx:if` / `wx:elif` chain.',
           line: 4,
-          column: 25,
+          column: 26,
           endLine: 4,
-          endColumn: 28
+          endColumn: 29
         }
       ]
     },
@@ -158,25 +153,10 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="isSomething(x)" />
-        <div wx:elif="isSomething(x)" />
-      </template>
-      `,
-      errors: [
-        {
-          messageId: 'unexpected',
-          line: 4
-        }
-      ]
-    },
-    {
-      filename: 'test.mpx',
-      code: `
-      <template>
-        <div wx:if="a" />
-        <div wx:elif="b" />
-        <div wx:elif="c && d" />
-        <div wx:elif="c && d" />
+        <view wx:if="{{a}}" />
+        <view wx:elif="{{b}}" />
+        <view wx:elif="{{c && d}}" />
+        <view wx:elif="{{c && d}}" />
       </template>
       `,
       errors: [
@@ -190,11 +170,11 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="n === 1" />
-        <div wx:elif="n === 2" />
-        <div wx:elif="n === 3" />
-        <div wx:elif="n === 2" />
-        <div wx:elif="n === 5" />
+        <view wx:if="{{n === 1}}" />
+        <view wx:elif="{{n === 2}}" />
+        <view wx:elif="{{n === 3}}" />
+        <view wx:elif="{{n === 2}}" />
+        <view wx:elif="{{n === 5}}" />
       </template>
       `,
       errors: [
@@ -208,8 +188,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a || b" />
-        <div wx:elif="a" />
+        <view wx:if="{{a || b}}" />
+        <view wx:elif="{{a}}" />
       </template>
       `,
       errors: [
@@ -223,9 +203,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a" />
-        <div wx:elif="b" />
-        <div wx:elif="a || b" />
+        <view wx:if="{{a}}" />
+        <view wx:elif="{{b}}" />
+        <view wx:elif="{{a || b}}" />
       </template>
       `,
       errors: [
@@ -239,8 +219,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a" />
-        <div wx:elif="a && b" />
+        <view wx:if="{{a}}" />
+        <view wx:elif="{{a && b}}" />
       </template>
       `,
       errors: [
@@ -254,8 +234,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a && b" />
-        <div wx:elif="a && b && c" />
+        <view wx:if="{{a && b}}" />
+        <view wx:elif="{{a && b && c}}" />
       </template>
       `,
       errors: [
@@ -269,8 +249,8 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a || b" />
-        <div wx:elif="b && c" />
+        <view wx:if="{{a || b}}" />
+        <view wx:elif="{{b && c}}" />
       </template>
       `,
       errors: [
@@ -284,9 +264,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a" />
-        <div wx:elif="b && c" />
-        <div wx:elif="d && (c && e && b || a)" />
+        <view wx:if="{{a}}" />
+        <view wx:elif="{{b && c}}" />
+        <view wx:elif="{{d && (c && e && b || a)}}" />
       </template>
       `,
       errors: [
@@ -300,25 +280,25 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="foo" />
-        <div wx:elif="foo && bar" />
-        <div wx:elif="baz && foo" />
+        <view wx:if="{{foo}}" />
+        <view wx:elif="{{foo && bar}}" />
+        <view wx:elif="{{baz && foo}}" />
       </template>
       `,
       errors: [
         {
           messageId: 'unexpected',
           line: 4,
-          column: 25,
+          column: 26,
           endLine: 4,
-          endColumn: 28
+          endColumn: 29
         },
         {
           messageId: 'unexpected',
           line: 5,
-          column: 32,
+          column: 33,
           endLine: 5,
-          endColumn: 35
+          endColumn: 36
         }
       ]
     },
@@ -326,9 +306,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a && b" />
-        <div wx:elif="a && b && c" />
-        <div wx:elif="a && c && b" />
+        <view wx:if="{{a && b}}" />
+        <view wx:elif="{{a && b && c}}" />
+        <view wx:elif="{{a && c && b}}" />
       </template>
       `,
       errors: [
@@ -340,9 +320,9 @@ tester.run('no-dupe-wx-elif', rule, {
       filename: 'test.mpx',
       code: `
       <template>
-        <div wx:if="a || b" />
-        <div wx:elif="a" />
-        <div wx:elif="b" />
+        <view wx:if="{{a || b}}" />
+        <view wx:elif="{{a}}" />
+        <view wx:elif="{{b}}" />
       </template>
       `,
       errors: [
@@ -351,12 +331,12 @@ tester.run('no-dupe-wx-elif', rule, {
       ]
     },
     {
-      filename: 'foo.vue',
+      filename: 'foo.mpx',
       code: `
       <template>
-        <div wx:if      ="((f && e) || d) && c || (b && a)" />
-        <div wx:elif ="(a && b) || (c && (d || (e && f)))" />
-        <div wx:elif ="(a && b) || (c && (d || (e && f)))" />
+        <view wx:if      ="{{((f && e) || d) && c || (b && a)}}" />
+        <view wx:elif ="{{(a && b) || (c && (d || (e && f)))}}" />
+        <view wx:elif ="{{(a && b) || (c && (d || (e && f)))}}" />
       </template>
       `,
       errors: [{ messageId: 'unexpected' }, { messageId: 'unexpected' }]
@@ -365,52 +345,52 @@ tester.run('no-dupe-wx-elif', rule, {
     // Referred to the ESLint core rule.
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="a" /><div wx:elif="c" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{a}}" /><view wx:elif="{{c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="b" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c" /><div wx:elif="b" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c" /><div wx:elif="b" /><div wx:elif="d" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{b}}" /><view wx:elif="{{d}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c" /><div wx:elif="d" /><div wx:elif="b" /><div wx:elif="e" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{d}}" /><view wx:elif="{{b}}" /><view wx:elif="{{e}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="a" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{a}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }, { messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="a" /><div wx:elif="b" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{a}}" /></template>',
       errors: [
         { messageId: 'unexpected' },
         { messageId: 'unexpected' },
@@ -419,202 +399,197 @@ tester.run('no-dupe-wx-elif', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a"><div wx:if="b" /></div><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a}}"><view wx:if="{{b}}" /></view><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a === 1" /><div wx:elif="a === 1" /></template>',
+      code: '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{a === 1}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="1 < a" /><div wx:elif="1 < a" /></template>',
+      code: '<template><view wx:if="{{1 < a}}" /><view wx:elif="{{1 < a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="true" /><div wx:elif="true" /></template>',
+      code: '<template><view wx:if="{{true}}" /><view wx:elif="{{true}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && b" /><div wx:elif="a && b" /></template>',
+      code: '<template><view wx:if="{{a && b}}" /><view wx:elif="{{a && b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && b || c" /><div wx:elif="a && b || c" /></template>',
+      code: '<template><view wx:if="{{a && b || c}}" /><view wx:elif="{{a && b || c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="f(a)" /><div wx:elif="f(a)" /></template>',
+      code: '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{a===1}}" /></template>',
+      errors: [{ messageId: 'unexpected' }]
+    },
+    // {
+    //   filename: 'test.mpx',
+    //   code: '<template><view wx:if="{{a === 1}}" /><view wx:elif="{{a === /* comment */ 1"}}/></template>',
+    //   errors: [{ messageId: 'unexpected' }]
+    // },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a === 1" /><div wx:elif="a===1" /></template>',
-      errors: [{ messageId: 'unexpected' }]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><div wx:if="a === 1" /><div wx:elif="a === /* comment */ 1" /></template>',
-      errors: [{ messageId: 'unexpected' }]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="a" /></template>',
-      errors: [{ messageId: 'unexpected' }]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="a" /><div wx:elif="b" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{a}}" /><view wx:elif="{{b}}" /></template>',
       errors: [{ messageId: 'unexpected' }, { messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="b || a" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{b || a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="a || b" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{a || b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="c || d" /><div wx:elif="a || d" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{c || d}}" /><view wx:elif="{{a || d}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="(a === b && fn(c)) || d" /><div wx:elif="fn(c) && a === b" /></template>',
+      code: '<template><view wx:if="{{(a === b && fn(c)) || d}}" /><view wx:elif="{{fn(c) && a === b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="a && b" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{a && b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && b" /><div wx:elif="a && b && c" /></template>',
+      code: '<template><view wx:if="{{a && b}}" /><view wx:elif="{{a && b && c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || c" /><div wx:elif="a && b || c" /></template>',
+      code: '<template><view wx:if="{{a || c}}" /><view wx:elif="{{a && b || c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c && a || b" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c && a || b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c && (a || b)" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c && (a || b)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b && c" /><div wx:elif="d && (a || e && c && b)" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b && c}}" /><view wx:elif="{{d && (a || e && c && b)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b && c" /><div wx:elif="b && c && d" /></template>',
+      code: '<template><view wx:if="{{a || b && c}}" /><view wx:elif="{{b && c && d}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="b && c" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{b && c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="(a || b) && c" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{(a || b) && c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="(a && (b || c)) || d" /><div wx:elif="(c || b) && e && a" /></template>',
+      code: '<template><view wx:if="{{(a && (b || c)) || d}}" /><view wx:elif="{{(c || b) && e && a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && b || b && c" /><div wx:elif="a && b && c" /></template>',
+      code: '<template><view wx:if="{{a && b || b && c}}" /><view wx:elif="{{a && b && c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b && c" /><div wx:elif="d && (c && e && b || a)" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b && c}}" /><view wx:elif="{{d && (c && e && b || a)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || (b && (c || d))" /><div wx:elif="(d || c) && b" /></template>',
+      code: '<template><view wx:if="{{a || (b && (c || d))}}" /><view wx:elif="{{(d || c) && b}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="(b || a) && c" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{(b || a) && c}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="c" /><div wx:elif="d" /><div wx:elif="b && (a || c)" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{d}}" /><view wx:elif="{{b && (a || c)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b || c" /><div wx:elif="a || (b && d) || (c && e)" /></template>',
+      code: '<template><view wx:if="{{a || b || c}}" /><view wx:elif="{{a || (b && d) || (c && e)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || (b || c)" /><div wx:elif="a || (b && c)" /></template>',
+      code: '<template><view wx:if="{{a || (b || c)}}" /><view wx:elif="{{a || (b && c)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || b" /><div wx:elif="c" /><div wx:elif="d" /><div wx:elif="(a || c) && (b || d)" /></template>',
+      code: '<template><view wx:if="{{a || b}}" /><view wx:elif="{{c}}" /><view wx:elif="{{d}}" /><view wx:elif="{{(a || c) && (b || d)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="b" /><div wx:elif="c && (a || d && b)" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{b}}" /><view wx:elif="{{c && (a || d && b)}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="a || a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{a || a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || a" /><div wx:elif="a || a" /></template>',
+      code: '<template><view wx:if="{{a || a}}" /><view wx:elif="{{a || a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a || a" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a || a}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a" /><div wx:elif="a && a" /></template>',
+      code: '<template><view wx:if="{{a}}" /><view wx:elif="{{a && a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && a" /><div wx:elif="a && a" /></template>',
+      code: '<template><view wx:if="{{a && a}}" /><view wx:elif="{{a && a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     },
     {
       filename: 'test.mpx',
-      code: '<template><div wx:if="a && a" /><div wx:elif="a" /></template>',
+      code: '<template><view wx:if="{{a && a}}" /><view wx:elif="{{a}}" /></template>',
       errors: [{ messageId: 'unexpected' }]
     }
   ]

@@ -58,7 +58,9 @@ tester.run('valid-wx-model', rule, {
     {
       filename: 'test.mpx',
       code: '<template><input wx:model.aaa="{{foo}}"></template>',
-      errors: ["'wx:model' directives don't support the modifier 'aaa'."]
+      errors: [
+        "'wx:model' directives don't support the modifier 'aaa', try use wx:model-filter."
+      ]
     },
     {
       filename: 'test.mpx',
