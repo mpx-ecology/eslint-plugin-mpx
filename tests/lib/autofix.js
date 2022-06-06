@@ -26,16 +26,16 @@ describe('Complex autofix test cases', () => {
   }
 
   describe('Autofix of should not conflict.', () => {
-    const config = Object.assign({}, baseConfig, {
-      rules: {
-        'mpx/test': ['error']
-      }
-    })
+    // const config = Object.assign({}, baseConfig, {
+    //   rules: {
+    //     // 'mpx/test': ['error']
+    //   }
+    // })
 
-    it('test output mpx', () => {
-      const code = `<template><button>test</button></template>`
-      const output = `<template><button>test-->mpx</button></template>`
-      assert.equal(linter.verifyAndFix(code, config, 'test.mpx').output, output)
-    })
+    // it('test output mpx', () => {
+    //   const code = `<template><button>test</button></template>`
+    //   const output = `<template><button>test-->mpx</button></template>`
+    //   assert.equal(linter.verifyAndFix(code, config, 'test.mpx').output, output)
+    // })
   })
 })
