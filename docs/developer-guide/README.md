@@ -24,32 +24,30 @@
 
 我们很高兴看到潜在的贡献，所以不要犹豫。 如果您有任何建议、想法或问题，请随时添加新的 [issue](https://github.com/mpx-ecology/eslint-plugin-mpx/issues)，但首先请确保您的问题不重复之前的问题。
 
-## :fire: 使用规则
+## :fire: 编写规则
 
 在开始编写新规则之前，请阅读[官方 ESLint 指南](https://eslint.org/docs/developer-guide/working-with-rules)。
 
 接下来，为了了解您要检查的代码的 AST 是什么样的，请使用 [astexplorer.net]。
-[astexplorer.net] 是检查 AST 的绝佳工具，暂未支持Mpx,可选择Vue类似查看
-
-打开[astexplorer.net]后，选择`Vue`作为语法，选择`vue-eslint-parser`作为解析器。
+[astexplorer.net] 是检查 AST 的绝佳工具，暂未支持Mpx，仅可查看js相关
 
 [astexplorer.net](https://astexplorer.net/)
 
-由于 Vue 中的单个文件组件不是纯 JavaScript，我们不能使用默认解析器，我们不得不引入额外的一个：`vue-eslint-parser`，它生成增强的 AST，节点代表模板语法的特定部分，以及 `<script>` 标签内的内容。
+由于 Mpx 中的单个文件组件不是纯 JavaScript，我们不能使用默认解析器，我们不得不引入额外的一个：`mpx-eslint-parser`，它生成增强的 AST，节点代表模板语法的特定部分，以及 `<script>` 标签内的内容。
 
 要了解有关生成的 AST 中某些节点的更多信息，请访问此处：
 - [ESTree 文档](https://github.com/estree/estree)
-- [vue-eslint-parser AST 文档](https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md)
+- [mpx-eslint-parser AST 文档](https://github.com/mpx-ecology/mpx-eslint-parser/blob/master/docs/ast.md)
 
 `Mpx-eslint-parser` 提供了一些有用的解析器服务，以帮助遍历生成的 AST 和访问模板的令牌：
 -`context.parserServices.defineTemplateBodyVisitor（访问者，scriptVisitor）`
 -`context.parserServices.getTemplateBodyTokenStore()`
 
-查看 [示例规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/mustache-interpolation-spacing.js) 以更好地了解这些规则是如何工作的。
+查看 [示例规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/valid-wx-if.js) 以更好地了解这些规则是如何工作的。
 
-请注意，关于您将在测试中编写什么样的代码示例，您必须在“RuleTester”中相应地设置解析器（不过，您可以根据每个测试用例进行设置）。 [在此处查看示例](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/attribute-hyphenation.js#L19)
+请注意，关于您将在测试中编写什么样的代码示例，您必须在“RuleTester”中相应地设置解析器（不过，您可以根据每个测试用例进行设置）。 [在此处查看示例](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-if.js)
 
-如果您遇到困难，请记住您已经可以学习很多规则，如果您找不到正确的解决方案 - 请不要犹豫，解决问题。我们很乐意提供帮助！
+如果您遇到困难，请记住您已经可以学习很多规则，如果您找不到正确的解决方案 - 请不要犹豫，提出issue解决问题。我们很乐意提供帮助！
 
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 

@@ -11,7 +11,7 @@ description: 不允许覆盖保留关键词
 
 ## :book: 规则详情
 
-此规则防止使用[保留关键词](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/vue-reserved.json)以避免冲突和意外行为。
+此规则防止使用[保留关键词](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/mpx-reserved.json)以避免冲突和意外行为。
 
 <eslint-code-block :rules="{'mpx/no-reserved-keys': ['error']}">
 
@@ -72,7 +72,7 @@ createComponent({
 
 ## :books: 延伸阅读
 
-- [保留关键词列表](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/vue-reserved.json)
+- [保留关键词列表](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/utils/mpx-reserved.json)
 
 ## :mag: 具体实现
 
