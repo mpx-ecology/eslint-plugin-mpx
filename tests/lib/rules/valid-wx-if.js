@@ -40,6 +40,10 @@ tester.run('valid-wx-if', rule, {
     {
       filename: 'comment-value.mpx',
       code: '<template><view wx:if="/**/"></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view class="a"><view class="b"><view class="c"></view></view><view class="c"></view></view></template>'
     }
   ],
   invalid: [

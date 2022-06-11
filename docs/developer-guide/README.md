@@ -55,3 +55,36 @@
 执行类型检查的命令是：`npm run tsc`
 
 这只是为了帮助您编写规则，而不是进行严格的类型检查。 如果您发现难以解决类型检查警告，请随意使用 `// @ts-nocheck` 和 `// @ts-ignore` 注释来抑制警告。
+
+## :mag: 灵活匹配节点
+
+我们在编写规则的时候，想要匹配某个节点下的子节点或者兄弟节点，可以通过[esquery](https://github.com/estools/esquery)提供的方式来编写我们的visitor
+
+```js
+/* 
+<template>
+  <view class="a">
+    <input class="b"></input>
+    <view class="c"></view>
+    <view class="d"></view>
+  </view>
+</template>
+*/
+
+create(context) {
+  return utils.defineTemplateBodyVisitor(context, {
+    // 获取属性为class的节点
+    "VAttribute[key.name='class']"(node) {},
+    // 获取属性为class值为a的节点
+    "VAttribute[key.name='class'][value.value='a']"(node) {},
+    // 获取tempalte节点下属性有class的所有节点
+    "VElement[name='template'] VAttribute[key.name='class'"(node) {},
+    // 获取tempalte节点的children节点为VElement类型的 (即为class=a的节点)
+    "VElement[name='template'] > VElement"(node) {},
+    // 获取input节点所有兄弟节点 (即为class=c的节点和class=d的节点)
+    "VElement[name='input'] ~ VElement"(node) {},
+    // 获取input节点下一个兄弟节点 (即为class=c的节点)
+    "VElement[name='input'] + VElement"(node) {}
+  })
+}
+```
