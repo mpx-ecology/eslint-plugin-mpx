@@ -73,18 +73,28 @@
 
 create(context) {
   return utils.defineTemplateBodyVisitor(context, {
-    // 获取属性为class的节点
+    // 匹配属性为class的节点
     "VAttribute[key.name='class']"(node) {},
-    // 获取属性为class值为a的节点
+    // 匹配属性为class值为a的节点
     "VAttribute[key.name='class'][value.value='a']"(node) {},
-    // 获取tempalte节点下属性有class的所有节点
+    // 匹配tempalte节点下属性有class的所有节点
     "VElement[name='template'] VAttribute[key.name='class'"(node) {},
-    // 获取tempalte节点的children节点为VElement类型的 (即为class=a的节点)
+    // 匹配tempalte节点的children节点为VElement类型的 (即为class=a的节点)
     "VElement[name='template'] > VElement"(node) {},
-    // 获取input节点所有兄弟节点 (即为class=c的节点和class=d的节点)
+    // 匹配input节点所有兄弟节点 (即为class=c的节点和class=d的节点)
     "VElement[name='input'] ~ VElement"(node) {},
-    // 获取input节点下一个兄弟节点 (即为class=c的节点)
+    // 匹配input节点下一个兄弟节点 (即为class=c的节点)
     "VElement[name='input'] + VElement"(node) {}
-  })
+  },
+  {
+    // js模块同理，这里不过多展示
+    // 匹配function中表达式的this表达式
+    'MemberExpression > ThisExpression'(node) {}
+  }
+  )
 }
 ```
+
+## :bricks: 内置工具函数
+
+### defineTemplateBodyVisitor

@@ -31,10 +31,8 @@ tester.run('valid-wx-if', rule, {
   invalid: [
     {
       filename: 'test.mpx',
-      code: '',
-      errors: [
-        "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives."
-      ]
+      code: '<script>function a (){ this.b = 1 }</script>',
+      errors: ['']
     }
   ]
 })
