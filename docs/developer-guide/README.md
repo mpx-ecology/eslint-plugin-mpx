@@ -47,14 +47,67 @@
 
 请注意，关于您将在测试中编写什么样的代码示例，您必须在“RuleTester”中相应地设置解析器（不过，您可以根据每个测试用例进行设置）。 [在此处查看示例](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-if.js)
 
+最佳的编写规则实践是基于TDD(Test Drived Develop)的开发模式 
+
+1. 在tests/lib下写下你的测试文件
+```js
+const RuleTester = require('eslint').RuleTester
+const rule = require('../../../lib/rules/test')
+const tester = new RuleTester({
+  parser: require.resolve('mpx-eslint-parser'),
+  parserOptions: { ecmaVersion: 2015 }
+})
+
+tester.run('test', rule, {
+  valid: [
+    {
+      filename: 'test.mpx',
+      code: '<template><view class="a"><input class="b"></input><view class="c"></view><view class="d"></view></view></template>'
+    }
+  ],
+  invalid: [
+    {
+      filename: 'test.mpx',
+      code: '<script>function a (){ this.b = 1 }</script>',
+      errors: ['wrong']
+    }
+  ]
+})
+
+```
+2. 在lib/rules下写规则的详细，并且在lib/index下导出
+```js
+const utils = require('../utils')
+
+module.exports = {
+  meta: {
+    type: 'problem',
+    docs: {
+      description: 'test file',
+      categories: [''],
+      url: 'https://mpx-ecology.github.io/eslint-plugin-mpx/rules/test.html'
+    },
+    fixable: null,
+    schema: []
+  },
+  /** @param {RuleContext} context */
+  create(context) {
+    return utils.defineTemplateBodyVisitor(context, {
+      /** @param {VDirective} node */
+      "VElement[name='input'] ~ VElement"(node) {
+      }
+    }, {
+      'MemberExpression > ThisExpression'(node) {}
+    })
+  }
+}
+
+```
+
+3. 通过npm run test进行调试
+
 如果您遇到困难，请记住您已经可以学习很多规则，如果您找不到正确的解决方案 - 请不要犹豫，提出issue解决问题。我们很乐意提供帮助！
 
-## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
-
-我们通过 TypeScript 和 JSDoc 启用了类型检查。
-执行类型检查的命令是：`npm run tsc`
-
-这只是为了帮助您编写规则，而不是进行严格的类型检查。 如果您发现难以解决类型检查警告，请随意使用 `// @ts-nocheck` 和 `// @ts-ignore` 注释来抑制警告。
 
 ## :mag: 灵活匹配节点
 
@@ -95,6 +148,38 @@ create(context) {
 }
 ```
 
-## :bricks: 内置工具函数
+## :poop: 内置工具函数
 
-### defineTemplateBodyVisitor
+* [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) （定义模版Visitor）
+
+## <a id="defineTemplateBodyVisitor">定义模版Visitor</a>
+
+
+```js
+/* @param context 解析器的上下文
+ * @param templateBodyVisitor 遍历模板的visitor.
+ * @param [scriptVisitor] 遍历script的visitor.
+ * @returns {RuleListener} 合并的visitor.
+ */
+function defineTemplateBodyVisitor(
+  context: RuleContext,
+  templateBodyVisitor: TemplateListener,
+  scriptVisitor?: RuleListener
+): RuleListener
+
+// example
+create(context) {
+  return defineTemplateBodyVisitor(context, {
+    'VElement'(node) {}
+  }, {
+    'Program'(node) {}
+  }) 
+}
+
+```
+## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
+
+我们通过 TypeScript 和 JSDoc 启用了类型检查。
+执行类型检查的命令是：`npm run tsc`
+
+这只是为了帮助您编写规则，而不是进行严格的类型检查。 如果您发现难以解决类型检查警告，请随意使用 `// @ts-nocheck` 和 `// @ts-ignore` 注释来抑制警告。
