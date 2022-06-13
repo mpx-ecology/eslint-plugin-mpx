@@ -151,6 +151,7 @@ create(context) {
 ## :poop: 内置工具函数
 
 * [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) （定义模版Visitor）
+* [wrapCoreRule](#wrapCoreRule) （Eslint规则适配Template）
 
 ## <a id="defineTemplateBodyVisitor">定义模版Visitor</a>
 
@@ -177,6 +178,50 @@ create(context) {
 }
 
 ```
+
+## <a id="wrapCoreRule">Eslint规则适配Template</a>
+
+```js
+/**
+   * @callback WrapCoreRuleCreate
+   * @param {RuleContext} ruleContext
+   * @param {WrapCoreRuleCreateContext} wrapContext
+   * @returns {TemplateListener}
+   *
+   * @typedef {object} WrapCoreRuleCreateContext
+   * @property {RuleListener} coreHandlers
+   */
+  /**
+   * @callback WrapCoreRulePreprocess
+   * @param {RuleContext} ruleContext
+   * @param {WrapCoreRulePreprocessContext} wrapContext
+   * @returns {void}
+   *
+   * @typedef {object} WrapCoreRulePreprocessContext
+   * @property { (override: Partial<RuleContext>) => RuleContext } wrapContextToOverrideProperties 重写规则的context
+   * @property { (visitor: TemplateListener) => void } defineVisitor 定义template的Visitor
+   */
+  /**
+   * 让eslint core里的规则适用于mpx文件
+   * @param {string} coreRuleName core里的规则名字
+   * @param {Object} [options] 规则配置项
+   * @param {string[]} [options.categories] 规则的类别
+   * @param {boolean} [options.skipDynamicArguments] 如果为true，则跳过动态参数
+   * @param {boolean} [options.skipDynamicArgumentsReport] 如果“true”，则跳过动态参数中的报告。
+   * @param {WrapCoreRulePreprocess} [options.preprocess] 调用核心规则创建的预处理。
+   * @param {WrapCoreRuleCreate} [options.create] 如果定义，则扩展核心规则。
+   * @returns {RuleModule} 包装的规则实现。
+   */
+
+function wrapCoreRule(coreRuleName: string, options: Object): RuleModule
+
+// example
+// eslint-disable-next-line
+module.exports = wrapCoreRule('eqeqeq', {
+  applyDocument: true
+})
+```
+
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
 我们通过 TypeScript 和 JSDoc 启用了类型检查。

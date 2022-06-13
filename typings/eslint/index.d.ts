@@ -352,6 +352,9 @@ export namespace Rule {
 }
 
 export class RuleTester extends ESLintRuleTester {}
+export class Linter {
+  getRules(): Map<string, Rule.RuleModule>
+}
 
 export namespace Linter {
   type LintMessage = ESLintLinter.LintMessage
