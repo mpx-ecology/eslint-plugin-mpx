@@ -25,7 +25,7 @@ tester.run('valid-wx-if', rule, {
   valid: [
     {
       filename: 'test.mpx',
-      code: '<template><view class="a"><input class="b"></input><view class="c"></view><view class="d"></view></view></template>'
+      code: '<template><view class="a"><input class="b" wx:if="{{}}"></input><view class="c"></view><view class="d"></view></view></template>'
     }
   ],
   invalid: [

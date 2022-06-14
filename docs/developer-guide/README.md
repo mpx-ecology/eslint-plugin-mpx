@@ -150,12 +150,17 @@ create(context) {
 
 ## :poop: 内置工具函数
 
-* [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) （定义模版Visitor）
-* [wrapCoreRule](#wrapCoreRule) （Eslint规则适配Template）
+* [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) (定义模版Visitor)
+* [wrapCoreRule](#wrapCoreRule) (Eslint规则适配Template)
+* [isDef](#isDef) (检查给定值是否已定义)
+* [prevSibling](#prevSibling) (获取给定元素的前一个兄弟元素)
+* [hasAttribute](#hasAttribute) (检查给定的开始标签是否有特定的属性)
+* [hasDirective](#hasDirective) (检查给定的开始标签是否有特定的指令)
+* [isEmptyValueDirective](#isEmptyValueDirective) (检查给定的指令属性是否具有空值(`=""`))
+<a id="defineTemplateBodyVisitor"></a>
+<br />
 
-## <a id="defineTemplateBodyVisitor">定义模版Visitor</a>
-
-
+### defineTemplateBodyVisitor
 ```js
 /* @param context 解析器的上下文
  * @param templateBodyVisitor 遍历模板的visitor.
@@ -176,11 +181,11 @@ create(context) {
     'Program'(node) {}
   }) 
 }
-
 ```
+<a id="wrapCoreRule"></a>
+<br />
 
-## <a id="wrapCoreRule">Eslint规则适配Template</a>
-
+### wrapCoreRule
 ```js
 /**
    * @callback WrapCoreRuleCreate
@@ -221,6 +226,99 @@ module.exports = wrapCoreRule('eqeqeq', {
   applyDocument: true
 })
 ```
+<a id="isDef"></a>
+<br />
+
+### isDef
+
+```js
+/**
+ * 检查给定值是否已定义。
+ * @template T
+ * @param {T | null | undefined} v
+ * @returns {v is T}
+ */
+function isDef<T>(v:T | null | undefined): T
+
+// example
+isDef({ node })
+
+```
+<a id="prevSibling"></a>
+<br />
+
+### prevSibling
+```js
+/**
+ * 获取给定元素的前一个兄弟元素。
+ * @param {VElement} node 获取上一个兄弟元素的元素节点。
+ * @returns {VElement|null} 上一个兄弟元素。
+ */
+function prevSibling(node: VElement): VElement|null
+
+// example
+prevSibling(node)
+```
+
+<a id="hasAttribute"></a>
+<br />
+
+### hasAttribute
+
+```js
+/**
+ * 检查给定的开始标签是否有特定的属性。
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的属性名称。
+ * @param {string} [value] 要检查的属性值。
+ * @returns {boolean} `true`代表开始标签具有属性。
+ */
+function hasAttribute(node:VElement, name:string, value?:string): boolean 
+
+// example
+// <view class="item"></view>
+hasAttribute(node, 'class', 'item') => true
+```
+
+<a id="hasDirective"></a>
+<br />
+
+### hasDirective
+```js
+/**
+ * 检查给定的开始标签是否有特定的指令。
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的指令名称。
+ * @param {string} [argument] 要检查的指令参数。
+ * @returns {boolean} `true`代表开始标签具有指令。
+ */
+function hasDirective(node:VElement, name:string, argument?:string): boolean
+
+// example
+// <view wx:if="a"></view>
+hasDirective(node, 'if') => true
+```
+<a id="isEmptyValueDirective"></a>
+<br />
+
+### isEmptyValueDirective
+```js
+/**
+ * 检查给定的指令属性是否具有空值（`=""`）。
+ * @param {VDirective} node 要检查的指令属性节点。
+ * @param {RuleContext} context 使用解析器服务的规则上下文。
+ * @returns {boolean} `true` 代表指令属性的值为空（`=""`）。
+ */
+function isEmptyValueDirective(node:VDirective, context:RuleContext): boolean
+
+// example
+isEmptyValueDirective(node, context)
+// wx:if="" => true
+// wx:if="{{}}" => true
+// wx:if="{{a}}" => false
+```
+
+
 
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
