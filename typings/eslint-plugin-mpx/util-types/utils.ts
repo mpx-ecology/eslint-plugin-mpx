@@ -27,3 +27,11 @@ export interface VueVisitor extends VueVisitorBase {
     | ((node: VAST.ParamNode, obj: VueObjectData) => void)
     | undefined
 }
+
+export type ComponentUnknownProp = {
+  type: 'unknown'
+  key: null
+  propName: null
+  value: null
+  node: Expression | SpreadElement | null
+}

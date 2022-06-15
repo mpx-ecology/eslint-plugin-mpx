@@ -12,27 +12,35 @@
 const assert = require('assert')
 const path = require('path')
 const Module = require('module')
-const eslint = require('eslint')
+const { ESLint } = require('../../eslint-compat')
 
 // -----------------------------------------------------------------------------
 // Tests
 // -----------------------------------------------------------------------------
 
 // Initialize linter.
-const linter = new eslint.CLIEngine({
-  parser: require.resolve('mpx-eslint-parser'),
-  parserOptions: {
-    ecmaVersion: 2015
+const eslint = new ESLint({
+  overrideConfig: {
+    parser: require.resolve('mpx-eslint-parser'),
+    parserOptions: {
+      ecmaVersion: 2015
+    },
+    plugins: ['mpx'],
+    rules: {
+      'no-unused-vars': 'error',
+      'mpx/comment-directive': 'error',
+      'mpx/no-parsing-error': 'error',
+      'mpx/no-duplicate-attributes': 'error'
+    }
   },
-  plugins: ['mpx'],
-  rules: {
-    'no-unused-vars': 'error',
-    'mpx/comment-directive': 'error',
-    'mpx/no-parsing-error': 'error',
-    'mpx/no-duplicate-attributes': 'error'
-  },
-  useEslintrc: false
+  useEslintrc: false,
+  plugins: { mpx: require('../../../lib/index') }
 })
+
+async function lintMessages(code) {
+  const result = await eslint.lintText(code, { filePath: 'test.mpx' })
+  return result[0].messages
+}
 
 describe('comment-directive', () => {
   // Preparation.
@@ -51,33 +59,31 @@ describe('comment-directive', () => {
   })
 
   describe('eslint-disable/eslint-enable', () => {
-    it('disable all rules if <!-- eslint-disable -->', () => {
+    it('disable all rules if <!-- eslint-disable -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
       assert.deepEqual(messages.length, 0)
     })
 
-    it('disable specific rules if <!-- eslint-disable mpx/no-duplicate-attributes -->', () => {
+    it('disable specific rules if <!-- eslint-disable mpx/no-duplicate-attributes -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable mpx/no-duplicate-attributes -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
     })
 
-    it('enable all rules if <!-- eslint-enable -->', () => {
+    it('enable all rules if <!-- eslint-enable -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
@@ -86,8 +92,7 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -96,7 +101,7 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[1].line, 6)
     })
 
-    it('enable specific rules if <!-- eslint-enable mpx/no-duplicate-attributes -->', () => {
+    it('enable specific rules if <!-- eslint-enable mpx/no-duplicate-attributes -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable mpx/no-parsing-error, mpx/no-duplicate-attributes -->
@@ -105,15 +110,14 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-duplicate-attributes')
       assert.deepEqual(messages[0].line, 6)
     })
 
-    it('should not affect to the code in <script>.', () => {
+    it('should not affect to the code in <script>.', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
@@ -123,54 +127,50 @@ describe('comment-directive', () => {
           var a
         </script>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.strictEqual(messages.length, 1)
       assert.strictEqual(messages[0].ruleId, 'no-unused-vars')
     })
 
-    it('disable specific rules if <!-- eslint-disable mpx/no-duplicate-attributes ,, , mpx/no-parsing-error -->', () => {
+    it('disable specific rules if <!-- eslint-disable mpx/no-duplicate-attributes ,, , mpx/no-parsing-error -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable mpx/no-duplicate-attributes ,, , mpx/no-parsing-error -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
   })
 
   describe('eslint-disable-line', () => {
-    it('disable all rules if <!-- eslint-disable-line -->', () => {
+    it('disable all rules if <!-- eslint-disable-line -->', async () => {
       const code = `
         <template>
           <div id id="a">Hello</div> <!-- eslint-disable-line -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('disable specific rules if <!-- eslint-disable-line mpx/no-duplicate-attributes -->', () => {
+    it('disable specific rules if <!-- eslint-disable-line mpx/no-duplicate-attributes -->', async () => {
       const code = `
         <template>
           <div id id="a">Hello</div> <!-- eslint-disable-line mpx/no-duplicate-attributes -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
     })
 
-    it("don't disable rules if <!-- eslint-disable-line --> is on another line", () => {
+    it("don't disable rules if <!-- eslint-disable-line --> is on another line", async () => {
       const code = `
         <template>
           <!-- eslint-disable-line -->
@@ -178,8 +178,7 @@ describe('comment-directive', () => {
           <!-- eslint-disable-line -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -188,34 +187,32 @@ describe('comment-directive', () => {
   })
 
   describe('eslint-disable-next-line', () => {
-    it('disable all rules if <!-- eslint-disable-next-line -->', () => {
+    it('disable all rules if <!-- eslint-disable-next-line -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('disable specific rules if <!-- eslint-disable-next-line mpx/no-duplicate-attributes -->', () => {
+    it('disable specific rules if <!-- eslint-disable-next-line mpx/no-duplicate-attributes -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line mpx/no-duplicate-attributes -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
     })
 
-    it("don't disable rules if <!-- eslint-disable-next-line --> is on another line", () => {
+    it("don't disable rules if <!-- eslint-disable-next-line --> is on another line", async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line -->
@@ -224,15 +221,14 @@ describe('comment-directive', () => {
           <!-- eslint-disable-next-line -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
       assert.deepEqual(messages[1].ruleId, 'mpx/no-duplicate-attributes')
     })
 
-    it('should affect only the next line', () => {
+    it('should affect only the next line', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line mpx/no-parsing-error, mpx/no-duplicate-attributes -->
@@ -240,8 +236,7 @@ describe('comment-directive', () => {
           <div id id="b">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -252,20 +247,19 @@ describe('comment-directive', () => {
   })
 
   describe('allow description', () => {
-    it('disable all rules if <!-- eslint-disable -- description -->', () => {
+    it('disable all rules if <!-- eslint-disable -- description -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -- description -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('enable all rules if <!-- eslint-enable -- description -->', () => {
+    it('enable all rules if <!-- eslint-enable -- description -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -- description -->
@@ -274,8 +268,7 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -284,7 +277,7 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[1].line, 6)
     })
 
-    it('enable specific rules if <!-- eslint-enable mpx/no-duplicate-attributes -- description -->', () => {
+    it('enable specific rules if <!-- eslint-enable mpx/no-duplicate-attributes -- description -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable mpx/no-parsing-error, mpx/no-duplicate-attributes -- description -->
@@ -293,61 +286,56 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-duplicate-attributes')
       assert.deepEqual(messages[0].line, 6)
     })
 
-    it('disable all rules if <!-- eslint-disable-line -- description -->', () => {
+    it('disable all rules if <!-- eslint-disable-line -- description -->', async () => {
       const code = `
         <template>
           <div id id="a">Hello</div> <!-- eslint-disable-line -- description -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('disable specific rules if <!-- eslint-disable-line mpx/no-duplicate-attributes -- description -->', () => {
+    it('disable specific rules if <!-- eslint-disable-line mpx/no-duplicate-attributes -- description -->', async () => {
       const code = `
         <template>
           <div id id="a">Hello</div> <!-- eslint-disable-line mpx/no-duplicate-attributes -- description -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
     })
 
-    it('disable all rules if <!-- eslint-disable-next-line -- description -->', () => {
+    it('disable all rules if <!-- eslint-disable-next-line -- description -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line -- description -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('disable specific rules if <!-- eslint-disable-next-line mpx/no-duplicate-attributes -->', () => {
+    it('disable specific rules if <!-- eslint-disable-next-line mpx/no-duplicate-attributes -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line mpx/no-duplicate-attributes -- description -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -355,20 +343,19 @@ describe('comment-directive', () => {
   })
 
   describe('block level directive', () => {
-    it('disable all rules if <!-- eslint-disable -->', () => {
+    it('disable all rules if <!-- eslint-disable -->', async () => {
       const code = `
         <!-- eslint-disable -->
         <template>
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it("don't disable rules if <!-- eslint-disable --> is on after block", () => {
+    it("don't disable rules if <!-- eslint-disable --> is on after block", async () => {
       const code = `
         <!-- eslint-disable -->
         <i18n>
@@ -377,8 +364,7 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
       assert.deepEqual(messages[0].ruleId, 'mpx/no-parsing-error')
@@ -387,32 +373,39 @@ describe('comment-directive', () => {
   })
 
   describe('reportUnusedDisableDirectives', () => {
-    const linter = new eslint.CLIEngine({
-      parser: require.resolve('mpx-eslint-parser'),
-      parserOptions: {
-        ecmaVersion: 2015
-      },
-      plugins: ['mpx'],
-      rules: {
-        'no-unused-vars': 'error',
-        'mpx/comment-directive': [
-          'error',
-          { reportUnusedDisableDirectives: true }
-        ],
-        'mpx/no-parsing-error': 'error',
-        'mpx/no-duplicate-attributes': 'error'
+    const eslint = new ESLint({
+      overrideConfig: {
+        parser: require.resolve('mpx-eslint-parser'),
+        parserOptions: {
+          ecmaVersion: 2015
+        },
+        plugins: ['mpx'],
+        rules: {
+          'no-unused-vars': 'error',
+          'mpx/comment-directive': [
+            'error',
+            { reportUnusedDisableDirectives: true }
+          ],
+          'mpx/no-parsing-error': 'error',
+          'mpx/no-duplicate-attributes': 'error'
+        }
       },
       useEslintrc: false
     })
-    it('report unused <!-- eslint-disable -->', () => {
+
+    async function lintMessages(code) {
+      const result = await eslint.lintText(code, { filePath: 'test.mpx' })
+      return result[0].messages
+    }
+
+    it('report unused <!-- eslint-disable -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
           <div id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/comment-directive')
@@ -424,19 +417,18 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[0].column, 11)
     })
 
-    it('dont report unused <!-- eslint-disable -->', () => {
+    it('dont report unused <!-- eslint-disable -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
-    it('disable and report unused <!-- eslint-disable -->', () => {
+    it('disable and report unused <!-- eslint-disable -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
@@ -446,8 +438,7 @@ describe('comment-directive', () => {
           <div id="b">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 1)
       assert.deepEqual(messages[0].ruleId, 'mpx/comment-directive')
@@ -459,15 +450,14 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[0].column, 11)
     })
 
-    it('report unused <!-- eslint-disable mpx/no-duplicate-attributes, mpx/no-parsing-error -->', () => {
+    it('report unused <!-- eslint-disable mpx/no-duplicate-attributes, mpx/no-parsing-error -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable mpx/no-duplicate-attributes, mpx/no-parsing-error -->
           <div id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 2)
 
@@ -488,7 +478,7 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[1].column, 60)
     })
 
-    it('report unused <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->', () => {
+    it('report unused <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->
@@ -496,8 +486,7 @@ describe('comment-directive', () => {
           <div id id="b">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 4)
 
@@ -523,20 +512,19 @@ describe('comment-directive', () => {
       assert.deepEqual(messages[3].line, 5)
     })
 
-    it('dont report used <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->', () => {
+    it('dont report used <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->', async () => {
       const code = `
         <template>
           <!-- eslint-disable-next-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->
           <div id id="a">Hello</div>
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })
 
-    it('dont report used, with duplicate eslint-disable', () => {
+    it('dont report used, with duplicate eslint-disable', async () => {
       const code = `
         <template>
           <!-- eslint-disable -->
@@ -544,8 +532,7 @@ describe('comment-directive', () => {
           <div id id="a">Hello</div><!-- eslint-disable-line mpx/no-duplicate-attributes, mpx/no-parsing-error -->
         </template>
       `
-      const messages = linter.executeOnText(code, 'test.mpx').results[0]
-        .messages
+      const messages = await lintMessages(code)
 
       assert.deepEqual(messages.length, 0)
     })

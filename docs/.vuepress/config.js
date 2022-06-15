@@ -5,6 +5,7 @@
 'use strict'
 
 const rules = require('../../tools/lib/rules')
+const path = require('path')
 
 const uncategorizedRules = rules.filter(
   (rule) =>
@@ -93,7 +94,16 @@ module.exports = {
     return {
       resolve: {
         alias: {
-          module: require.resolve('./shim/module')
+          module: require.resolve('./shim/module'),
+          eslint$: require.resolve('./shim/eslint'),
+          esquery: path.resolve(
+            __dirname,
+            '../../node_modules/esquery/dist/esquery.min.js'
+          ),
+          '@eslint/eslintrc/universal': path.resolve(
+            __dirname,
+            '../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs'
+          )
         }
       }
     }

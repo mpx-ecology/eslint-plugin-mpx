@@ -52,10 +52,10 @@ description: 强制执行有效的 `wx:if` 指令
 
 ## :couple: 相关规则
 
-- [vue/valid-wx-else]
+- [mpx/valid-wx-else]
 - [mpx/valid-wx-elif]
 
-[vue/valid-wx-else]: ./valid-wx-else.md
+[mpx/valid-wx-else]: ./valid-wx-else.md
 [mpx/valid-wx-elif]: ./valid-wx-elif.md
 
 ## :mag: 具体实现

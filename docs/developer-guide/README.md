@@ -157,6 +157,8 @@ create(context) {
 * [hasAttribute](#hasAttribute) (检查给定的开始标签是否有特定的属性)
 * [hasDirective](#hasDirective) (检查给定的开始标签是否有特定的指令)
 * [isEmptyValueDirective](#isEmptyValueDirective) (检查给定的指令属性是否具有空值(`=""`))
+* [isEmptyExpressionValueDirective](#isEmptyExpressionValueDirective) ()
+* [getAttribute](#getAttribute) ()
 <a id="defineTemplateBodyVisitor"></a>
 <br />
 
@@ -304,7 +306,7 @@ hasDirective(node, 'if') => true
 ### isEmptyValueDirective
 ```js
 /**
- * 检查给定的指令属性是否具有空值（`=""`）。
+ * 检查给定的指令属性是否具有空值（`=""、="{{}}"`）。
  * @param {VDirective} node 要检查的指令属性节点。
  * @param {RuleContext} context 使用解析器服务的规则上下文。
  * @returns {boolean} `true` 代表指令属性的值为空（`=""`）。
@@ -317,9 +319,58 @@ isEmptyValueDirective(node, context)
 // wx:if="{{}}" => true
 // wx:if="{{a}}" => false
 ```
+<a id="isEmptyExpressionValueDirective"></a>
+<br />
 
+### isEmptyExpressionValueDirective
+```js
+/**
+ * 检查给定的指令属性是否有它们的空表达式值（例如`=""`）。
+ * @param {VDirective} node 要检查的指令属性节点。
+ * @param {RuleContext} context T使用解析器服务的规则上下文。
+ * @returns {boolean} `true` 如果指令属性的表达式值为空。
+ */
+function isEmptyExpressionValueDirective(node:VDirective, context:RuleContext): boolean
 
+// example
+isEmptyExpressionValueDirective(node, context)
+// wx:if="" => true
+// 方法待改进
+```
+<a id="getAttribute"></a>
+<br />
 
+### getAttribute
+```js
+/**
+ * 获取具有给定名称的属性。
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的属性名称。
+ * @param {string} [value] 要检查的属性值。
+ * @returns {VAttribute | null} 找到的属性。
+ */
+function getAttribute(node:VElement, name:string, value:string):VAttribute|null {
+
+// example
+getAttribute(node, 'class', 'item') => VAttribute
+```
+<a id="getAttribute"></a>
+<br />
+
+### getDirectives
+```js
+/**
+ * 获取具有给定名称的属性。
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的属性名称。
+ * @param {string} [value] 要检查的属性值。
+ * @returns {VAttribute | null} 找到的属性。
+ */
+function getDirectives(node:VElement, name:string, value:string):VAttribute|null {
+
+// example
+getDirectives(node, 'class', 'item') => VAttribute
+```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
 我们通过 TypeScript 和 JSDoc 启用了类型检查。

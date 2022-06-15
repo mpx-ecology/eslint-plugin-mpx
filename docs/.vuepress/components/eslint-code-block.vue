@@ -38,7 +38,7 @@ export default {
     },
     filename: {
       type: String,
-      default: 'example.vue'
+      default: 'example.mpx'
     },
     language: {
       type: String,
@@ -89,7 +89,7 @@ export default {
         rules: this.rules,
         parser: 'mpx-eslint-parser',
         parserOptions: {
-          ecmaVersion: 2020,
+          ecmaVersion: 'latest',
           sourceType: 'module',
           ecmaFeatures: {
             jsx: true
@@ -121,8 +121,8 @@ export default {
 
   async mounted() {
     // Load linter.
-    const [{ default: Linter }, { parseForESLint }] = await Promise.all([
-      import('eslint4b/dist/linter'),
+    const [{ Linter }, { parseForESLint }] = await Promise.all([
+      import('eslint/lib/linter'),
       import('espree').then(() => import('mpx-eslint-parser'))
     ])
 
