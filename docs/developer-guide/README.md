@@ -148,7 +148,7 @@ create(context) {
 }
 ```
 
-## :poop: 内置工具函数
+## :zap: 内置工具函数
 
 * [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) (定义模版Visitor)
 * [wrapCoreRule](#wrapCoreRule) (Eslint规则适配Template)
@@ -163,6 +163,7 @@ create(context) {
 <br />
 
 ### defineTemplateBodyVisitor
+> 定义模版Visitor,匹配template和js的节点进行规则处理
 ```js
 /* @param context 解析器的上下文
  * @param templateBodyVisitor 遍历模板的visitor.
@@ -188,6 +189,7 @@ create(context) {
 <br />
 
 ### wrapCoreRule
+> Eslint规则适配Template,可以让eslint规则检测tempalte中的表达式
 ```js
 /**
    * @callback WrapCoreRuleCreate
@@ -232,10 +234,9 @@ module.exports = wrapCoreRule('eqeqeq', {
 <br />
 
 ### isDef
-
+> 检查给定值是否已定义。
 ```js
 /**
- * 检查给定值是否已定义。
  * @template T
  * @param {T | null | undefined} v
  * @returns {v is T}
@@ -250,9 +251,9 @@ isDef({ node })
 <br />
 
 ### prevSibling
+> 获取给定元素的前一个兄弟元素。
 ```js
 /**
- * 获取给定元素的前一个兄弟元素。
  * @param {VElement} node 获取上一个兄弟元素的元素节点。
  * @returns {VElement|null} 上一个兄弟元素。
  */
@@ -266,10 +267,9 @@ prevSibling(node)
 <br />
 
 ### hasAttribute
-
+> 检查给定的开始标签是否有特定的属性。
 ```js
 /**
- * 检查给定的开始标签是否有特定的属性。
  * @param {VElement} node 要检查的开始标记节点。
  * @param {string} name 要检查的属性名称。
  * @param {string} [value] 要检查的属性值。
@@ -286,9 +286,9 @@ hasAttribute(node, 'class', 'item') => true
 <br />
 
 ### hasDirective
+> 检查给定的开始标签是否有特定的指令。
 ```js
 /**
- * 检查给定的开始标签是否有特定的指令。
  * @param {VElement} node 要检查的开始标记节点。
  * @param {string} name 要检查的指令名称。
  * @param {string} [argument] 要检查的指令参数。
@@ -304,9 +304,9 @@ hasDirective(node, 'if') => true
 <br />
 
 ### isEmptyValueDirective
+> 检查给定的指令属性是否具有空值（`=""、="{{}}"`）。
 ```js
 /**
- * 检查给定的指令属性是否具有空值（`=""、="{{}}"`）。
  * @param {VDirective} node 要检查的指令属性节点。
  * @param {RuleContext} context 使用解析器服务的规则上下文。
  * @returns {boolean} `true` 代表指令属性的值为空（`=""`）。
@@ -323,9 +323,9 @@ isEmptyValueDirective(node, context)
 <br />
 
 ### isEmptyExpressionValueDirective
+> 检查给定的指令属性是否有它们的空表达式值（例如`=""`）。
 ```js
 /**
- * 检查给定的指令属性是否有它们的空表达式值（例如`=""`）。
  * @param {VDirective} node 要检查的指令属性节点。
  * @param {RuleContext} context T使用解析器服务的规则上下文。
  * @returns {boolean} `true` 如果指令属性的表达式值为空。
@@ -341,9 +341,9 @@ isEmptyExpressionValueDirective(node, context)
 <br />
 
 ### getAttribute
+> 获取具有给定名称的属性。
 ```js
 /**
- * 获取具有给定名称的属性。
  * @param {VElement} node 要检查的开始标记节点。
  * @param {string} name 要检查的属性名称。
  * @param {string} [value] 要检查的属性值。
@@ -354,22 +354,203 @@ function getAttribute(node:VElement, name:string, value:string):VAttribute|null 
 // example
 getAttribute(node, 'class', 'item') => VAttribute
 ```
-<a id="getAttribute"></a>
+<a id="getDirective"></a>
 <br />
 
-### getDirectives
+### getDirective
+> 获取具有给定名称的属性。
 ```js
 /**
- * 获取具有给定名称的属性。
  * @param {VElement} node 要检查的开始标记节点。
  * @param {string} name 要检查的属性名称。
  * @param {string} [value] 要检查的属性值。
  * @returns {VAttribute | null} 找到的属性。
  */
-function getDirectives(node:VElement, name:string, value:string):VAttribute|null {
+function getDirective(node:VElement, name:string, value?:string):VAttribute|null {
 
 // example
-getDirectives(node, 'class', 'item') => VAttribute
+getDirective(node, 'if', 'a') => VAttribute
+```
+<a id="getDirectives"></a>
+<br />
+
+### getDirectives
+> 获取具有给定名称的指令列表。
+```js
+/**
+ * @param {VElement | VStartTag} node 要检查的开始标记节点。
+ * @param {string} name 要检查的指令名称。
+ * @returns {VDirective[]} 指令的数组。
+ */
+function getDirectives(node:VElement| VStartTag, name:string):VDirective[] {
+
+// example
+getDirectives(node, 'if')
+```
+<a id="prevElementHasIf"></a>
+<br />
+
+### prevElementHasIf
+> 检查前一个兄弟元素是否有 `if` 或 `elif` 指令。
+```js
+ /**
+   * @param {VElement} node 要检查的元素节点。
+   * @returns {boolean} 如果前一个兄弟元素有 `if` 或 `elif` 指令，则为 `true`。
+   */
+function prevElementHasIf(node:VElement): boolean
+
+// example
+prevElementHasIf(node)
+// <view></view> => false
+// <view wx:if="{{a}}"></view> => false
+// <view wx:elif="{{b}}"></view> => true
+```
+<a id="isCustomComponent"></a>
+<br />
+
+### isCustomComponent
+> 检查给定节点是否是自定义组件。
+```js
+/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @returns {boolean} `true` 如果节点是自定义组件。
+ */
+function isCustomComponent(node: VElement): boolean
+
+// example
+isCustomComponent(node)
+// <component is="a" /> => true
+```
+<a id="isMpElementName"></a>
+<br />
+
+### isMpElementName
+> 检查给定名称是否是小程序元素。
+```js
+/**
+  * @param {string} name 要检查的名称。
+  * @returns {boolean} `true` 如果名称是小程序元素名称。
+  */
+function isMpElementName(name:string)
+
+// example
+isMpElementName('view') => true
+```
+<a id="getStaticPropertyName"></a>
+<br />
+
+### getStaticPropertyName
+> 获取给定节点的属性名称。
+```js
+/**
+ * @param {Property|AssignmentProperty|MethodDefinition|MemberExpression} node - 要获取的节点。
+ * @return {string|null} 属性名称（如果是静态的）。 否则为空。
+ */
+function getStaticPropertyName(node: Property|AssignmentProperty|MethodDefinition|MemberExpression): string|null
+
+// example
+<script>
+  createComponent({
+    computed: { // getStaticPropertyName(node) => computed
+      foo: function () {} // getStaticPropertyName(node) => foo
+    }
+  })
+</script>
+```
+<a id="getStringLiteralValue"></a>
+<br />
+
+### getStringLiteralValue
+> 获取给定节点的字符串。
+```js
+ /**
+   * @param {Literal|TemplateLiteral} node - 要获取的节点。
+   * @return {string|null} 如果是静态的，则为字符串。 否则为空。
+   */
+function getStringLiteralValue(node: Literal|TemplateLiteral): string|null
+
+// example
+<script>
+  function a() {
+    return true // getStringLiteralValue(node) true
+        ? 1 // getStringLiteralValue(node) 1
+        : 2 // getStringLiteralValue(node) 2
+  }
+</script>
+```
+<a id="getComponentPropsFromOptions"></a>
+<br />
+
+### getComponentPropsFromOptions
+> 通过查看所有组件的属性来获取所有道具
+```js
+/**
+ * @param {ObjectExpression} componentObject 具有组件定义的对象
+ * @return {(ComponentArrayProp | ComponentObjectProp | ComponentUnknownProp)[]} 组件道具数组
+ */
+function getComponentPropsFromOptions(componentObject: ObjectExpression): (ComponentArrayProp | ComponentObjectProp | ComponentUnknownProp)[]
+
+// example
+createComponent({
+  properties: {
+    a: String // getComponentPropsFromOptions(node) => [propertiesNode...]
+  }
+})
+```
+<a id="getComputedProperties"></a>
+<br />
+
+### getComputedProperties
+> 通过查看所有组件的属性来获取所有计算属性
+```js
+/**
+ * @param {ObjectExpression} componentObject 具有组件定义的对象
+ * @return {ComponentComputedProperty[]} 计算属性数组，格式为：[{key: String, value: ASTNode}]
+ */
+function getComputedProperties(componentObject:ObjectExpression): ComponentComputedProperty[]
+
+// example
+createComponent({
+  computed: {
+    foo() {} // getComponentPropsFromOptions(node) => [fooNode]
+  }
+})
+```
+<a id="isMpxFile"></a>
+<br />
+
+### isMpxFile
+> 检测文件是不是.mpx后缀的文件
+```js
+/**
+ * @param {string} path 文件路径
+ * @return {boolean} 如果是mpx文件则为true否则为fasle
+ */
+function isMpxFile(path:string): boolean
+
+// example
+isMpxFile('/src/index.mpx') => true
+```
+<a id="compositingVisitors"></a>
+<br />
+
+### compositingVisitors
+> 合并Visitors
+```js
+/**
+ * @template T
+ * @param {T} visitor
+ * @param {...(TemplateListener | RuleListener | NodeListener)} visitors
+ * @returns {T}
+ */
+function compositingVisitors(visitor:T,...visitors:): T
+
+// example
+compositingVisitors({
+  'VElement'(node) { /* doSomething */ }
+},{
+  'VElement'(node) { /* doSomething */ }
+}) => true
 ```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 

@@ -26,6 +26,25 @@ tester.run('valid-wx-if', rule, {
     {
       filename: 'test.mpx',
       code: '<template><view class="a"><input class="b" wx:if="/* &ast;/"></input><view class="c"></view><view class="d"></view></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script>
+        createComponent({
+          props: {
+            aa: String
+          },
+          properties: {
+            a: String
+          },
+          computed: {
+            foo: function () {
+              return true ? 1 : 2 
+            }
+          }
+        })
+      </script>`,
     }
   ],
   invalid: [
