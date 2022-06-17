@@ -24,7 +24,7 @@ const ruleTester = new RuleTester()
 ruleTester.run('no-side-effects-in-computed-properties', rule, {
   valid: [
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         ...foo,
         computed: {
           ...test0({}),
@@ -105,7 +105,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       parserOptions
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           ...mapGetters(['example']),
           test1() {
@@ -124,7 +124,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       parserOptions
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         name: 'something',
         data() {
           return {}
@@ -133,7 +133,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       parserOptions
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test () {
             let a;
@@ -145,7 +145,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       parserOptions
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test () {
             return {
@@ -165,7 +165,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       parserOptions
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test () {
             return this.something['a']().reverse()
@@ -176,7 +176,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
     },
     {
       code: `const test = { el: '#app' }
-        Vue.component('test', {
+        createComponent({
         el: test.el
       })`,
       parserOptions
@@ -184,7 +184,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
   ],
   invalid: [
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test1() {
             this.firstName = 'lorem'
@@ -245,7 +245,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       ]
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test1: {
             get() {
@@ -301,9 +301,9 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       ]
     },
     {
-      filename: 'test.vue',
+      filename: 'test.mpx',
       code: `
-        export default Vue.extend({
+        createComponent({
           computed: {
             test1() : string {
               return this.something.reverse()
@@ -322,7 +322,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
     },
 
     {
-      code: `app.component('test', {
+      code: `mpx.createComponent({
         computed: {
           test1() {
             this.firstName = 'lorem'
@@ -340,7 +340,7 @@ ruleTester.run('no-side-effects-in-computed-properties', rule, {
       ]
     },
     {
-      code: `Vue.component('test', {
+      code: `createComponent({
         computed: {
           test1() {
             return this?.something?.reverse?.()

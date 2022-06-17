@@ -1,30 +1,30 @@
 import * as VAST from './ast'
-export type VueObjectType = 'mark' | 'export' | 'definition' | 'instance'
-export type VueObjectData = {
+export type MpxObjectType = 'createApp' | 'createPage' | 'createComponent'
+export type MpxObjectData = {
   node: ObjectExpression
-  type: VueObjectType
-  parent: VueObjectData | null
+  type: MpxObjectType
+  parent: MpxObjectData | null
   functional: boolean
 }
 type VueVisitorBase = {
   [T in keyof NodeListenerMap]?: (
     node: NodeListenerMap[T],
-    obj: VueObjectData
+    obj: MpxObjectData
   ) => void
 }
 export interface VueVisitor extends VueVisitorBase {
-  onVueObjectEnter?(node: ObjectExpression, obj: VueObjectData): void
-  onVueObjectExit?(node: ObjectExpression, obj: VueObjectData): void
+  onVueObjectEnter?(node: ObjectExpression, obj: MpxObjectData): void
+  onVueObjectExit?(node: ObjectExpression, obj: MpxObjectData): void
   onSetupFunctionEnter?(
     node: (FunctionExpression | ArrowFunctionExpression) & { parent: Property },
-    obj: VueObjectData
+    obj: MpxObjectData
   ): void
   onRenderFunctionEnter?(
     node: (FunctionExpression | ArrowFunctionExpression) & { parent: Property },
-    obj: VueObjectData
+    obj: MpxObjectData
   ): void
   [query: string]:
-    | ((node: VAST.ParamNode, obj: VueObjectData) => void)
+    | ((node: VAST.ParamNode, obj: MpxObjectData) => void)
     | undefined
 }
 

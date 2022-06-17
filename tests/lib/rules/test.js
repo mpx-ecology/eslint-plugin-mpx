@@ -18,7 +18,7 @@ const rule = require('../../../lib/rules/test')
 
 const tester = new RuleTester({
   parser: require.resolve('mpx-eslint-parser'),
-  parserOptions: { ecmaVersion: 2015 }
+  parserOptions: { ecmaVersion: 2020, sourceType: 'module' }
 })
 
 tester.run('valid-wx-if', rule, {

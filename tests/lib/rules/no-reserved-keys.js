@@ -120,7 +120,7 @@ ruleTester.run('no-reserved-keys', rule, {
 
   invalid: [
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           properties: {
@@ -137,7 +137,7 @@ ruleTester.run('no-reserved-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           setup () {
@@ -156,7 +156,7 @@ ruleTester.run('no-reserved-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           data: {
@@ -173,7 +173,7 @@ ruleTester.run('no-reserved-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           data: () => {
@@ -192,7 +192,7 @@ ruleTester.run('no-reserved-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           data: () => ({
@@ -209,7 +209,7 @@ ruleTester.run('no-reserved-keys', rule, {
       ]
     },
     {
-      filename: 'test.js',
+      filename: 'test.mpx',
       code: `
         createComponent({
           foo: {
