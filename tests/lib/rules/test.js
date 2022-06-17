@@ -31,6 +31,7 @@ tester.run('valid-wx-if', rule, {
       filename: 'test.mpx',
       code: `
       <script>
+        import { createComponent } from '@mpxjs/core';
         createComponent({
           props: {
             aa: String

@@ -360,7 +360,7 @@ describe('getComponentProps', () => {
       data() {
         return {}
       },
-      props: ['a', b, \`c\`, null]
+      properties: ['a', b, \`c\`, null]
     }`)
 
     assert.equal(props.length, 4, 'it detects all props')
