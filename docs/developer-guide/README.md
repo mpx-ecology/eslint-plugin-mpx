@@ -552,6 +552,82 @@ compositingVisitors({
   'VElement'(node) { /* doSomething */ }
 }) => true
 ```
+<a id="executeOnMpx"></a>
+<br />
+
+### executeOnMpx
+> 检测当前文件是否是mpx文件且是创建mpx方法
+```js
+/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) => void } cb 回调函数
+  */
+function executeOnMpx(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
+
+// example
+executeOnMpx(context, (node, type) => {})
+```
+<a id="excuteOnMpxCreateApp"></a>
+<br />
+
+### excuteOnMpxCreateApp
+> 检测是否是在createApp函数并且执行callback
+```js
+/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) => void } cb 回调函数
+  */
+function excuteOnMpxCreateApp(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
+
+// example
+excuteOnMpxCreateApp(context, (node, type) => {})
+```
+<a id="excuteOnMpxCreateComponent"></a>
+<br />
+
+### excuteOnMpxCreateComponent
+> 检测是否是在createComponent函数并且执行callback
+```js
+/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) => void } cb 回调函数
+  */
+function excuteOnMpxCreateComponent(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
+
+// example
+excuteOnMpxCreateComponent(context, (node, type) => {})
+```
+<a id="excuteOnMpxCreatePage"></a>
+<br />
+
+### excuteOnMpxCreatePage
+>  检测是否是在createPage函数并且执行callback
+```js
+/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) => void } cb 回调函数
+  */
+function excuteOnMpxCreatePage(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
+
+// example
+excuteOnMpxCreatePage(context, (node, type) => {})
+```
+<a id="getMpxObjectType"></a>
+<br />
+
+### getMpxObjectType
+>  如果是在创建mpx实例，则返回内部对象
+```js
+/**
+  * @param {ObjectExpression} node 检测的节点
+  * @returns { MpxObjectType | null } Mpx定义的节点
+  */
+function getMpxObjectType(node: ObjectExpression): MpxObjectType | null 
+
+// example
+getMpxObjectType(node)
+```
+
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
 我们通过 TypeScript 和 JSDoc 启用了类型检查。
