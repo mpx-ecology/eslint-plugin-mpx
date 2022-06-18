@@ -6,15 +6,15 @@ export type MpxObjectData = {
   parent: MpxObjectData | null
   functional: boolean
 }
-type VueVisitorBase = {
+type MpxVisitorBase = {
   [T in keyof NodeListenerMap]?: (
     node: NodeListenerMap[T],
     obj: MpxObjectData
   ) => void
 }
-export interface VueVisitor extends VueVisitorBase {
-  onVueObjectEnter?(node: ObjectExpression, obj: MpxObjectData): void
-  onVueObjectExit?(node: ObjectExpression, obj: MpxObjectData): void
+export interface MpxVisitor extends MpxVisitorBase {
+  onMpxObjectEnter?(node: ObjectExpression, obj: MpxObjectData): void
+  onMpxObjectExit?(node: ObjectExpression, obj: MpxObjectData): void
   onSetupFunctionEnter?(
     node: (FunctionExpression | ArrowFunctionExpression) & { parent: Property },
     obj: MpxObjectData

@@ -627,7 +627,55 @@ function getMpxObjectType(node: ObjectExpression): MpxObjectType | null
 // example
 getMpxObjectType(node)
 ```
+<a id="defineMpxVisitor"></a>
+<br />
 
+### defineMpxVisitor
+>  定义处理程序以遍历 Mpx 对象。
+```js
+/**
+ * 定义处理程序以遍历 Mpx 对象。
+ * Visitor可以定义一些特别的事件
+ *
+ * - `onMpxObjectEnter` ... 找到 Mpx 对象时的事件。
+ * - `onMpxObjectExit` ... Mpx 对象访问结束时的事件。
+ * - `onSetupFunctionEnter` ... 找到设置功能时的事件。
+ * - `onRenderFunctionEnter` ... 找到渲染函数时的事件。
+ *
+ * @param {RuleContext} context ESLint 规则上下文对象。
+ * @param {MpxVisitor} visitor 访问者遍历 Mpx 对象。
+ */
+function defineMpxVisitor(context:RuleContext, visitor: MpxVisitor)
+
+// example
+defineMpxVisitor(context, {
+  onMpxObjectEnter(node) {}
+})
+```
+<a id="*iterateProperties"></a>
+<br />
+
+### *iterateProperties
+>  具有所有属性的返回generator
+```js
+/**
+ * @param {ObjectExpression} node 检测的节点
+ * @param {Set<GroupName>} groups 需要检测的属性
+ * @returns {IterableIterator<ComponentPropertyData>}
+ */
+function *iterateProperties(node:ObjectExpression, groups: Set<GroupName>):IterableIterator<ComponentPropertyData>
+
+// example
+executeOnMpx(context, (obj) => {
+  const properties = iterateProperties(
+    obj,
+    new Set(['properties', 'computed'])
+  )
+  for (const o of properties) {
+    console.log(o)
+  }
+})
+```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
 我们通过 TypeScript 和 JSDoc 启用了类型检查。
