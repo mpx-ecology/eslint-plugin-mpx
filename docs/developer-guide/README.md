@@ -676,6 +676,68 @@ executeOnMpx(context, (obj) => {
   }
 })
 ```
+<a id="executeOnFunctionsWithoutReturn"></a>
+<br />
+
+### executeOnFunctionsWithoutReturn
+> 查找所有没有返回值的函数
+```js
+/**
+ * @param {boolean} treatUndefinedAsUnspecified
+ * @param { (node: ESNode) => void } cb 回调函数
+ * @returns {RuleListener}
+ */
+function executeOnFunctionsWithoutReturn(treatUndefinedAsUnspecified:boolean, cb:(node: ESNode) => void):RuleListener
+```
+example
+
+参见[return-in-computed-property](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/return-in-computed-property.js)
+
+<a id="isSingleLine"></a>
+<br />
+
+### isSingleLine
+> 检测是否在同一行
+```js
+/**
+ * @param {ASTNode} node
+ * @returns {boolean}
+ */
+function isSingleLine(node: ASTNode): boolean
+
+// example
+isSingleLine(node) 
+```
+<a id="hasInvalidEOF"></a>
+<br />
+
+### hasInvalidEOF
+> 检查程序的templateBody是否有无效的EOF。
+```js
+/**
+ * @param {ASTNode} node
+ * @returns {boolean}
+ */
+function hasInvalidEOF(node: ASTNode): boolean
+
+// example
+hasInvalidEOF(node) 
+```
+<a id="getMemberChaining"></a>
+<br />
+
+### getMemberChaining
+> 获取 MemberExpression 的链接节点。
+```js
+/**
+ * @param  {ESNode} node The node to parse
+ * @return {[ESNode, ...MemberExpression[]]} The chaining nodes
+ */
+function getMemberChaining(node: ESNode): [ESNode, ...MemberExpression[]]
+
+// example
+getMemberChaining(node) 
+```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
 我们通过 TypeScript 和 JSDoc 启用了类型检查。
