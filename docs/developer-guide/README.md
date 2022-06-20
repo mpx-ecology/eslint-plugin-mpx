@@ -730,13 +730,14 @@ hasInvalidEOF(node)
 > 获取 MemberExpression 的链接节点。
 ```js
 /**
- * @param  {ESNode} node The node to parse
- * @return {[ESNode, ...MemberExpression[]]} The chaining nodes
+ * @param  {ESNode} node 解析的节点
+ * @return {[ESNode, ...MemberExpression[]]} 链接节点
  */
 function getMemberChaining(node: ESNode): [ESNode, ...MemberExpression[]]
 
 // example
 getMemberChaining(node) 
+// const test = this.lorem['ipsum'].foo.bar` => [this, lorem, ipsum, foo, bar] 都为相应的节点
 ```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
