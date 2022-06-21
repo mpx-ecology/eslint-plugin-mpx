@@ -157,8 +157,38 @@ create(context) {
 * [hasAttribute](#hasAttribute) (检查给定的开始标签是否有特定的属性)
 * [hasDirective](#hasDirective) (检查给定的开始标签是否有特定的指令)
 * [isEmptyValueDirective](#isEmptyValueDirective) (检查给定的指令属性是否具有空值(`=""`))
-* [isEmptyExpressionValueDirective](#isEmptyExpressionValueDirective) ()
-* [getAttribute](#getAttribute) ()
+* [isEmptyExpressionValueDirective](#isEmptyExpressionValueDirective) (检查给定的指令属性是否有它们的空表达式值（例如`=""`))
+* [getAttribute](#getAttribute) (获取具有给定名称的属性)
+* [getDirective](#getDirective) (获取具有给定名称的指令)
+* [getDirectives](#getDirectives) (获取具有给定名称的指令列表)
+* [prevElementHasIf](#prevElementHasIf) (检查前一个兄弟元素是否有 `if` 或 `elif` 指令)
+* [isCustomComponent](#isCustomComponent) (检查给定节点是否是自定义组件)
+* [isMpElementName](#isMpElementName) (检查给定名称是否是小程序元素)
+* [getStaticPropertyName](#getStaticPropertyName) (获取给定节点的属性名称)
+* [getStringLiteralValue](#getStringLiteralValue) (获取给定节点的字符串)
+* [getComponentPropsFromOptions](#getComponentPropsFromOptions) (通过查看所有组件的属性来获取所有道具)
+* [getComputedProperties](#getComputedProperties) (通过查看所有组件的属性来获取所有计算属性)
+* [isMpxFile](#isMpxFile) (检测文件是不是.mpx后缀的文件)
+* [compositingVisitors](#compositingVisitors) (合并Visitors)
+* [executeOnMpx](#executeOnMpx) (检测当前文件是否是mpx文件且是创建mpx方法)
+* [excuteOnMpxCreateApp](#excuteOnMpxCreateApp) (检测是否是在createApp函数并且执行callback)
+* [excuteOnMpxCreateComponent](#excuteOnMpxCreateComponent) (检测是否是在createComponent函数并且执行callback)
+* [excuteOnMpxCreatePage](#excuteOnMpxCreatePage) (检测是否是在createPage函数并且执行callback)
+* [getMpxObjectType](#getMpxObjectType) (如果是在创建mpx实例，则返回内部对象)
+* [defineMpxVisitor](#defineMpxVisitor) (定义处理程序以遍历 Mpx 对象)
+* [*iterateProperties](#*iterateProperties) (具有所有属性的返回generator)
+* [executeOnFunctionsWithoutReturn](#executeOnFunctionsWithoutReturn) (查找所有没有返回值的函数)
+* [isSingleLine](#isSingleLine) (检测是否在同一行)
+* [hasInvalidEOF](#hasInvalidEOF) (检查程序的templateBody是否有无效的EOF)
+* [getMemberChaining](#getMemberChaining) (获取 MemberExpression 的链接节点)
+* [editDistance](#editDistance) (返回两个字符串editdistanc)
+* [isProperty](#isProperty) (检测节点是否为property节点)
+* [isVElement](#isVElement) (检测节点是否为VElement节点)
+* [findProperty](#findProperty) (从给定的 ObjectExpression 节点中查找具有给定名称的属性)
+* [isThis](#isThis) (检查给定节点是 `this` 还是存储 `this` 的变量)
+* [findMutating](#findMutating) (检查给定节点是否有改变值的表达式)
+* [equalTokens](#equalTokens) (检查两个给定节点的令牌是否相同)
+
 <a id="defineTemplateBodyVisitor"></a>
 <br />
 
@@ -358,13 +388,13 @@ getAttribute(node, 'class', 'item') => VAttribute
 <br />
 
 ### getDirective
-> 获取具有给定名称的属性。
+> 获取具有给定名称的指令。
 ```js
 /**
  * @param {VElement} node 要检查的开始标记节点。
- * @param {string} name 要检查的属性名称。
- * @param {string} [value] 要检查的属性值。
- * @returns {VAttribute | null} 找到的属性。
+ * @param {string} name 要检查的指令名称。
+ * @param {string} [value] 要检查的指令值。
+ * @returns {VAttribute | null} 找到的指令。
  */
 function getDirective(node:VElement, name:string, value?:string):VAttribute|null {
 
@@ -656,7 +686,7 @@ defineMpxVisitor(context, {
 <br />
 
 ### *iterateProperties
->  具有所有属性的返回generator
+> 具有所有属性的返回generator
 ```js
 /**
  * @param {ObjectExpression} node 检测的节点
@@ -738,6 +768,121 @@ function getMemberChaining(node: ESNode): [ESNode, ...MemberExpression[]]
 // example
 getMemberChaining(node) 
 // const test = this.lorem['ipsum'].foo.bar` => [this, lorem, ipsum, foo, bar] 都为相应的节点
+```
+<a id="editDistance"></a>
+<br />
+
+### editDistance
+> 返回两个字符串editdistance
+```js
+/**
+ * @param {string} a string a to compare
+ * @param {string} b string b to compare
+ * @returns {number}
+ */
+function editDistance(a:string, b:string):number
+
+// example
+editDistance('book', 'back') => 2 
+editDistance('methods', 'metho') => 2 
+editDistance('computed', 'comput') => 2 
+```
+<a id="isProperty"></a>
+<br />
+
+### isProperty
+> 检测节点是否为property节点
+```js
+/**
+ * @param {Property | SpreadElement} node
+ * @returns {node is Property}
+ */
+function isProperty(node: Property | SpreadElement):boolean
+
+// example
+isProperty(node) // true or false
+```
+<a id="isVElement"></a>
+<br />
+
+### isVElement
+> 检测节点是否为VElement节点
+```js
+/**
+ * @param {VElement | VExpressionContainer | VText} node
+ * @returns {node is VElement}
+ */
+function isVElement(node: VElement | VExpressionContainer | VText):boolean
+
+// example
+isVElement(node) // true or false
+```
+<a id="findProperty"></a>
+<br />
+
+### findProperty
+> 从给定的 ObjectExpression 节点中查找具有给定名称的属性。
+```js
+/**
+ * @param {ObjectExpression} node
+ * @param {string} name
+ * @param { (p: Property) => boolean } [filter]
+ * @returns { (Property) | null}
+ */
+function findProperty(node: ObjectExpression, name: string, filter?: (p: Property) => boolean):(Property) | null
+
+// example
+findProperty(node, 'watch', (n) => n.name === 'methods')
+```
+<a id="isThis"></a>
+<br />
+
+### isThis
+> 检查给定节点是 `this` 还是存储 `this` 的变量。
+```js
+/**
+ * @param  {ESNode} node 检测的节点
+ * @param {RuleContext} context 规则上下文
+ * @returns {boolean} 如果给的节点是this节点为true
+ */
+function isThis(node: ESNode, context: RuleContext): boolean
+
+// example
+isThis(node, context) // true or false
+```
+<a id="findMutating"></a>
+<br />
+
+### findMutating
+> 检查给定节点是否有改变值的表达式
+```js
+/**
+ * @param {MemberExpression|Identifier} props
+ * @returns { { kind: 'assignment' | 'update' | 'call' , node: ESNode, pathNodes: MemberExpression[] } | null }
+ */
+function findMutating(props: MemberExpression|Identifier): { kind: 'assignment' | 'update' | 'call' , node: ESNode, pathNodes: MemberExpression[] } | null
+
+// example
+findMutating(node)
+// this.x += 1
+// this.x++
+// this.x.push(1)
+```
+<a id="equalTokens"></a>
+<br />
+
+### equalTokens
+> 检查两个给定节点的令牌是否相同。
+```js
+/**
+ * @param {ASTNode} left 第一个节点
+ * @param {ASTNode} right 第二个节点
+ * @param {ParserServices.TokenStore | SourceCode} sourceCode 源码
+ * @returns {boolean} 是否相等
+ */
+function equalTokens(left: ASTNode, right: ASTNode, sourceCode: ParserServices.TokenStore | SourceCode): boolean
+
+equalTokens(left, right, sourceCode) // true or false
 ```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
