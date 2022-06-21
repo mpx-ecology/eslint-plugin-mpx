@@ -39,7 +39,7 @@ description: 禁止 `<template>` 中的解析错误
 
 </eslint-code-block>
 
-## :wrench: Options
+## :wrench: 选项
 
 ```json
 {
