@@ -2,27 +2,27 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: mpx/no-parsing-error
-description: disallow parsing errors in `<template>`
+description: 禁止 `<template>` 中的解析错误
 ---
 # mpx/no-parsing-error
-> disallow parsing errors in `<template>`
+> 禁止 `<template>` 中的解析错误
 
-- :gear: This rule is included in all of `"plugin:mpx/mpx-essential"`.
+- :gear: 此规则包含在所有“插件：mpx/mpx-essential”中。
 
-This rule reports syntax errors in `<template>`. For example:
+此规则报告 `<template>` 中的语法错误。 例如：
 
-- Syntax errors of scripts in directives.
-- Syntax errors of scripts in mustaches.
-- Syntax errors of HTML.
-    - Invalid end tags.
-    - Attributes in end tags.
+- 指令中脚本的语法错误。
+- mustaches中脚本的语法错误。
+- HTML 的语法错误。
+    - 无效的结束标签。
+    - 结束标签中的属性。
     - ...
-    - See also: [WHATWG HTML spec](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors)
+    - 另请参阅: [WHATWG HTML spec](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors)
 
-## :book: Rule Details
+## :book: 规则详情
 
-This rule tries to parse directives/mustaches in `<template>` by the parser which parses `<script>`.
-Then reports syntax errors if exist.
+此规则尝试通过解析 `<script>` 的解析器解析 `<template>` 中的指令/mustaches
+然后报告语法错误（如果存在）
 
 <eslint-code-block :rules="{'mpx/no-parsing-error': ['error']}">
 
@@ -84,23 +84,24 @@ Then reports syntax errors if exist.
 }
 ```
 
-You can disable HTML syntax errors by options. Please see [WHATWG HTML spec](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors) to know the details of HTML syntax errors.
-Only `non-void-html-element-start-tag-with-trailing-solidus` is disabled by default because Vue.js supports self-closing tags.
+185 / 5,000
+翻译结果
+您可以通过选项禁用 HTML 语法错误。 请参阅 [WHATWG HTML 规范](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors) 了解 HTML 语法错误的详细信息。
 
 ::: warning Note
-This rule does not support all of those (E.g., it does not catch errors about DOCTYPE).
+此规则不支持所有这些（例如，它不会捕获有关 DOCTYPE 的错误）。
 :::
 
-The error codes which have `x-` prefix are original of this rule because errors in tree construction phase have not codified yet.
+带有`x-`前缀的错误代码是该规则的原始代码，因为树构建阶段的错误尚未编码。
 
-- `x-invalid-end-tag` enables the errors about the end tags of elements which have not opened.
-- `x-invalid-namespace` enables the errors about invalid `xmlns` attributes. See also [step 10. of "create an element for a token"](https://html.spec.whatwg.org/multipage/parsing.html#create-an-element-for-the-token).
+- `x-invalid-end-tag` 启用关于未打开元素的结束标签的错误。
+- `x-invalid-namespace` 启用有关无效 `xmlns` 属性的错误。 另请参阅 [“为令牌创建元素”的第 10 步](https://html.spec.whatwg.org/multipage/parsing.html#create-an-element-for-the-token)。
 
-## :books: Further Reading
+## :books: 延伸阅读
 
 - [WHATWG HTML spec](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors)
 
-## :mag: Implementation
+## :mag: 具体实现
 
-- [Rule source](https://github.com/vuejs/eslint-plugin-vue/blob/master/lib/rules/no-parsing-error.js)
-- [Test source](https://github.com/vuejs/eslint-plugin-vue/blob/master/tests/lib/rules/no-parsing-error.js)
+- [Rule source](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/no-parsing-error.js)
+- [Test source](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/no-parsing-error.js)
