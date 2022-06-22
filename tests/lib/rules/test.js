@@ -53,6 +53,11 @@ tester.run('valid-wx-if', rule, {
       filename: 'test.mpx',
       code: '<script>function a (){ this.b = 1 }</script>',
       errors: ['test']
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view class=""',
+      errors: ['test']
     }
   ]
 })

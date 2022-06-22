@@ -213,10 +213,26 @@ function defineTemplateBodyVisitor(
 
 // example
 create(context) {
+  let hasInvalidEOF = null
   return defineTemplateBodyVisitor(context, {
-    'VElement'(node) {}
+    "VAttribute[directive=true][key.name.name='if']"(node) {
+      // 检查程序的templateBody是否有无效的EOF，有的话不走了
+      if (hasInvalidEOF) return
+      // 检测wx:if和wx:else是否在同一个标签
+      const element = node.parent.parent
+      if (utils.hasDirective(element, 'else')) {
+        context.report({
+          node,
+          loc: node.loc,
+          message:
+            "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives."
+        })
+      }
+    }
   }, {
-    'Program'(node) {}
+    'Program'(node) {
+      hasInvalidEOF = utils.hasInvalidEOF(node)
+    }
   }) 
 }
 ```
@@ -261,6 +277,8 @@ function wrapCoreRule(coreRuleName: string, options: Object): RuleModule
 
 // example
 // eslint-disable-next-line
+// 让eqeqeq在template中的属性中生效
+// <view wx:if="{{ a === 1 }}"></view>
 module.exports = wrapCoreRule('eqeqeq', {
   applyDocument: true
 })
@@ -279,7 +297,10 @@ module.exports = wrapCoreRule('eqeqeq', {
 function isDef<T>(v:T | null | undefined): T
 
 // example
-isDef({ node })
+// node 不为null就返回true
+// isDef(null) => false
+// isDef(undefined) = > true
+// isDef({ node }) => true
 
 ```
 <a id="prevSibling"></a>
@@ -295,7 +316,8 @@ isDef({ node })
 function prevSibling(node: VElement): VElement|null
 
 // example
-prevSibling(node)
+// <view>a</view><view>b</view>
+// prevSibling(node) 如果node为b，则返回a
 ```
 
 <a id="hasAttribute"></a>
@@ -387,6 +409,7 @@ isEmptyExpressionValueDirective(node, context)
 function getAttribute(node:VElement, name:string, value:string):VAttribute|null {
 
 // example
+// <view class="item"></view>
 getAttribute(node, 'class', 'item') => VAttribute
 ```
 <a id="getDirective"></a>
@@ -404,6 +427,7 @@ getAttribute(node, 'class', 'item') => VAttribute
 function getDirective(node:VElement, name:string, value?:string):VAttribute|null {
 
 // example
+// <view wx:if="{{a}}">
 getDirective(node, 'if', 'a') => VAttribute
 ```
 <a id="getDirectives"></a>
@@ -420,7 +444,9 @@ getDirective(node, 'if', 'a') => VAttribute
 function getDirectives(node:VElement| VStartTag, name:string):VDirective[] {
 
 // example
+// <view wx:if="{{a}}"><view wx:if="{{b}}"></view></view>
 getDirectives(node, 'if')
+// 返回所有if的节点
 ```
 <a id="prevElementHasIf"></a>
 <br />
@@ -470,6 +496,7 @@ function isMpElementName(name:string)
 
 // example
 isMpElementName('view') => true
+isMpElementName('iframe') => false
 ```
 <a id="getStaticPropertyName"></a>
 <br />
@@ -565,6 +592,7 @@ function isMpxFile(path:string): boolean
 
 // example
 isMpxFile('/src/index.mpx') => true
+isMpxFile('/src/index.vue') => false
 ```
 <a id="compositingVisitors"></a>
 <br />
@@ -600,7 +628,16 @@ compositingVisitors({
 function executeOnMpx(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-executeOnMpx(context, (node, type) => {})
+/* 
+ * createComponent({
+ *  data: {},
+ *  methods: {}  
+ * }) 
+ */
+executeOnMpx(context, (node, type) => {
+  const watchNode = utils.findProperty(node, 'methods')
+  if (!watchNode) return
+})
 ```
 <a id="excuteOnMpxCreateApp"></a>
 <br />
@@ -615,7 +652,15 @@ executeOnMpx(context, (node, type) => {})
 function excuteOnMpxCreateApp(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreateApp(context, (node, type) => {})
+/* 
+ * createApp({
+ *  onLaunch() {}
+ * }) 
+ */
+excuteOnMpxCreateApp(context, (node, type) => {
+  const onLanuchNode = utils.findProperty(node, 'onLaunch')
+  if (!onLanuchNode) return
+})
 ```
 <a id="excuteOnMpxCreateComponent"></a>
 <br />
@@ -630,7 +675,15 @@ excuteOnMpxCreateApp(context, (node, type) => {})
 function excuteOnMpxCreateComponent(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreateComponent(context, (node, type) => {})
+/* 
+ * createComponent({
+ *  properties:{}
+ * }) 
+ */
+excuteOnMpxCreateComponent(context, (node, type) => {
+  const propertiesNode = utils.findProperty(node, 'properties')
+  if (!propertiesNode) return
+})
 ```
 <a id="excuteOnMpxCreatePage"></a>
 <br />
@@ -645,7 +698,15 @@ excuteOnMpxCreateComponent(context, (node, type) => {})
 function excuteOnMpxCreatePage(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreatePage(context, (node, type) => {})
+/* 
+ * createPage({
+ *  onPageScroll:{}
+ * }) 
+ */
+excuteOnMpxCreatePage(context, (node, type) => {
+  const onPageScrollNode = utils.findProperty(node, 'onPageScroll')
+  if (!onPageScrollNode) return
+})
 ```
 <a id="getMpxObjectType"></a>
 <br />
@@ -660,7 +721,13 @@ excuteOnMpxCreatePage(context, (node, type) => {})
 function getMpxObjectType(node: ObjectExpression): MpxObjectType | null 
 
 // example
-getMpxObjectType(node)
+{
+  /** @param {ObjectExpression} node */
+  'ObjectExpression:exit'(node) {
+    const type = getMpxObjectType(node)
+    if (!type || type !== 'createComponent') return
+  }
+}
 ```
 <a id="defineMpxVisitor"></a>
 <br />
@@ -684,7 +751,12 @@ function defineMpxVisitor(context:RuleContext, visitor: MpxVisitor)
 
 // example
 defineMpxVisitor(context, {
-  onMpxObjectEnter(node) {}
+  onMpxObjectEnter(node) {
+    // 把所有computed里的属性收集起来
+    for (const computedProperty of utils.getComputedProperties(obj)) {
+      computedProperties.add(computedProperty)
+    }
+  }
 })
 ```
 <a id="*iterateProperties"></a>
@@ -742,6 +814,10 @@ function isSingleLine(node: ASTNode): boolean
 
 // example
 isSingleLine(node) 
+// <view>a</view> <view>b</view> true
+// <view>a</view>
+// <view>b</view> false
+
 ```
 <a id="hasInvalidEOF"></a>
 <br />
@@ -756,6 +832,8 @@ isSingleLine(node)
 function hasInvalidEOF(node: ASTNode): boolean
 
 // example
+// <template><view class="" true
+// <template><view class=""></template> false
 hasInvalidEOF(node) 
 ```
 <a id="getMemberChaining"></a>
@@ -788,6 +866,7 @@ getMemberChaining(node)
 function editDistance(a:string, b:string):number
 
 // example
+// 对比两字符串差多少个字符
 editDistance('book', 'back') => 2 
 editDistance('methods', 'metho') => 2 
 editDistance('computed', 'comput') => 2 
@@ -805,7 +884,13 @@ editDistance('computed', 'comput') => 2
 function isProperty(node: Property | SpreadElement):boolean
 
 // example
-isProperty(node) // true or false
+isProperty(node)
+let a = {
+	a: 1 // true
+}
+function a () { // false
+
+}
 ```
 <a id="isVElement"></a>
 <br />
@@ -820,7 +905,8 @@ isProperty(node) // true or false
 function isVElement(node: VElement | VExpressionContainer | VText):boolean
 
 // example
-isVElement(node) // true or false
+// <view class="a"></view> 如果node是view => true 如果node是class => false
+isVElement(node)
 ```
 <a id="findProperty"></a>
 <br />
@@ -837,6 +923,7 @@ isVElement(node) // true or false
 function findProperty(node: ObjectExpression, name: string, filter?: (p: Property) => boolean):(Property) | null
 
 // example
+// 查找节点中的watch  过滤name=methods的节点
 findProperty(node, 'watch', (n) => n.name === 'methods')
 ```
 <a id="isThis"></a>
@@ -853,7 +940,12 @@ findProperty(node, 'watch', (n) => n.name === 'methods')
 function isThis(node: ESNode, context: RuleContext): boolean
 
 // example
-isThis(node, context) // true or false
+function a () {
+  this.x = 1 // true
+  var that = this // true
+  var a = 1 // false
+}
+isThis(node, context)
 ```
 <a id="findMutating"></a>
 <br />
@@ -872,6 +964,7 @@ findMutating(node)
 // this.x += 1
 // this.x++
 // this.x.push(1)
+// 这种值发生改变的会被选中
 ```
 <a id="equalTokens"></a>
 <br />
@@ -887,7 +980,12 @@ findMutating(node)
  */
 function equalTokens(left: ASTNode, right: ASTNode, sourceCode: ParserServices.TokenStore | SourceCode): boolean
 
-equalTokens(left, right, sourceCode) // true or false
+// <view wx:if="{{a}}">
+// <view wx:elif="{{b}}">
+// <view wx:elif="{{b}}">
+// equalTokens(anode, bnode, '<view wx:...') false
+// equalTokens(bnode, bnode, '<view wx:...') true
+equalTokens(left, right, sourceCode)
 ```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
