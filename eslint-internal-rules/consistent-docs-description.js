@@ -113,6 +113,7 @@ function checkMetaDocsDescription(context, exportsNode) {
 
 module.exports = {
   meta: {
+    type: 'suggestion',
     docs: {
       description:
         'enforce correct conventions of `meta.docs.description` property in core rules',

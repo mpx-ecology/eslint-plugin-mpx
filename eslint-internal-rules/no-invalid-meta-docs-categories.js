@@ -124,6 +124,7 @@ function isCorrectExportsFormat(node) {
 
 module.exports = {
   meta: {
+    type: 'suggestion',
     docs: {
       description: 'enforce correct use of `meta` property in core rules',
       categories: ['Internal']

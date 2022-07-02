@@ -138,6 +138,7 @@ function getRuleInfo(ast) {
 
 module.exports = {
   meta: {
+    type: 'suggestion',
     docs: {
       description: 'require rules to implement a meta.docs.url property',
       categories: ['Rules'],

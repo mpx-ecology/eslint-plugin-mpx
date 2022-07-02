@@ -2,20 +2,20 @@
 
 const Linter = require('eslint').Linter
 const parser = require('mpx-eslint-parser')
-const assert = require('assert')
+// const assert = require('assert')
 
 const rules = require('../..').rules
 
-const baseConfig = {
-  parser: 'mpx-eslint-parser',
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    }
-  }
-}
+// const baseConfig = {
+//   parser: 'mpx-eslint-parser',
+//   parserOptions: {
+//     ecmaVersion: 2018,
+//     sourceType: 'module',
+//     ecmaFeatures: {
+//       jsx: true
+//     }
+//   }
+// }
 
 describe('Complex autofix test cases', () => {
   const linter = new Linter()
@@ -31,7 +31,6 @@ describe('Complex autofix test cases', () => {
     //     // 'mpx/test': ['error']
     //   }
     // })
-
     // it('test output mpx', () => {
     //   const code = `<template><button>test</button></template>`
     //   const output = `<template><button>test-->mpx</button></template>`
