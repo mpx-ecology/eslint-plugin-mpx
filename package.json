@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --rulesdir eslint-internal-rules --fix",
     "pretsc": "node ./tools/setup-eslint-rule-types.js",
     "tsc": "tsc",
-    "preversion": "npm test && npm run update && git add .",
+    "preversion": "npm test && git add .",
     "version": "npm run lint -- --fix && git add .",
     "update": "node ./tools/update.js",
     "docs:watch": "vuepress dev docs",
