@@ -150,15 +150,50 @@ create(context) {
 
 ## :zap: 内置工具函数
 
+### visitor相关
 * [defineTemplateBodyVisitor](#defineTemplateBodyVisitor) (定义模版Visitor)
 * [wrapCoreRule](#wrapCoreRule) (Eslint规则适配Template)
-* [isDef](#isDef) (检查给定值是否已定义)
+* [executeOnMpx](#executeOnMpx) (检测当前文件是否是mpx文件且是创建mpx方法)
+* [excuteOnMpxCreateApp](#excuteOnMpxCreateApp) (检测是否是在createApp函数并且执行callback)
+* [excuteOnMpxCreateComponent](#excuteOnMpxCreateComponent) (检测是否是在createComponent函数并且执行callback)
+* [excuteOnMpxCreatePage](#excuteOnMpxCreatePage) (检测是否是在createPage函数并且执行callback)
+* [executeOnFunctionsWithoutReturn](#executeOnFunctionsWithoutReturn) (查找所有没有返回值的函数)
+* [compositingVisitors](#compositingVisitors) (合并Visitors)
+* [defineMpxVisitor](#defineMpxVisitor) (定义处理程序以遍历 Mpx 对象)
+
+### 获取
 * [prevSibling](#prevSibling) (获取给定元素的前一个兄弟元素)
+* [getAttribute](#getAttribute) (获取具有给定名称的属性)
+* [getDirective](#getDirective) (获取具有给定名称的指令)
+* [getDirectives](#getDirectives) (获取具有给定名称的指令列表)
+* [getStaticPropertyName](#getStaticPropertyName) (获取给定节点的属性名称)
+* [getStringLiteralValue](#getStringLiteralValue) (获取给定节点的字符串)
+* [getComponentPropsFromOptions](#getComponentPropsFromOptions) (通过查看所有组件的属性来获取所有道具)
+* [getComputedProperties](#getComputedProperties) (通过查看所有组件的属性来获取所有计算属性)
+* [getMpxObjectType](#getMpxObjectType) (如果是在创建mpx实例，则返回内部对象)
+* [*iterateProperties](#*iterateProperties) (具有所有属性的返回generator)
+* [getMemberChaining](#getMemberChaining) (获取 MemberExpression 的链接节点)
+* [findProperty](#findProperty) (从给定的 ObjectExpression 节点中查找具有给定名称的属性)
+* [findMutating](#findMutating) (检查给定节点是否有改变值的表达式)
+
+### 检测
+* [isDef](#isDef) (检查给定值是否已定义)
 * [hasAttribute](#hasAttribute) (检查给定的开始标签是否有特定的属性)
 * [hasDirective](#hasDirective) (检查给定的开始标签是否有特定的指令)
 * [isEmptyValueDirective](#isEmptyValueDirective) (检查给定的指令属性是否具有空值(`=""`))
-* [isEmptyExpressionValueDirective](#isEmptyExpressionValueDirective) ()
-* [getAttribute](#getAttribute) ()
+* [isEmptyExpressionValueDirective](#isEmptyExpressionValueDirective) (检查给定的指令属性是否有它们的空表达式值（例如`=""`))
+* [prevElementHasIf](#prevElementHasIf) (检查前一个兄弟元素是否有 `if` 或 `elif` 指令)
+* [isCustomComponent](#isCustomComponent) (检查给定节点是否是自定义组件)
+* [isMpElementName](#isMpElementName) (检查给定名称是否是小程序元素)
+* [isMpxFile](#isMpxFile) (检测文件是不是.mpx后缀的文件)
+* [isSingleLine](#isSingleLine) (检测是否在同一行)
+* [hasInvalidEOF](#hasInvalidEOF) (检查程序的templateBody是否有无效的EOF)
+* [editDistance](#editDistance) (返回两个字符串editdistanc)
+* [isProperty](#isProperty) (检测节点是否为property节点)
+* [isVElement](#isVElement) (检测节点是否为VElement节点)
+* [isThis](#isThis) (检查给定节点是 `this` 还是存储 `this` 的变量)
+* [equalTokens](#equalTokens) (检查两个给定节点的令牌是否相同)
+
 <a id="defineTemplateBodyVisitor"></a>
 <br />
 
@@ -178,10 +213,26 @@ function defineTemplateBodyVisitor(
 
 // example
 create(context) {
+  let hasInvalidEOF = null
   return defineTemplateBodyVisitor(context, {
-    'VElement'(node) {}
+    "VAttribute[directive=true][key.name.name='if']"(node) {
+      // 检查程序的templateBody是否有无效的EOF，有的话不走了
+      if (hasInvalidEOF) return
+      // 检测wx:if和wx:else是否在同一个标签
+      const element = node.parent.parent
+      if (utils.hasDirective(element, 'else')) {
+        context.report({
+          node,
+          loc: node.loc,
+          message:
+            "'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives."
+        })
+      }
+    }
   }, {
-    'Program'(node) {}
+    'Program'(node) {
+      hasInvalidEOF = utils.hasInvalidEOF(node)
+    }
   }) 
 }
 ```
@@ -226,6 +277,8 @@ function wrapCoreRule(coreRuleName: string, options: Object): RuleModule
 
 // example
 // eslint-disable-next-line
+// 让eqeqeq在template中的属性中生效
+// <view wx:if="{{ a === 1 }}"></view>
 module.exports = wrapCoreRule('eqeqeq', {
   applyDocument: true
 })
@@ -244,7 +297,10 @@ module.exports = wrapCoreRule('eqeqeq', {
 function isDef<T>(v:T | null | undefined): T
 
 // example
-isDef({ node })
+// node 不为null就返回true
+// isDef(null) => false
+// isDef(undefined) = > true
+// isDef({ node }) => true
 
 ```
 <a id="prevSibling"></a>
@@ -260,7 +316,8 @@ isDef({ node })
 function prevSibling(node: VElement): VElement|null
 
 // example
-prevSibling(node)
+// <view>a</view><view>b</view>
+// prevSibling(node) 如果node为b，则返回a
 ```
 
 <a id="hasAttribute"></a>
@@ -352,23 +409,25 @@ isEmptyExpressionValueDirective(node, context)
 function getAttribute(node:VElement, name:string, value:string):VAttribute|null {
 
 // example
+// <view class="item"></view>
 getAttribute(node, 'class', 'item') => VAttribute
 ```
 <a id="getDirective"></a>
 <br />
 
 ### getDirective
-> 获取具有给定名称的属性。
+> 获取具有给定名称的指令。
 ```js
 /**
  * @param {VElement} node 要检查的开始标记节点。
- * @param {string} name 要检查的属性名称。
- * @param {string} [value] 要检查的属性值。
- * @returns {VAttribute | null} 找到的属性。
+ * @param {string} name 要检查的指令名称。
+ * @param {string} [value] 要检查的指令值。
+ * @returns {VAttribute | null} 找到的指令。
  */
 function getDirective(node:VElement, name:string, value?:string):VAttribute|null {
 
 // example
+// <view wx:if="{{a}}">
 getDirective(node, 'if', 'a') => VAttribute
 ```
 <a id="getDirectives"></a>
@@ -385,7 +444,9 @@ getDirective(node, 'if', 'a') => VAttribute
 function getDirectives(node:VElement| VStartTag, name:string):VDirective[] {
 
 // example
+// <view wx:if="{{a}}"><view wx:if="{{b}}"></view></view>
 getDirectives(node, 'if')
+// 返回所有if的节点
 ```
 <a id="prevElementHasIf"></a>
 <br />
@@ -435,6 +496,7 @@ function isMpElementName(name:string)
 
 // example
 isMpElementName('view') => true
+isMpElementName('iframe') => false
 ```
 <a id="getStaticPropertyName"></a>
 <br />
@@ -530,6 +592,7 @@ function isMpxFile(path:string): boolean
 
 // example
 isMpxFile('/src/index.mpx') => true
+isMpxFile('/src/index.vue') => false
 ```
 <a id="compositingVisitors"></a>
 <br />
@@ -565,7 +628,16 @@ compositingVisitors({
 function executeOnMpx(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-executeOnMpx(context, (node, type) => {})
+/* 
+ * createComponent({
+ *  data: {},
+ *  methods: {}  
+ * }) 
+ */
+executeOnMpx(context, (node, type) => {
+  const watchNode = utils.findProperty(node, 'methods')
+  if (!watchNode) return
+})
 ```
 <a id="excuteOnMpxCreateApp"></a>
 <br />
@@ -580,7 +652,15 @@ executeOnMpx(context, (node, type) => {})
 function excuteOnMpxCreateApp(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreateApp(context, (node, type) => {})
+/* 
+ * createApp({
+ *  onLaunch() {}
+ * }) 
+ */
+excuteOnMpxCreateApp(context, (node, type) => {
+  const onLanuchNode = utils.findProperty(node, 'onLaunch')
+  if (!onLanuchNode) return
+})
 ```
 <a id="excuteOnMpxCreateComponent"></a>
 <br />
@@ -595,7 +675,15 @@ excuteOnMpxCreateApp(context, (node, type) => {})
 function excuteOnMpxCreateComponent(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreateComponent(context, (node, type) => {})
+/* 
+ * createComponent({
+ *  properties:{}
+ * }) 
+ */
+excuteOnMpxCreateComponent(context, (node, type) => {
+  const propertiesNode = utils.findProperty(node, 'properties')
+  if (!propertiesNode) return
+})
 ```
 <a id="excuteOnMpxCreatePage"></a>
 <br />
@@ -610,7 +698,15 @@ excuteOnMpxCreateComponent(context, (node, type) => {})
 function excuteOnMpxCreatePage(context: RuleContext, cb: (node: ObjectExpression, type: MpxObjectType) => void)
 
 // example
-excuteOnMpxCreatePage(context, (node, type) => {})
+/* 
+ * createPage({
+ *  onPageScroll:{}
+ * }) 
+ */
+excuteOnMpxCreatePage(context, (node, type) => {
+  const onPageScrollNode = utils.findProperty(node, 'onPageScroll')
+  if (!onPageScrollNode) return
+})
 ```
 <a id="getMpxObjectType"></a>
 <br />
@@ -625,7 +721,13 @@ excuteOnMpxCreatePage(context, (node, type) => {})
 function getMpxObjectType(node: ObjectExpression): MpxObjectType | null 
 
 // example
-getMpxObjectType(node)
+{
+  /** @param {ObjectExpression} node */
+  'ObjectExpression:exit'(node) {
+    const type = getMpxObjectType(node)
+    if (!type || type !== 'createComponent') return
+  }
+}
 ```
 <a id="defineMpxVisitor"></a>
 <br />
@@ -649,14 +751,19 @@ function defineMpxVisitor(context:RuleContext, visitor: MpxVisitor)
 
 // example
 defineMpxVisitor(context, {
-  onMpxObjectEnter(node) {}
+  onMpxObjectEnter(node) {
+    // 把所有computed里的属性收集起来
+    for (const computedProperty of utils.getComputedProperties(obj)) {
+      computedProperties.add(computedProperty)
+    }
+  }
 })
 ```
 <a id="*iterateProperties"></a>
 <br />
 
 ### *iterateProperties
->  具有所有属性的返回generator
+> 具有所有属性的返回generator
 ```js
 /**
  * @param {ObjectExpression} node 检测的节点
@@ -707,6 +814,10 @@ function isSingleLine(node: ASTNode): boolean
 
 // example
 isSingleLine(node) 
+// <view>a</view> <view>b</view> true
+// <view>a</view>
+// <view>b</view> false
+
 ```
 <a id="hasInvalidEOF"></a>
 <br />
@@ -721,6 +832,8 @@ isSingleLine(node)
 function hasInvalidEOF(node: ASTNode): boolean
 
 // example
+// <template><view class="" true
+// <template><view class=""></template> false
 hasInvalidEOF(node) 
 ```
 <a id="getMemberChaining"></a>
@@ -730,13 +843,149 @@ hasInvalidEOF(node)
 > 获取 MemberExpression 的链接节点。
 ```js
 /**
- * @param  {ESNode} node The node to parse
- * @return {[ESNode, ...MemberExpression[]]} The chaining nodes
+ * @param  {ESNode} node 解析的节点
+ * @return {[ESNode, ...MemberExpression[]]} 链接节点
  */
 function getMemberChaining(node: ESNode): [ESNode, ...MemberExpression[]]
 
 // example
 getMemberChaining(node) 
+// const test = this.lorem['ipsum'].foo.bar` => [this, lorem, ipsum, foo, bar] 都为相应的节点
+```
+<a id="editDistance"></a>
+<br />
+
+### editDistance
+> 返回两个字符串editdistance
+```js
+/**
+ * @param {string} a string a to compare
+ * @param {string} b string b to compare
+ * @returns {number}
+ */
+function editDistance(a:string, b:string):number
+
+// example
+// 对比两字符串差多少个字符
+editDistance('book', 'back') => 2 
+editDistance('methods', 'metho') => 2 
+editDistance('computed', 'comput') => 2 
+```
+<a id="isProperty"></a>
+<br />
+
+### isProperty
+> 检测节点是否为property节点
+```js
+/**
+ * @param {Property | SpreadElement} node
+ * @returns {node is Property}
+ */
+function isProperty(node: Property | SpreadElement):boolean
+
+// example
+isProperty(node)
+let a = {
+	a: 1 // true
+}
+function a () { // false
+
+}
+```
+<a id="isVElement"></a>
+<br />
+
+### isVElement
+> 检测节点是否为VElement节点
+```js
+/**
+ * @param {VElement | VExpressionContainer | VText} node
+ * @returns {node is VElement}
+ */
+function isVElement(node: VElement | VExpressionContainer | VText):boolean
+
+// example
+// <view class="a"></view> 如果node是view => true 如果node是class => false
+isVElement(node)
+```
+<a id="findProperty"></a>
+<br />
+
+### findProperty
+> 从给定的 ObjectExpression 节点中查找具有给定名称的属性。
+```js
+/**
+ * @param {ObjectExpression} node
+ * @param {string} name
+ * @param { (p: Property) => boolean } [filter]
+ * @returns { (Property) | null}
+ */
+function findProperty(node: ObjectExpression, name: string, filter?: (p: Property) => boolean):(Property) | null
+
+// example
+// 查找节点中的watch  过滤name=methods的节点
+findProperty(node, 'watch', (n) => n.name === 'methods')
+```
+<a id="isThis"></a>
+<br />
+
+### isThis
+> 检查给定节点是 `this` 还是存储 `this` 的变量。
+```js
+/**
+ * @param  {ESNode} node 检测的节点
+ * @param {RuleContext} context 规则上下文
+ * @returns {boolean} 如果给的节点是this节点为true
+ */
+function isThis(node: ESNode, context: RuleContext): boolean
+
+// example
+function a () {
+  this.x = 1 // true
+  var that = this // true
+  var a = 1 // false
+}
+isThis(node, context)
+```
+<a id="findMutating"></a>
+<br />
+
+### findMutating
+> 检查给定节点是否有改变值的表达式
+```js
+/**
+ * @param {MemberExpression|Identifier} props
+ * @returns { { kind: 'assignment' | 'update' | 'call' , node: ESNode, pathNodes: MemberExpression[] } | null }
+ */
+function findMutating(props: MemberExpression|Identifier): { kind: 'assignment' | 'update' | 'call' , node: ESNode, pathNodes: MemberExpression[] } | null
+
+// example
+findMutating(node)
+// this.x += 1
+// this.x++
+// this.x.push(1)
+// 这种值发生改变的会被选中
+```
+<a id="equalTokens"></a>
+<br />
+
+### equalTokens
+> 检查两个给定节点的令牌是否相同。
+```js
+/**
+ * @param {ASTNode} left 第一个节点
+ * @param {ASTNode} right 第二个节点
+ * @param {ParserServices.TokenStore | SourceCode} sourceCode 源码
+ * @returns {boolean} 是否相等
+ */
+function equalTokens(left: ASTNode, right: ASTNode, sourceCode: ParserServices.TokenStore | SourceCode): boolean
+
+// <view wx:if="{{a}}">
+// <view wx:elif="{{b}}">
+// <view wx:elif="{{b}}">
+// equalTokens(anode, bnode, '<view wx:...') false
+// equalTokens(bnode, bnode, '<view wx:...') true
+equalTokens(left, right, sourceCode)
 ```
 ## :white_check_mark: 使用 TypeScript 进行 JSDoc 类型检查
 
