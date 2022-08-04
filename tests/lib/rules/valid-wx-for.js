@@ -18,15 +18,81 @@ const rule = require('../../../lib/rules/valid-wx-for')
 
 const tester = new RuleTester({
   parser: require.resolve('mpx-eslint-parser'),
-  parserOptions: { ecmaVersion: 2015 }
+  parserOptions: { ecmaVersion: 2015, sourceType: 'module' }
 })
 
-// tester.run('valid-wx-for', rule, {
-//   valid: [
-//     {
-//       filename: 'test.mpx',
-//       code: ''
-//     },
+tester.run('valid-wx-for', rule, {
+  valid: [
+    {
+      filename: 'test.mpx',
+      code: ''
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view><view wx:for="list"></view></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view><view wx:for="{{list}}"></view></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+            <template>
+              <view>
+                <view wx:for="{{list}}" wx:key="*this"></view>
+              </view>
+            </template>
+            <script>
+              import { createComponent } from '@mpxjs/core'
+              createComponent({
+                data: {
+                  list: [1, 2, 3, 4]
+                }
+              })
+            </script>
+            `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+          <template>
+            <view>
+              <view wx:for="{{list}}" wx:key="name"></view>
+            </view>
+          </template>
+          <script>
+              import { createComponent } from '@mpxjs/core'
+              createComponent({
+                data: {
+                  list: [
+                    { name: 'mpx' },
+                    { name: 'vue' }
+                  ]
+                }
+              })
+          </script>
+            `
+    }
+  ],
+  invalid: [
+    {
+      filename: 'test.mpx',
+      code: '<template><view><view wx:for:aaa="{{list}}"></view></view></template>',
+      errors: ["'wx:for' directives require no argument."]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view><view wx:for.aaa="{{list}}"></view></view></template>',
+      errors: ["'wx:for' directives require no modifier."]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view><view wx:for></view></view></template>',
+      errors: ["'wx:for' directives require that attribute value."]
+    }
+  ]
+})
 //     {
 //       filename: 'test.mpx',
 //       code: '<template><view><view wx:for="x in list"></view></view></template>'

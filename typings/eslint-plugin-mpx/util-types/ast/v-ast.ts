@@ -23,7 +23,7 @@ export type Namespace =
   | NS['XMLNS']
 export interface VVariable {
   id: ES.Identifier
-  kind: 'v-for' | 'scope'
+  kind: 'wx:for' | 'scope'
   references: VReference[]
 }
 export interface VReference {
