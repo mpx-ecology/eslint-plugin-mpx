@@ -45,6 +45,16 @@ module.exports = {
 默认情况下，来自 **base** 和 **essential** 类别的所有规则都会报告 ESLint 错误。其他规则——因为它们没有涵盖应用程序中的潜在错误——报告警告。 这是什么意思？ 默认情况下 - 什么都没有，但如果你愿意 - 你可以设置一个阈值并在一定数量的警告后中断构建，而不是任何警告。 [更多信息](https://eslint.org/docs/user-guide/command-line-interface#handling-warnings).
 :::
 
+### 集成配置
+因为mpx的解析会影响到ts,js文件的eslint解析，需要overrides一下对应文件的解析器，所以集成了一个eslint的config文件,[具体配置](https://github.com/mpx-ecology/eslint-config)
+
+```js
+// .eslintrc.js
+module.exports = {
+  extends: ['@mpxjs']
+}
+```
+
 ### 命令行运行ESLint
 
 如果要从命令行运行 `eslint`，请确保使用 [`--ext` 选项](https://eslint.org/docs/user-guide/configuring#specifying-file-extensions-to-lint)包含 `.mpx` 扩展名或 glob 模式，因为 ESLint 默认只针对 `.js` 文件。
