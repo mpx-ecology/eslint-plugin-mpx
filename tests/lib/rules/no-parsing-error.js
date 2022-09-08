@@ -48,14 +48,6 @@ tester.run('no-parsing-error', rule, {
       code: '<table><tr><td></td></tr></table>'
     },
     {
-      filename: 'test.mpx',
-      code: '<a @click="foo(); bar()">link</a>'
-    },
-    {
-      filename: 'test.mpx',
-      code: `<template wx:for="x of list"><slot name="item" /></template>`
-    },
-    {
       code: `<template><!--></template>`,
       options: [{ 'abrupt-closing-of-empty-comment': false }]
     },
@@ -243,18 +235,6 @@ tester.run('no-parsing-error', rule, {
           column: 26
         }
       ]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><view wx:for="foo">hello</view></template>',
-      errors: [
-        { message: 'Parsing error: Unexpected end of expression.', column: 28 }
-      ]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><view wx:for="foo() in list">hello</view></template>',
-      errors: [{ message: 'Parsing error: Unexpected token (.', column: 28 }]
     },
     {
       code: `<template><!--></template>`,
