@@ -113,5 +113,5 @@ const d = {
 
 ## :mag: 具体实现
 
-- [Rule](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/script-indent.js)
-- [Test](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/script-indent.js)
+- [规则](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/script-indent.js)
+- [测试](https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/script-indent.js)

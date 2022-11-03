@@ -137,10 +137,10 @@ module.exports = {
       '/rules/': [
         '/rules/',
         // Rules in each category.
-        ...categorizedRules
+        ...categorizedRules,
 
         // Rules in no category.
-        // ...extraCategories
+        ...extraCategories
       ],
 
       '/': ['/', '/user-guide/', '/developer-guide/', '/rules/']
