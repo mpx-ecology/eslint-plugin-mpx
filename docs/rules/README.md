@@ -37,16 +37,20 @@ sidebarDepth: 0
 
 | 规则 ID | 描述 |    |
 |:--------|:------------|:---|
+| [mpx/comment-directive](./comment-directive.md) | 支持 `<template>` 中的注释指令 | :wrench: |
 | [mpx/html-end-tags](./html-end-tags.md) | 强制结束标签样式 | :wrench: |
 | [mpx/no-arrow-functions-in-watch](./no-arrow-functions-in-watch.md) | 禁止使用箭头函数定义观察者 |  |
 | [mpx/no-async-in-computed-properties](./no-async-in-computed-properties.md) | 禁止计算属性中的异步操作 |  |
 | [mpx/no-dupe-keys](./no-dupe-keys.md) | 不允许字段名称重复 |  |
 | [mpx/no-dupe-wx-elif](./no-dupe-wx-elif.md) | 禁止 `wx:if` / `wx:elif` 链中的重复条件 |  |
 | [mpx/no-duplicate-attributes](./no-duplicate-attributes.md) | 不允许重复属性 |  |
+| [mpx/no-parsing-error](./no-parsing-error.md) | 禁止 `<template>` 中的解析错误 |  |
 | [mpx/no-reserved-keys](./no-reserved-keys.md) | 不允许覆盖保留键 |  |
 | [mpx/no-side-effects-in-computed-properties](./no-side-effects-in-computed-properties.md) | 不允许计算属性中的副作用 |  |
 | [mpx/return-in-computed-property](./return-in-computed-property.md) | 强制返回语句存在于计算属性中 |  |
 | [mpx/valid-wx-elif](./valid-wx-elif.md) | 强制执行有效的 `wx:elif` 指令 |  |
 | [mpx/valid-wx-else](./valid-wx-else.md) | 强制执行有效的 `wx:else` 指令 |  |
 | [mpx/valid-wx-if](./valid-wx-if.md) | 强制执行有效的 `wx:if` 指令 |  |
-| [mpx/valid-wx-model](./valid-wx-model.md) | 强制执行有效的 `wx:model` 指令 |  |
+| [mpx/script-indent](./script-indent.md) | 执行一致的缩进 `<script>` | :wrench: |
+| [mpx/eqeqeq](./eqeqeq.md) | 需要使用===和！==在`<template>`中 |  :wrench: |
+| [mpx/script-setup-uses-vars](./script-setup-uses-vars.md) | 防止`<script setup>`在`<template>`中使用的变量标记为未使用(已废弃，因为强制在`<script setup>`使用defineExpose导出变量) |   |
