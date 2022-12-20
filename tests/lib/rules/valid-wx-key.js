@@ -32,14 +32,6 @@ tester.run('valid-wx-key', rule, {
       code: '<template><view wx:for="{{list}}" wx:key="*this"></view></template>'
     },
     {
-      filename: 'test.mpx', // 给warning ''
-      code: `<template><view wx:for="{{list}}" wx:key='id'></view></template>`
-    },
-    {
-      filename: 'test.mpx', // 给warning 无""
-      code: `<template><view wx:for="{{list}}" wx:key=id></view></template>`
-    },
-    {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="id"></view></template>'
     },
@@ -54,6 +46,20 @@ tester.run('valid-wx-key', rule, {
       code: '<template><view wx:for="{{list}}" wx:key="this"></view></template>',
       errors: [
         `'wx:key="this"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
+      ]
+    },
+    {
+      filename: 'test.mpx', // 给warning
+      code: '<template><view wx:for="{{list}}" wx:key="{{ this}}"></view></template>',
+      errors: [
+        `'wx:key="{{ this}}"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
+      ]
+    },
+    {
+      filename: 'test.mpx', // 给warning
+      code: '<template><view wx:for="{{list}}" wx:key="{{ abc}}"></view></template>',
+      errors: [
+        `'wx:key="{{ abc}}"' does not look like a valid key name (Did you mean 'wx:key="abc"' ?).`
       ]
     },
     {
@@ -93,6 +99,13 @@ tester.run('valid-wx-key', rule, {
     },
     {
       filename: 'test.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key="{{ id}}"></view></template>',
+      errors: [
+        `'wx:key="{{ id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+      ]
+    },
+    {
+      filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{item.id}}"></view></template>',
       errors: [
         `'wx:key="{{item.id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
@@ -126,6 +139,12 @@ tester.run('valid-wx-key', rule, {
       filename: 'empty-value.mpx',
       code: '<template><view wx:for="{{list}}" wx:key=""></view></template>',
       errors: ["'wx:key' directives require that attribute value."]
+    },
+    // empty value
+    {
+      filename: 'empty-value.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key.abc="1"></view></template>',
+      errors: ["'wx:key' directives require no modifier."]
     }
   ]
 })

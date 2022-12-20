@@ -28,6 +28,14 @@ tester.run('valid-attribute-value', rule, {
       code: '<template><view wx:if="id"></view></template>'
     },
     {
+      filename: 'test.mpx', // 指令无值也正常
+      code: '<template><view wx:if></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:if="id/"><view wx:else/></template>'
+    },
+    {
       filename: 'test.mpx',
       code: '<template><view abc="1"></view></template>'
     },
@@ -77,11 +85,6 @@ tester.run('valid-attribute-value', rule, {
     },
     {
       filename: 'test.mpx', // 给warning 指令无值
-      code: `<template><view wx:if></view></template>`,
-      errors: ["'wx:if' directive require that attribute value."]
-    },
-    {
-      filename: 'test.mpx', // 给warning 指令无值
       code: `<template><view wx:if=""></view></template>`,
       errors: [`'wx:if=""' directive require that attribute value.`]
     },
@@ -114,11 +117,6 @@ tester.run('valid-attribute-value', rule, {
       filename: 'test.mpx',
       code: '<template><view wx:abc="{{}}"></view></template>',
       errors: [`'wx:abc="{{}}"' attribute expression require valid value.`]
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><view wx:for="str" wx:key></view></template>',
-      errors: ["'wx:key' directive require that attribute value."]
     },
     // empty value
     {
