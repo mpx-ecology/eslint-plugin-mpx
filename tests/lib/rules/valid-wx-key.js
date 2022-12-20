@@ -32,12 +32,12 @@ tester.run('valid-wx-key', rule, {
       code: '<template><view wx:for="{{list}}" wx:key="*this"></view></template>'
     },
     {
-      filename: 'test.mpx',
-      code: `<template><view wx:for="{{list}}" wx:key='*this'></view></template>`
+      filename: 'test.mpx', // 给warning ''
+      code: `<template><view wx:for="{{list}}" wx:key='id'></view></template>`
     },
     {
-      filename: 'test.mpx',
-      code: `<template><view wx:for="{{list}}" wx:key=*this></view></template>`
+      filename: 'test.mpx', // 给warning 无""
+      code: `<template><view wx:for="{{list}}" wx:key=id></view></template>`
     },
     {
       filename: 'test.mpx',
@@ -50,42 +50,64 @@ tester.run('valid-wx-key', rule, {
   ],
   invalid: [
     {
+      filename: 'test.mpx', // 给warning
+      code: '<template><view wx:for="{{list}}" wx:key="this"></view></template>',
+      errors: [
+        `'wx:key="this"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
+      ]
+    },
+    {
+      filename: 'test.mpx', // 给warning -自己加ignore index item this
+      code: '<template><view wx:for="{{list}}" wx:key="index"></view></template>',
+      errors: [
+        `'wx:key="index"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
+      ]
+    },
+    {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="aaa.id"></view></template>',
       errors: [
-        `'wx:key' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+        `'wx:key="aaa.id"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+      ]
+    },
+    {
+      filename: 'test.mpx', // 给warning
+      code: '<template><view wx:for="{{list}}"></view></template>',
+      errors: [
+        `'wx:for' require 'wx:key' directives on the same element. You may add 'wx:key' directives.`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{item.abc.id}}"></view></template>',
       errors: [
-        `'wx:key' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+        `'wx:key="{{item.abc.id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{id}}"></view></template>',
       errors: [
-        `'wx:key' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+        `'wx:key="{{id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{item.id}}"></view></template>',
       errors: [
-        `'wx:key' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+        `'wx:key="{{item.id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="id_{{index}}"></view></template>',
-      errors: [`'wx:key' does not look like a valid key name.`]
+      errors: [`'wx:key="id_{{index}}"' does not look like a valid key name.`]
     },
     {
       filename: 'test.mpx',
-      code: '<template><view wx:key="id"></view></template>',
+      code: '<template><block wx:for="{{list}}"><view wx:key="id"></view></block></template>',
       errors: [
+        "'wx:for' require 'wx:key' directives on the same element. You may add 'wx:key' directives.",
         "'wx:key' and 'wx:for' directives need exist on the same element. You may add 'wx:for' directives."
       ]
     },
