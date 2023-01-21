@@ -87,6 +87,43 @@ tester.run('valid-setup-define-expose', rule, {
       </template>
       `
     },
+    // 基础类型
+    {
+      filename: 'test.mpx',
+      code: `
+      <template>
+        <view wx:if="{{true}}" num="{{0}}" str="{{'str'}}" str2="str2"/>
+      </template>
+      `
+    },
+    // wx:key wx:ref wx:for-item
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+      defineExpose({
+        list: [1, 2, 3]
+      })
+      </script>
+      <template>
+        <view wx:ref="forref" wx:for-item="idx" wx:key="index" wx:for="{{list}}"/>
+      </template>
+      `
+    },
+    // item
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+      defineExpose({
+        list: [1, 2, 3]
+      })
+      </script>
+      <template>
+        <view wx:key="index" wx:for="{{list}}" num="{{item}}"/>{{item}}</view>
+      </template>
+      `
+    },
     {
       filename: 'test.mpx',
       code: `
