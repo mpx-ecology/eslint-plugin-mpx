@@ -53,4 +53,8 @@ sidebarDepth: 0
 | [mpx/valid-wx-if](./valid-wx-if.md) | 强制执行有效的 `wx:if` 指令 |  |
 | [mpx/script-indent](./script-indent.md) | 执行一致的缩进 `<script>` | :wrench: |
 | [mpx/eqeqeq](./eqeqeq.md) | 需要使用===和！==在`<template>`中 |  :wrench: |
+| [mpx/valid-attribute-value](./valid-attribute-value.md) | 待补充 |  |
+| [mpx/valid-component-range](./valid-component-range.md) | 待补充 |  |
+| [mpx/valid-wx-key](./valid-wx-key.md) | 待补充 |  |
+| [mpx/valid-setup-define-expose](./valid-setup-define-expose.md) | setup-script模式下，template中使用的变量必须导出 |  |
 | [mpx/script-setup-uses-vars](./script-setup-uses-vars.md) | 防止`<script setup>`在`<template>`中使用的变量标记为未使用(已废弃，因为强制在`<script setup>`使用defineExpose导出变量) |   |
