@@ -146,10 +146,11 @@ module.exports = {
       '/': ['/', '/user-guide/', '/developer-guide/', '/rules/']
     },
     search: true,
-    searchMaxSuggestions: 10
-    // algolia: {
-    //   apiKey: 'b2b69365da747a9a9635cda391317c36',
-    //   indexName: 'eslint-plugin-vue'
-    // }
+    searchMaxSuggestions: 10,
+    algolia: {
+      appId: '9KHDAQQGBT',
+      apiKey: 'bace1bce5afa386613e690d8d44a6525',
+      indexName: 'eslint-plugin-mpx'
+    }
   }
 }
