@@ -145,8 +145,8 @@ module.exports = {
 
       '/': ['/', '/user-guide/', '/developer-guide/', '/rules/']
     },
-    search: true,
-    searchMaxSuggestions: 10,
+    // search: true,
+    // searchMaxSuggestions: 10,
     algolia: {
       appId: '9KHDAQQGBT',
       apiKey: 'bace1bce5afa386613e690d8d44a6525',
