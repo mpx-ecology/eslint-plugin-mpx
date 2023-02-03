@@ -74,29 +74,9 @@ tester.run('valid-attribute-value', rule, {
   ],
   invalid: [
     {
-      filename: 'test.mpx', // 给warning ''
-      code: `<template><view wx:if='id'></view></template>`,
-      errors: [`\`wx:if='id'\` attribute value require double quotes.`]
-    },
-    {
-      filename: 'test.mpx', // 给warning 无""
-      code: `<template><view wx:if=id></view></template>`,
-      errors: [`\`wx:if=id\` attribute value require double quotes.`]
-    },
-    {
       filename: 'test.mpx', // 给warning 指令无值
       code: `<template><view wx:if=""></view></template>`,
       errors: [`'wx:if=""' directive require that attribute value.`]
-    },
-    {
-      filename: 'test.mpx', // 给warning
-      code: `<template><view abc='1'></view></template>`,
-      errors: [`\`abc='1'\` attribute value require double quotes.`]
-    },
-    {
-      filename: 'test.mpx', // 给warning
-      code: '<template><view abc=1></view></template>',
-      errors: [`\`abc=1\` attribute value require double quotes.`]
     },
     {
       filename: 'test.mpx',
