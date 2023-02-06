@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 
 const RuleTester = require('eslint').RuleTester
-const rule = require('../../../lib/rules/valid-attribute-quote')
+const rule = require('../../../lib/rules/valid-template-quote')
 
 // ------------------------------------------------------------------------------
 // Tests
@@ -21,7 +21,7 @@ const tester = new RuleTester({
   parserOptions: { ecmaVersion: 2015 }
 })
 
-tester.run('valid-attribute-quote', rule, {
+tester.run('valid-template-quote', rule, {
   valid: [
     {
       filename: 'test.mpx',
@@ -34,6 +34,10 @@ tester.run('valid-attribute-quote', rule, {
     {
       filename: 'test.mpx',
       code: '<template><view abc=""></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: `<template><view abc="\n"></view></template>`
     },
     {
       filename: 'test.mpx',
