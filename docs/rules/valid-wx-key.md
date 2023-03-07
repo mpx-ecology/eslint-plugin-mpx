@@ -13,7 +13,9 @@ description: 强制执行有效的 `wx:key` 指令
 
 ## :book: 规则详情
 
-根据[wx:key规则](https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/list.html#wx:key)来保障key值有效性，限制使用静态字面量作为key值，且不允许使用"index"、"this"等易混淆的保留关键字。
+根据[wx:key规则](https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/list.html#wx:key)来保障key值有效性，限制使用静态字面量作为key值，且默认不允许使用如"index"、"this"等易混淆的保留关键字。
+
+如果确定循环中存在item.index/item.this等保留关键字作为唯一key，可手动忽略报错。
 
 
 <eslint-code-block :rules="{'mpx/valid-wx-key': ['error']}">
@@ -36,14 +38,22 @@ description: 强制执行有效的 `wx:key` 指令
   <view wx:for="{{list}}" wx:key=""/>
   <view wx:for="{{list}}"/>
   <view wx:key="id"/>
+  <view wx:for="{{list}}" wx:key="index"/>
+  <view wx:for="{{list}}" wx:key="this"/>
 </template>
 ```
 
 </eslint-code-block>
 
 ## :wrench: 选项
-
-无。
+可配置keywords选项,自定义禁止使用保留的关键字,默认为"index"、"this"
+```json
+{
+  "mpx/valid-template-quote": ["error", {
+    "keywords": ["index", "this", "*this"] 
+  }]
+}
+```
 
 ## :mag: 具体实现
 

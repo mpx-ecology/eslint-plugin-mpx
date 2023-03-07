@@ -38,6 +38,19 @@ tester.run('valid-wx-key', rule, {
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="1"></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key="$1"></view></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key="index"></view></template>',
+      options: [
+        {
+          keywords: [] // 可自行配置保留关键字
+        }
+      ]
     }
   ],
   invalid: [
@@ -48,25 +61,39 @@ tester.run('valid-wx-key', rule, {
         `'wx:key="this"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
       ]
     },
+
+    {
+      filename: 'test.mpx', // 给warning
+      code: '<template><view wx:for="{{list}}" wx:key="{{}}"></view></template>',
+      errors: [`'wx:key' directives require that attribute value.`]
+    },
     {
       filename: 'test.mpx', // 给warning
       code: '<template><view wx:for="{{list}}" wx:key="{{ this}}"></view></template>',
-      errors: [
-        `'wx:key="{{ this}}"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
-      ]
+      errors: [`'wx:key="{{ this}}"' required static property.`]
     },
     {
       filename: 'test.mpx', // 给warning
       code: '<template><view wx:for="{{list}}" wx:key="{{ abc}}"></view></template>',
-      errors: [
-        `'wx:key="{{ abc}}"' does not look like a valid key name (Did you mean 'wx:key="abc"' ?).`
-      ]
+      errors: [`'wx:key="{{ abc}}"' required static property.`]
     },
     {
       filename: 'test.mpx', // 给warning -自己加ignore index item this
       code: '<template><view wx:for="{{list}}" wx:key="index"></view></template>',
       errors: [
         `'wx:key="index"' does not look like a valid key name (Do not use attributes "this" or "index". Add ignore If necessary).`
+      ]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key="*this"></view></template>',
+      errors: [
+        `'wx:key="*this"' does not look like a valid key name (Do not use attributes "*this". Add ignore If necessary).`
+      ],
+      options: [
+        {
+          keywords: ['*this']
+        }
       ]
     },
     {
@@ -87,34 +114,46 @@ tester.run('valid-wx-key', rule, {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{item.abc.id}}"></view></template>',
       errors: [
+        `'wx:key="{{item.abc.id}}"' required static property.`,
         `'wx:key="{{item.abc.id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{id}}"></view></template>',
-      errors: [
-        `'wx:key="{{id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
-      ]
+      errors: [`'wx:key="{{id}}"' required static property.`]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{ id}}"></view></template>',
+      errors: [`'wx:key="{{ id}}"' required static property.`]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><view wx:for="{{list}}" wx:key=" id"></view></template>',
+      errors: [`'wx:key=" id"' does not look like a valid key name.`]
+    },
+    {
+      filename: 'test.mpx',
+      code: `<template><view wx:for="{{list}}" wx:key="
+      id"></view></template>`,
       errors: [
-        `'wx:key="{{ id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
+        `'wx:key="
+      id"' does not look like a valid key name.`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="{{item.id}}"></view></template>',
       errors: [
+        `'wx:key="{{item.id}}"' required static property.`,
         `'wx:key="{{item.id}}"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
       ]
     },
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="id_{{index}}"></view></template>',
-      errors: [`'wx:key="id_{{index}}"' does not look like a valid key name.`]
+      errors: [`'wx:key="id_{{index}}"' required static property.`]
     },
     {
       filename: 'test.mpx',
