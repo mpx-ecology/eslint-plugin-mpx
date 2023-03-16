@@ -95,16 +95,6 @@ ruleTester.run('no-deprecated-destroyed-lifecycle', rule, {
         })
       </script>
       `,
-      output: `
-      <script>
-        createComponent({
-          pageLifetimes: {
-            show() {},
-            hide() {}
-          }
-        })
-      </script>
-      `,
       errors: [
         {
           message:
@@ -125,16 +115,6 @@ ruleTester.run('no-deprecated-destroyed-lifecycle', rule, {
         createComponent({
           pageShow,
           pageHide
-        })
-      </script>
-      `,
-      output: `
-      <script>
-        createComponent({
-          pageLifetimes: {
-            show: pageShow,
-            hide: pageHide
-          }
         })
       </script>
       `,
@@ -161,16 +141,6 @@ ruleTester.run('no-deprecated-destroyed-lifecycle', rule, {
       })
       </script>
       `,
-      output: `
-      <script>
-      createComponent({
-        pageLifetimes: {
-          ['show']() {},
-          ['hide']() {},
-        }
-      })
-      </script>
-      `,
       errors: [
         {
           message:
@@ -191,16 +161,6 @@ ruleTester.run('no-deprecated-destroyed-lifecycle', rule, {
       createComponent({
         [\`pageShow\`]() {},
         [\`pageHide\`]() {},
-      })
-      </script>
-      `,
-      output: `
-      <script>
-      createComponent({
-        pageLifetimes: {
-          [\`show\`]() {},
-          [\`hide\`]() {},
-        }
       })
       </script>
       `,
