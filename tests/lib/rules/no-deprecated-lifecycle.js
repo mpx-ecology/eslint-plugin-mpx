@@ -20,7 +20,7 @@ const ruleTester = new RuleTester({
   parser: require.resolve('mpx-eslint-parser'),
   parserOptions: { ecmaVersion: 2020, sourceType: 'module' }
 })
-ruleTester.run('no-deprecated-destroyed-lifecycle', rule, {
+ruleTester.run('no-deprecated-lifecycle', rule, {
   valid: [
     {
       filename: 'test.mpx',
