@@ -26,6 +26,10 @@ const sidebarCategories = [
   {
     title: 'Essential',
     categoryIds: ['mpx-essential']
+  },
+  {
+    title: 'Composition-api-essential',
+    categoryIds: ['composition-api-essential']
   }
 ]
 
