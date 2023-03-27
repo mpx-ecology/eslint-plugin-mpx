@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-mpx",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Official ESLint plugin for Mpx.js",
   "main": "lib/index.js",
   "scripts": {
