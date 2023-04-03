@@ -49,7 +49,7 @@ description: 强制执行有效的 `wx:key` 指令
 可配置keywords选项,自定义禁止使用保留的关键字,默认为"index"、"this"
 ```json
 {
-  "mpx/valid-template-quote": ["error", {
+  "mpx/valid-wx-key": ["error", {
     "keywords": ["index", "this", "*this"] 
   }]
 }
