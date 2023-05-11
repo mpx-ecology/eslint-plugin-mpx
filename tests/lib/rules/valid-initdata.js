@@ -41,6 +41,29 @@ ruleTester.run('valid-initdata', rule, {
         <abc inc="{{inc}}">
       </template>
       `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script>
+          createComponent({
+              initData: {
+                  show: true,
+                  num: 0,
+                  inc: 0
+              },
+              computed: {
+                  ...store.mapState(['count', 'num']),
+                  inc() {
+                      return 0
+                  }
+              }
+          })
+      </script>
+      <template>
+        <abc inc="{{inc}}" num="{{num}}" show="{{show}}">
+      </template>
+      `
     }
   ],
 
