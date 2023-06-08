@@ -18,7 +18,12 @@ const rule = require('../../../lib/rules/valid-setup-define-expose')
 
 const tester = new RuleTester({
   parser: require.resolve('mpx-eslint-parser'),
-  parserOptions: { ecmaVersion: 2020, sourceType: 'module' }
+  parserOptions: { ecmaVersion: 2020, sourceType: 'module' },
+  globals: {
+    wx: 'readonly',
+    my: 'readonly',
+    __TEST_DEV__: 'readonly'
+  }
 })
 
 tester.run('valid-setup-define-expose', rule, {
@@ -195,6 +200,18 @@ tester.run('valid-setup-define-expose', rule, {
 
       <template>
         <view wx:if="{{show}}" num="{{num}}"/>
+      </template>
+      `
+    },
+    // globals检测
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+      </script>
+
+      <template>
+        <view wx:if="{{__TEST_DEV__}}" />
       </template>
       `
     }
