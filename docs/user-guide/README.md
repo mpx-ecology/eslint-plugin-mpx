@@ -4,12 +4,12 @@
 
 Via [npm](https://www.npmjs.com/):
 ```bash
-npm install --save-dev eslint eslint-plugin-mpx@next
+npm install --save-dev eslint eslint-plugin-mpx
 ```
 
 Via [yarn](https://yarnpkg.com/):
 ```bash
-yarn add -D eslint eslint-plugin-mpx@next
+yarn add -D eslint eslint-plugin-mpx
 ```
 
 ::: tip Requirements
