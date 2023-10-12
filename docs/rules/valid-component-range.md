@@ -13,7 +13,7 @@ description: 强制`component`节点使用`range`指定组件范围
 
 ## :book: 规则详情
 
-为 `component` 动态组件指定组件范围，在未来也许能够辅助mpx更精准地校验冗余组件
+为 `component` 动态组件指定组件范围，避免mpx编译非必要组件。
 
 
 <eslint-code-block :rules="{'mpx/valid-component-range': ['error']}">
@@ -23,10 +23,14 @@ description: 强制`component`节点使用`range`指定组件范围
   <!-- ✓ GOOD -->
   <component is="{{abc}}" range="abc,a_cd" />
   <component is="abc" range="abc" />
+  <component is="abc" range@wx="abc" range="a_cd"/>
 
   <!-- ✗ BAD -->
   <component />
   <component is="abc"/>
+  <component is="abc" range/>
+  <!-- 注意：range条件编译时 必须指定默认兜底range，以免跨平台输出时遗漏其他平台的范围限定 -->
+  <component is="abc" range@wx="abc"/> 
 
 </template>
 ```
