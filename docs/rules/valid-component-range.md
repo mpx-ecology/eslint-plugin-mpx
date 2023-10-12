@@ -13,7 +13,7 @@ description: 强制`component`节点使用`range`指定组件范围
 
 ## :book: 规则详情
 
-为 `component` 动态组件指定组件范围，在未来也许能够辅助mpx更精准地校验冗余组件
+为 `component` 动态组件指定组件范围，避免mpx编译非必要组件
 
 
 <eslint-code-block :rules="{'mpx/valid-component-range': ['error']}">
