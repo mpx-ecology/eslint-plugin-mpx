@@ -61,16 +61,12 @@ tester.run('valid-component-range', rule, {
     {
       filename: 'test.mpx',
       code: '<template><component is="abc" range@wx="" rang="abc"/></template>',
-      errors: [
-        "'component' attribute 'range@wx' require valid value."
-      ]
+      errors: ["'component' attribute 'range@wx' require valid value."]
     },
     {
       filename: 'test.mpx',
       code: '<template><component is="abc" range /></template>',
-      errors: [
-        "'component' attribute 'range' require valid value."
-      ]
+      errors: ["'component' attribute 'range' require valid value."]
     },
     {
       filename: 'test.mpx',
