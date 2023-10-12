@@ -33,15 +33,15 @@ tester.run('valid-component-range', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><component is="abc" range@wx="abc"/></template>'
+      code: '<template><component is="abc" range="other" range@wx="abc"/></template>'
     },
     {
       filename: 'test.mpx',
-      code: '<template><component is="abc" range@wx|ali="abc"/></template>'
+      code: '<template><component is="abc" range="other" range@wx|ali="abc"/></template>'
     },
     {
       filename: 'test.mpx',
-      code: '<template><component is="abc" range@wx:didi="abc"/></template>'
+      code: '<template><component is="abc" range="other" range@wx:didi="abc"/></template>'
     }
   ],
   invalid: [
@@ -60,8 +60,13 @@ tester.run('valid-component-range', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><component is="abc" range@wx="" rang="abc"/></template>',
+      code: '<template><component is="abc" range@wx="" range="abc"/></template>',
       errors: ["'component' attribute 'range@wx' require valid value."]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range@wx="abc"/></template>',
+      errors: ["'component' element require 'range' for backup."]
     },
     {
       filename: 'test.mpx',
