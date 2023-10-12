@@ -23,10 +23,12 @@ description: 强制`component`节点使用`range`指定组件范围
   <!-- ✓ GOOD -->
   <component is="{{abc}}" range="abc,a_cd" />
   <component is="abc" range="abc" />
+  <component is="abc" range@wx="abc" />
 
   <!-- ✗ BAD -->
   <component />
   <component is="abc"/>
+  <component is="abc" range/>
 
 </template>
 ```

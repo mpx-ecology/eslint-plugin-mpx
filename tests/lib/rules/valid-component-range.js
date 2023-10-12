@@ -32,8 +32,16 @@ tester.run('valid-component-range', rule, {
       code: '<template><component is="abc" range="abc" /></template>'
     },
     {
-      filename: 'test.mpx', // 暂时不判空了
-      code: '<template><component is="" range=""/></template>'
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range@wx="abc"/></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range@wx|ali="abc"/></template>'
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range@wx:didi="abc"/></template>'
     }
   ],
   invalid: [
@@ -41,6 +49,28 @@ tester.run('valid-component-range', rule, {
       filename: 'test.mpx',
       code: '<template><component/></template>',
       errors: ["'component' element require 'is' attribute."]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="" range=""/></template>',
+      errors: [
+        "'component' attribute 'is' require valid value.",
+        "'component' attribute 'range' require valid value."
+      ]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range@wx="" rang="abc"/></template>',
+      errors: [
+        "'component' attribute 'range@wx' require valid value."
+      ]
+    },
+    {
+      filename: 'test.mpx',
+      code: '<template><component is="abc" range /></template>',
+      errors: [
+        "'component' attribute 'range' require valid value."
+      ]
     },
     {
       filename: 'test.mpx',
