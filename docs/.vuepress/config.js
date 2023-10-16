@@ -109,6 +109,15 @@ module.exports = {
             '../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs'
           )
         }
+      },
+      module: {
+        rules: [
+          {
+            test: /\.mjs$/,
+            include: /node_modules/,
+            type: 'javascript/auto'
+          }
+        ]
       }
     }
   },
