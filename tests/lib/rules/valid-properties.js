@@ -2,20 +2,20 @@
  * @fileoverview Enforces that a return statement is present in computed property (valid-properties)
  * @author Armano
  */
-"use strict"
+'use strict'
 
 // ------------------------------------------------------------------------------
 // Requirements
 // ------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/valid-properties")
-const RuleTester = require("eslint").RuleTester
+const rule = require('../../../lib/rules/valid-properties')
+const RuleTester = require('eslint').RuleTester
 
 // const parserOptions = {
 //   ecmaVersion: 2020,
 //   sourceType: "module"
 // }
-const mpxParser = require.resolve("mpx-eslint-parser")
+const mpxParser = require.resolve('mpx-eslint-parser')
 // ------------------------------------------------------------------------------
 // Tests
 // ------------------------------------------------------------------------------
@@ -23,13 +23,13 @@ const mpxParser = require.resolve("mpx-eslint-parser")
 const ruleTester = new RuleTester({
   parserOptions: {
     ecmaVersion: 6,
-    sourceType: "module"
+    sourceType: 'module'
   }
 })
-ruleTester.run("valid-properties", rule, {
+ruleTester.run('valid-properties', rule, {
   valid: [
     {
-      filename: "test.mpx",
+      filename: 'test.mpx',
       code: `
         createComponent({
           properties: {
@@ -47,8 +47,9 @@ ruleTester.run("valid-properties", rule, {
           }
         })
         `
-    },{
-      filename: "test.mpx",
+    },
+    {
+      filename: 'test.mpx',
       code: `
         <script setup>
           const props = defineProps({
@@ -66,8 +67,8 @@ ruleTester.run("valid-properties", rule, {
 
   invalid: [
     {
-      filename: "test.mpx",
-      code:  `
+      filename: 'test.mpx',
+      code: `
       createComponent({
         properties: {
           propsA: {
@@ -88,9 +89,11 @@ ruleTester.run("valid-properties", rule, {
         }
       })
       `,
-      options: [{
-        allowKeys:["type", "value","optionalTypes"]
-      }],
+      options: [
+        {
+          allowKeys: ['type', 'value', 'optionalTypes']
+        }
+      ],
       errors: [
         {
           message: "Property 'propsA' has invalid key 'default'.",
@@ -118,9 +121,9 @@ ruleTester.run("valid-properties", rule, {
         }
       ]
     },
-    
+
     {
-      filename: "test.mpx",
+      filename: 'test.mpx',
       code: `
         <script setup>
           const props = defineProps({
@@ -144,6 +147,5 @@ ruleTester.run("valid-properties", rule, {
         }
       ]
     }
-
   ]
 })
