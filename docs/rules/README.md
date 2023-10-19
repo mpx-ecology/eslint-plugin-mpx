@@ -60,3 +60,4 @@ sidebarDepth: 0
 | [mpx/valid-wx-key](./valid-wx-key.md) |  强制执行有效的 `wx:key` 指令 |  |
 | [mpx/valid-setup-define-expose](./valid-setup-define-expose.md) | setup-script模式下，template中使用的变量必须导出 |  |
 | [mpx/script-setup-uses-vars](./script-setup-uses-vars.md) | 防止`<script setup>`在`<template>`中使用的变量标记为未使用(已废弃，因为强制在`<script setup>`使用defineExpose导出变量) |   |
+| [mpx/valid-properties](./valid-properties.md) | 校验`properties`有效值 |   |

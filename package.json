@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run test:base -- --watch --growl",
     "test": "mocha \"tests/lib/**/*.js\" --reporter dot",
-    "test:only": "mocha \"tests/lib/rules/valid-initdata.js\" --reporter dot",
+    "test:only": "mocha \"tests/lib/rules/valid-properties.js\" --reporter dot",
     "debug": "mocha --inspect \"tests/lib/**/*.js\" --reporter dot --timeout 60000",
     "cover": "npm run cover:test && npm run cover:report",
     "cover:test": "nyc npm run test -- --timeout 60000",
