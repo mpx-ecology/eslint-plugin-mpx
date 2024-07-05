@@ -35,6 +35,16 @@ description: 校验properties有效值
       }
     }
   })
+  // ✓ PropType ts 
+  createComponent({
+    properties: {
+      propsA: {
+        type: String as PropType<Str>,
+        value: ""
+      },
+      propsB: Object as PropType<Obj>
+    }
+  })
 
   // ✗ BAD
   createComponent({

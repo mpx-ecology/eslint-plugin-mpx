@@ -7,7 +7,7 @@
 // ------------------------------------------------------------------------------
 // Requirements
 // ------------------------------------------------------------------------------
-
+const tsParser = require.resolve('@typescript-eslint/parser')
 const rule = require('../../../lib/rules/valid-properties')
 const RuleTester = require('eslint').RuleTester
 
@@ -42,11 +42,15 @@ ruleTester.run('valid-properties', rule, {
               type: String,
               optionalTypes:[Number],
               observer: ()=>{}
+            },
+            propsD: Object as PropType<Obj>,
+            propsE: {
+              type: Object as Obj
             }
-
           }
         })
-        `
+        `,
+      parser: tsParser
     },
     {
       filename: 'test.mpx',
