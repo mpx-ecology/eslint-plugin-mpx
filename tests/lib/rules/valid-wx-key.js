@@ -87,13 +87,13 @@ tester.run('valid-wx-key', rule, {
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="*this"></view></template>',
-      errors: [
-        `'wx:key="*this"' does not look like a valid key name (Do not use attributes "*this". Add ignore If necessary).`
-      ],
       options: [
         {
           keywords: ['*this']
         }
+      ],
+      errors: [
+        `'wx:key="*this"' does not look like a valid key name (Do not use attributes "*this". Add ignore If necessary).`
       ]
     },
     {

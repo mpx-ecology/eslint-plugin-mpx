@@ -85,8 +85,8 @@ ruleTester.run('return-in-computed-property', rule, {
           }
         }
       `,
-      parserOptions,
-      options: [{ treatUndefinedAsUnspecified: false }]
+      options: [{ treatUndefinedAsUnspecified: false }],
+      parserOptions
     }
   ],
 
@@ -205,8 +205,8 @@ ruleTester.run('return-in-computed-property', rule, {
           }
         })
       `,
-      parserOptions,
       options: [{ treatUndefinedAsUnspecified: false }],
+      parserOptions,
       errors: [
         {
           message: 'Expected to return a value in "foo" computed property.',
@@ -225,8 +225,8 @@ ruleTester.run('return-in-computed-property', rule, {
           }
         })
       `,
-      parserOptions,
       options: [{ treatUndefinedAsUnspecified: true }],
+      parserOptions,
       errors: [
         {
           message: 'Expected to return a value in "foo" computed property.',
