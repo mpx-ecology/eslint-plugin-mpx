@@ -20,9 +20,9 @@ function getPropertyFromObject(property, node) {
   if (node && node.type === 'ObjectExpression') {
     const properties = node.properties
 
-    for (let i = 0; i < properties.length; i++) {
-      if (properties[i].key.name === property) {
-        return properties[i]
+    for (const property_ of properties) {
+      if (property_.key.name === property) {
+        return property_
       }
     }
   }
@@ -147,7 +147,10 @@ module.exports = {
       categories: ['Internal']
     },
 
-    schema: []
+    schema: [],
+    messages: {
+      rule: 'Rule does not export an Object. Make sure the rule follows the new rule format.'
+    }
   },
 
   create(context) {
@@ -170,8 +173,7 @@ module.exports = {
         if (!isCorrectExportsFormat(exportsNode)) {
           context.report({
             node: exportsNode || programNode,
-            message:
-              'Rule does not export an Object. Make sure the rule follows the new rule format.'
+            messageId: 'rule'
           })
           return
         }

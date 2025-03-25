@@ -20,9 +20,9 @@ function getPropertyFromObject(property, node) {
   if (node && node.type === 'ObjectExpression') {
     const properties = node.properties
 
-    for (let i = 0; i < properties.length; i++) {
-      if (properties[i].key.name === property) {
-        return properties[i]
+    for (const property_ of properties) {
+      if (property_.key.name === property) {
+        return property_
       }
     }
   }
@@ -77,15 +77,15 @@ function checkMetaValidity(context, exportsNode) {
           // fixes.push(fixer.insertTextBefore(category.value, '['), fixer.insertTextAfter(category.value, ']'))
 
           // for vue3 migration
-          if (category.value.value !== 'base') {
+          if (category.value.value === 'base') {
+            fixes.push(fixer.insertTextBefore(category.value, '['))
+          } else {
             fixes.push(
               fixer.insertTextBefore(
                 category.value,
                 `['vue3-${category.value.value}', `
               )
             )
-          } else {
-            fixes.push(fixer.insertTextBefore(category.value, '['))
           }
           fixes.push(fixer.insertTextAfter(category.value, ']'))
         }
@@ -129,8 +129,13 @@ module.exports = {
       description: 'enforce correct use of `meta` property in core rules',
       categories: ['Internal']
     },
+    // eslint-disable-next-line eslint-plugin/require-meta-fixable
     fixable: 'code',
-    schema: []
+    schema: [],
+    messages: {
+      rules:
+        'Rule does not export an Object. Make sure the rule follows the new rule format.'
+    }
   },
 
   create(context) {
@@ -153,8 +158,7 @@ module.exports = {
         if (!isCorrectExportsFormat(exportsNode)) {
           context.report({
             node: exportsNode || programNode,
-            message:
-              'Rule does not export an Object. Make sure the rule follows the new rule format.'
+            messageId: 'rules'
           })
           return
         }
