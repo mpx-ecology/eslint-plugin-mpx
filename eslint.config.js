@@ -17,12 +17,7 @@ module.exports = [
       'tests/integrations/eslint-plugin-import',
 
       '!.vitepress',
-      'docs/.vitepress/dist',
-      'docs/.vitepress/build-system/shim/eslint.mjs',
-      'docs/.vitepress/build-system/shim/assert.mjs',
-      'docs/.vitepress/build-system/shim/path.mjs',
-      'docs/.vitepress/.temp',
-      'docs/.vitepress/cache'
+      'docs'
     ]
   },
   eslintPluginEslintPlugin,
