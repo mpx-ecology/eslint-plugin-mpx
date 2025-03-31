@@ -46,7 +46,7 @@ function formatCategory(category) {
  * in order to update it's content execute "npm run update"
  */
 module.exports = {
-  parser: require.resolve('vue-eslint-parser'),
+  parser: require.resolve('mpx-eslint-parser'),
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module'

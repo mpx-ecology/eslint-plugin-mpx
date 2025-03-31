@@ -51,8 +51,7 @@
     "eslint-utils": "^2.1.0",
     "mpx-eslint-parser": "0.0.9",
     "natural-compare": "^1.4.0",
-    "semver": "^7.3.2",
-    "vue-eslint-parser": "^7.1.0"
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@types/eslint": "^8.4.2",
