@@ -3,6 +3,7 @@
   "version": "0.2.20-3",
   "description": "Official ESLint plugin for Mpx.js",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "start": "npm run test:base -- --watch --growl",
     "test": "mocha \"tests/lib/**/*.js\" --reporter dot",
