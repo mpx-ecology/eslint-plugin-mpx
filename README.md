@@ -27,7 +27,7 @@ Add `mpx` to the plugins section of your `.eslintrc` configuration file. You can
 ```js
 const eslintPluginMpx = require('eslint-plugin-mpx')
 module.exports = [
-    eslintPluginMpx.configs['flat/composition-api-essential']
+    ...eslintPluginMpx.configs['flat/composition-api-essential']
 ]
 ```
 
