@@ -24,12 +24,11 @@ https://mpx-ecology.github.io/eslint-plugin-mpx/
 
 Add `mpx` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
 
-```json
-{
-    "extends": [
-       "plugin:mpx/mpx-essential"
-    ]
-}
+```js
+const eslintPluginMpx = require('eslint-plugin-mpx')
+module.exports = [
+    eslintPluginMpx.configs['flat/composition-api-essential']
+]
 ```
 
 
