@@ -146,6 +146,7 @@ describe('getStringLiteralValue', () => {
 })
 
 describe('getMemberChaining', () => {
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const parse = function (code) {
     return espree.parse(code, { ecmaVersion: 2020 }).body[0].declarations[0]
       .init

@@ -1,6 +1,3 @@
-/**
- * @see https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md
- */
 import { HasParentNode, BaseNode } from '../node'
 import { Token, HTMLComment, HTMLBogusComment, Comment } from '../node'
 import { ParseError } from '../errors'

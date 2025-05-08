@@ -45,64 +45,64 @@ tester.run('valid-template-quote', rule, {
     },
     {
       filename: 'test.mpx',
-      options: ['single'],
-      code: `<template><view abc='id'></view></template>`
+      code: `<template><view abc='id'></view></template>`,
+      options: ['single']
     },
     {
       filename: 'test.mpx',
-      options: [1],
-      code: `<template><view abc=''></view></template>`
+      code: `<template><view abc=''></view></template>`,
+      options: [1]
     },
     {
       filename: 'test.mpx',
-      options: [1],
-      code: `<template><view abc="''"></view></template>`
+      code: `<template><view abc="''"></view></template>`,
+      options: [1]
     }
   ],
   invalid: [
     {
       filename: 'test.mpx',
       code: `<template><view wx:if='id'></view></template>`,
-      errors: [`\`wx:if='id'\` attribute value require double quotes.`],
-      output: `<template><view wx:if="id"></view></template>`
+      output: `<template><view wx:if="id"></view></template>`,
+      errors: [`\`wx:if='id'\` attribute value require double quotes.`]
     },
     {
       filename: 'test.mpx',
       code: `<template><view wx:if=id></view></template>`,
-      errors: [`\`wx:if=id\` attribute value require double quotes.`],
-      output: `<template><view wx:if="id"></view></template>`
+      output: `<template><view wx:if="id"></view></template>`,
+      errors: [`\`wx:if=id\` attribute value require double quotes.`]
     },
     {
       filename: 'test.mpx',
       code: `<template><view abc=1></view></template>`,
-      errors: [`\`abc=1\` attribute value require double quotes.`],
-      output: `<template><view abc="1"></view></template>`
+      output: `<template><view abc="1"></view></template>`,
+      errors: [`\`abc=1\` attribute value require double quotes.`]
     },
     {
       filename: 'test.mpx',
       code: `<template><view abc='1'></view></template>`,
-      errors: [`\`abc='1'\` attribute value require double quotes.`],
-      output: `<template><view abc="1"></view></template>`
+      output: `<template><view abc="1"></view></template>`,
+      errors: [`\`abc='1'\` attribute value require double quotes.`]
     },
     {
       filename: 'test.mpx',
       code: '<template><view abc=`1`></view></template>',
-      errors: ['`abc=`1`` attribute value require double quotes.'],
-      output: `<template><view abc="1"></view></template>`
+      output: `<template><view abc="1"></view></template>`,
+      errors: ['`abc=`1`` attribute value require double quotes.']
     },
     {
       filename: 'test.mpx',
       code: `<template><view wx:if="id"></view></template>`,
+      output: `<template><view wx:if='id'></view></template>`,
       options: ['single'],
-      errors: [`\`wx:if="id"\` attribute value require single quotes.`],
-      output: `<template><view wx:if='id'></view></template>`
+      errors: [`\`wx:if="id"\` attribute value require single quotes.`]
     },
     {
       filename: 'test.mpx',
       code: '<template><view abc="1"></view></template>',
+      output: `<template><view abc='1'></view></template>`,
       options: ['single'],
-      errors: ['`abc="1"` attribute value require single quotes.'],
-      output: `<template><view abc='1'></view></template>`
+      errors: ['`abc="1"` attribute value require single quotes.']
     }
   ]
 })

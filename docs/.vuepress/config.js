@@ -100,6 +100,10 @@ module.exports = {
         alias: {
           module: require.resolve('./shim/module'),
           eslint$: require.resolve('./shim/eslint'),
+          'eslint/use-at-your-own-risk': path.join(
+            __dirname,
+            './shim/use-at-your-own-risk.mjs'
+          ),
           esquery: path.resolve(
             __dirname,
             '../../node_modules/esquery/dist/esquery.min.js'

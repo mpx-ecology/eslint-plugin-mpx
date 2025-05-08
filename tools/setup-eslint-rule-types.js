@@ -31,14 +31,15 @@ fs.readdirSync(TYPINGS_ESLINT_RULES_ROOT)
   .filter((file) => file.endsWith('.d.ts'))
   .filter((file) => !ruleNames.has(file.slice(0, -5)))
   .map((file) => path.join(TYPINGS_ESLINT_RULES_ROOT, file))
+  // eslint-disable-next-line unicorn/no-array-for-each
   .forEach((filePath) => fs.unlinkSync(filePath))
 
 function exists(file) {
   try {
     fs.statSync(file)
     return true
-  } catch (err) {
-    if (err.code === 'ENOENT') return false
+  } catch (error) {
+    if (error.code === 'ENOENT') return false
   }
 }
 

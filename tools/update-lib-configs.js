@@ -14,7 +14,7 @@ const path = require('path')
 const eslint = require('eslint')
 const categories = require('./lib/categories')
 
-const errorCategories = ['base', 'essential', 'vue3-essential']
+const errorCategories = new Set(['base', 'essential', 'vue3-essential'])
 
 const extendsCategories = {
   base: null,
@@ -29,10 +29,9 @@ const extendsCategories = {
 }
 
 function formatRules(rules, categoryId) {
+  // eslint-disable-next-line unicorn/no-array-reduce
   const obj = rules.reduce((setting, rule) => {
-    setting[rule.ruleId] = errorCategories.includes(categoryId)
-      ? 'error'
-      : 'warn'
+    setting[rule.ruleId] = errorCategories.has(categoryId) ? 'error' : 'warn'
     return setting
   }, {})
   return JSON.stringify(obj, null, 2)
@@ -47,7 +46,7 @@ function formatCategory(category) {
  * in order to update it's content execute "npm run update"
  */
 module.exports = {
-  parser: require.resolve('vue-eslint-parser'),
+  parser: require.resolve('mpx-eslint-parser'),
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module'
@@ -77,12 +76,12 @@ module.exports = {
 
 // Update files.
 const ROOT = path.resolve(__dirname, '../lib/configs/')
-categories.forEach((category) => {
+for (const category of categories) {
   const filePath = path.join(ROOT, `${category.categoryId}.js`)
   const content = formatCategory(category)
 
   fs.writeFileSync(filePath, content)
-})
+}
 
 // Format files.
 async function format() {

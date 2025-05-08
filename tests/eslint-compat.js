@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 const eslint = require('eslint')
 
 module.exports = {
@@ -10,6 +10,7 @@ module.exports = {
 function getESLintClassForV6() {
   class ESLintForV6 {
     static get version() {
+      // @ts-ignore
       return eslint.CLIEngine.version
     }
 

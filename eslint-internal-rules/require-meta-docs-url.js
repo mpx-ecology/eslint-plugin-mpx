@@ -73,6 +73,7 @@ function getRuleInfo(ast) {
     .map((statement) => statement.expression)
     .filter((expression) => expression.type === 'AssignmentExpression')
     .filter((expression) => expression.left.type === 'MemberExpression')
+    // eslint-disable-next-line unicorn/no-array-reduce
     .reduce((currentExports, node) => {
       if (
         node.left.object.type === 'Identifier' &&
@@ -91,6 +92,7 @@ function getRuleInfo(ast) {
           // Check `module.exports = { create: function () {}, meta: {} }`
 
           exportsIsFunction = false
+          // eslint-disable-next-line unicorn/no-array-reduce
           return node.right.properties.reduce((parsedProps, prop) => {
             const keyValue = getKeyName(prop)
             if (INTERESTING_KEYS.has(keyValue)) {
@@ -153,7 +155,12 @@ module.exports = {
         },
         additionalProperties: false
       }
-    ]
+    ],
+    messages: {
+      msg1: 'Rules should export a `meta.docs.url` property.',
+      msg2: '`meta.docs.url` property must be a string.',
+      msg3: '`meta.docs.url` property must be `{{expectedUrl}}`.'
+    }
   },
 
   /**
@@ -234,11 +241,11 @@ module.exports = {
             (metaNode && metaNode.loc) ||
             node.loc.start,
 
-          message: !urlPropNode
-            ? 'Rules should export a `meta.docs.url` property.'
-            : !expectedUrl
-            ? '`meta.docs.url` property must be a string.'
-            : /* otherwise */ '`meta.docs.url` property must be `{{expectedUrl}}`.',
+          messageId: urlPropNode
+            ? expectedUrl
+              ? 'msg2'
+              : /* otherwise */ 'msg3'
+            : 'msg1',
 
           data: {
             expectedUrl

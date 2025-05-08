@@ -89,6 +89,7 @@ class DocFile {
 
     const fileIntroPattern = /^---\n(.*\n)+---\n*/g
 
+    // eslint-disable-next-line unicorn/prefer-ternary
     if (fileIntroPattern.test(this.content)) {
       this.content = this.content.replace(fileIntroPattern, computed)
     } else {
@@ -130,17 +131,15 @@ class DocFile {
     }
 
     // Add an empty line after notes.
-    if (notes.length >= 1) {
+    if (notes.length > 0) {
       notes.push('', '')
     }
 
     const headerPattern = /#.+\n[^\n]*\n+(?:- .+\n)*\n*/
     const header = `${title}\n\n${notes.join('\n')}`
-    if (headerPattern.test(this.content)) {
-      this.content = this.content.replace(headerPattern, header)
-    } else {
-      this.content = `${header}${this.content.trim()}\n`
-    }
+    this.content = headerPattern.test(this.content)
+      ? this.content.replace(headerPattern, header)
+      : `${header}${this.content.trim()}\n`
 
     return this
   }
@@ -182,11 +181,9 @@ ${
 `
     : ''
 }`
-    if (footerPattern.test(this.content)) {
-      this.content = this.content.replace(footerPattern, footer)
-    } else {
-      this.content = `${this.content.trim()}\n\n${footer}`
-    }
+    this.content = footerPattern.test(this.content)
+      ? this.content.replace(footerPattern, footer)
+      : `${this.content.trim()}\n\n${footer}`
 
     return this
   }

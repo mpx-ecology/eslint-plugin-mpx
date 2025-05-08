@@ -17,6 +17,7 @@ const rules = require('./lib/rules')
 const rulesToDisable = rules.filter(({ meta }) => meta.type === 'layout')
 
 function formatRules(rules) {
+  // eslint-disable-next-line unicorn/no-array-reduce
   const obj = rules.reduce((setting, rule) => {
     setting[rule.ruleId] = 'off'
     return setting

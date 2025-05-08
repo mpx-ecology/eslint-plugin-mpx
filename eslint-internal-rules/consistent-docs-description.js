@@ -22,9 +22,9 @@ function getPropertyFromObject(property, node) {
   if (node && node.type === 'ObjectExpression') {
     const properties = node.properties
 
-    for (let i = 0; i < properties.length; i++) {
-      if (properties[i].key.name === property) {
-        return properties[i]
+    for (const property_ of properties) {
+      if (property_.key.name === property) {
+        return property_
       }
     }
   }
@@ -83,11 +83,10 @@ function checkMetaDocsDescription(context, exportsNode) {
 
   const firstWord = description.split(' ')[0]
 
-  if (ALLOWED_FIRST_WORDS.indexOf(firstWord) === -1) {
+  if (!ALLOWED_FIRST_WORDS.includes(firstWord)) {
     context.report({
       node: metaDocsDescription.value,
-      message:
-        '`meta.docs.description` should start with one of the following words: {{ allowedWords }}. Started with "{{ firstWord }}" instead.',
+      messageId: 'description',
       data: {
         allowedWords: ALLOWED_FIRST_WORDS.join(', '),
         firstWord
@@ -119,8 +118,13 @@ module.exports = {
         'enforce correct conventions of `meta.docs.description` property in core rules',
       categories: ['Internal']
     },
+    // eslint-disable-next-line eslint-plugin/require-meta-fixable
     fixable: 'code',
-    schema: []
+    schema: [],
+    messages: {
+      description:
+        '`meta.docs.description` should start with one of the following words: {{ allowedWords }}. Started with "{{ firstWord }}" instead.'
+    }
   },
 
   create(context) {
