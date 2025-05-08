@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "eslint-utils": "^2.1.0",
-    "mpx-eslint-parser": "^0.0.13",
+    "mpx-eslint-parser": "^0.0.14",
     "natural-compare": "^1.4.0",
     "semver": "^7.3.2"
   },
