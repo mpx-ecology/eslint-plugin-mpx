@@ -203,6 +203,21 @@ tester.run('valid-setup-define-expose', rule, {
       </template>
       `
     },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+        const props = withDefaults(defineProps(), {
+          show: false,
+          num: 0
+        })
+      </script>
+
+      <template>
+        <view wx:if="{{show}}" num="{{num}}"/>
+      </template>
+      `
+    },
     // globals检测
     {
       filename: 'test.mpx',
