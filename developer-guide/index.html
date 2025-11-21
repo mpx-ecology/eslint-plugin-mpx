@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>开发指南 | eslint-plugin-mpx</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/eslint-plugin-mpx/favicon.png">
+    <meta name="description" content="Mpx的官方ESLint插件">
+    
+    <link rel="preload" href="/eslint-plugin-mpx/assets/css/0.styles.9abde31e.css" as="style"><link rel="preload" href="/eslint-plugin-mpx/assets/js/app.a3e24e15.js" as="script"><link rel="preload" href="/eslint-plugin-mpx/assets/js/4.b707e725.js" as="script"><link rel="preload" href="/eslint-plugin-mpx/assets/js/2.5fbb3ed0.js" as="script"><link rel="preload" href="/eslint-plugin-mpx/assets/js/1.2a6cc3b8.js" as="script"><link rel="preload" href="/eslint-plugin-mpx/assets/js/29.9e6e7cb4.js" as="script"><link rel="preload" href="/eslint-plugin-mpx/assets/js/21.840b1623.js" as="script"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/11.045e82c8.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/12.cb8320ff.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/13.cbec346c.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/14.9e7e51c1.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/15.158b9bb5.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/16.8830e73a.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/17.ce8da5ca.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/18.f7fa4888.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/19.fc28e1a3.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/20.f79e8089.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/22.0f70b794.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/23.54707976.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/24.60fa6ed7.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/25.57f4914f.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/26.ea41cc2e.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/27.9d4bf7d0.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/28.494cb3f9.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/3.034a95db.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/30.cd2d44ee.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/31.5a9504d7.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/32.02aacb46.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/33.a8c6147f.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/34.849c6ca7.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/35.8fe4284d.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/36.40a58e3f.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/37.ae8f61cd.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/38.5dfa641b.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/39.ee62b6ae.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/40.a27cae0c.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/41.a7c3f80b.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/42.8e92af67.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/43.df2180d3.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/44.02ec97bf.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/45.9174650d.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/46.7ddacf03.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/47.8f4667b6.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/48.3582f53c.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/49.26f6b3bb.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/5.23c4b5e8.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/50.8fae4683.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/51.5d39b5cb.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/52.8de9c8dc.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/53.07385f29.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/54.e857dd1e.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/55.e473109f.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/56.65b03dfb.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/57.d09849bc.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/58.29deb023.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/59.7b9fd004.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/6.d4bdabae.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/60.102fd309.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/61.2f6e6842.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/62.b6567a84.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/63.ad20d61f.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/64.8f9fdc95.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/65.7b652b22.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/66.427b70a1.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/67.a3c9b0cb.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/68.3563ac84.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/69.4ab86529.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/7.cfcb6783.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/70.f1fec1c4.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/71.52d7a162.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/72.cdcd15a6.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/73.d9cdd1da.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/8.8403ee8a.js"><link rel="prefetch" href="/eslint-plugin-mpx/assets/js/vendors~docsearch.b3d1c3df.js">
+    <link rel="stylesheet" href="/eslint-plugin-mpx/assets/css/0.styles.9abde31e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-9d32da6e><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/eslint-plugin-mpx/" class="home-link router-link-active"><!----> <span class="site-name">eslint-plugin-mpx</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/eslint-plugin-mpx/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/eslint-plugin-mpx/developer-guide/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  开发指南
+</a></div><div class="nav-item"><a href="/eslint-plugin-mpx/rules/" class="nav-link">
+  规则
+</a></div> <a href="https://github.com/mpx-ecology/eslint-plugin-mpx" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/eslint-plugin-mpx/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/eslint-plugin-mpx/developer-guide/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  开发指南
+</a></div><div class="nav-item"><a href="/eslint-plugin-mpx/rules/" class="nav-link">
+  规则
+</a></div> <a href="https://github.com/mpx-ecology/eslint-plugin-mpx" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/eslint-plugin-mpx/" aria-current="page" class="sidebar-link">介绍</a></li><li><a href="/eslint-plugin-mpx/user-guide/" class="sidebar-link">用户指南</a></li><li><a href="/eslint-plugin-mpx/developer-guide/" aria-current="page" class="active sidebar-link">开发指南</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#错误报告" class="sidebar-link">🐛 错误报告</a></li><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#提出新规则或规则变更" class="sidebar-link">✨ 提出新规则或规则变更</a></li><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#编写规则" class="sidebar-link">🔥 编写规则</a></li><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#灵活匹配节点" class="sidebar-link">🔍 灵活匹配节点</a></li><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#内置工具函数" class="sidebar-link">⚡️ 内置工具函数</a></li><li class="sidebar-sub-header"><a href="/eslint-plugin-mpx/developer-guide/#使用-typescript-进行-jsdoc-类型检查" class="sidebar-link">✅ 使用 TypeScript 进行 JSDoc 类型检查</a></li></ul></li><li><a href="/eslint-plugin-mpx/rules/" class="sidebar-link">规则</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="开发指南"><a href="#开发指南" class="header-anchor">#</a> 开发指南</h1> <p>欢迎贡献。</p> <h2 id="错误报告"><a href="#错误报告" class="header-anchor">#</a> 🐛 错误报告</h2> <p>如果您认为在 ESLint 中发现了错误，请<a href="https://github.com/mpx-ecology/eslint-plugin-mpx/issues/new?labels=&amp;template=bug_report.md" target="_blank" rel="noopener noreferrer">创建一个新问题<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>或 GitHub 上的拉取请求。</p> <p>请提供尽可能多的详细信息，以帮助我们正确解决您的问题。 如果我们需要对问题进行分类并不断向人们询问更多细节，那就是实际解决问题的时间。 通过在您的问题中包含大量细节来帮助我们尽可能提高效率。</p> <h2 id="提出新规则或规则变更"><a href="#提出新规则或规则变更" class="header-anchor">#</a> ✨ 提出新规则或规则变更</h2> <p>为了添加新规则或规则更改，您应该：</p> <ul><li>在 GitHub 上创建带有提议规则描述的问题</li> <li>使用 <a href="https://github.com/eslint/generator-eslint" target="_blank" rel="noopener noreferrer">official yeoman generator<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 生成新规则</li> <li>运行<code>npm start</code></li> <li>编写测试场景和实现逻辑</li> <li>在生成的 <code>docs</code> 文件中描述规则</li> <li>确保所有测试都通过</li> <li>运行 <code>npm run lint</code> 并修复所有错误</li> <li>运行 <code>npm run update</code> 以更新自述文件和推荐配置</li> <li>在描述中创建 PR 和链接创建的问题</li></ul> <p>我们很高兴看到潜在的贡献，所以不要犹豫。 如果您有任何建议、想法或问题，请随时添加新的 <a href="https://github.com/mpx-ecology/eslint-plugin-mpx/issues" target="_blank" rel="noopener noreferrer">issue<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，但首先请确保您的问题不重复之前的问题。</p> <h2 id="编写规则"><a href="#编写规则" class="header-anchor">#</a> 🔥 编写规则</h2> <p>在开始编写新规则之前，请阅读<a href="https://eslint.org/docs/developer-guide/working-with-rules" target="_blank" rel="noopener noreferrer">官方 ESLint 指南<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <p>接下来，为了了解您要检查的代码的 AST 是什么样的，请使用 [astexplorer.net]。
+[astexplorer.net] 是检查 AST 的绝佳工具，暂未支持Mpx，仅可查看js相关</p> <p><a href="https://astexplorer.net/" target="_blank" rel="noopener noreferrer">astexplorer.net<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>由于 Mpx 中的单个文件组件不是纯 JavaScript，我们不能使用默认解析器，我们不得不引入额外的一个：<code>mpx-eslint-parser</code>，它生成增强的 AST，节点代表模板语法的特定部分，以及 <code>&lt;script&gt;</code> 标签内的内容。</p> <p>要了解有关生成的 AST 中某些节点的更多信息，请访问此处：</p> <ul><li><a href="https://github.com/estree/estree" target="_blank" rel="noopener noreferrer">ESTree 文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://github.com/mpx-ecology/mpx-eslint-parser/blob/master/docs/ast.md" target="_blank" rel="noopener noreferrer">mpx-eslint-parser AST 文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p><code>Mpx-eslint-parser</code> 提供了一些有用的解析器服务，以帮助遍历生成的 AST 和访问模板的令牌：
+-<code>context.parserServices.defineTemplateBodyVisitor（访问者，scriptVisitor）</code>
+-<code>context.parserServices.getTemplateBodyTokenStore()</code></p> <p>查看 <a href="https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/valid-wx-if.js" target="_blank" rel="noopener noreferrer">示例规则<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 以更好地了解这些规则是如何工作的。</p> <p>请注意，关于您将在测试中编写什么样的代码示例，您必须在“RuleTester”中相应地设置解析器（不过，您可以根据每个测试用例进行设置）。 <a href="https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/tests/lib/rules/valid-wx-if.js" target="_blank" rel="noopener noreferrer">在此处查看示例<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>最佳的编写规则实践是基于TDD(Test Drived Develop)的开发模式</p> <ol><li>在tests/lib下写下你的测试文件</li></ol> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> RuleTester <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'eslint'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>RuleTester
+<span class="token keyword">const</span> rule <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../../lib/rules/test'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> tester <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RuleTester</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">parser</span><span class="token operator">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'mpx-eslint-parser'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">parserOptions</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">ecmaVersion</span><span class="token operator">:</span> <span class="token number">2015</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+tester<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> rule<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">valid</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'test.mpx'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">code</span><span class="token operator">:</span> <span class="token string">'&lt;template&gt;&lt;view class=&quot;a&quot;&gt;&lt;input class=&quot;b&quot;&gt;&lt;/input&gt;&lt;view class=&quot;c&quot;&gt;&lt;/view&gt;&lt;view class=&quot;d&quot;&gt;&lt;/view&gt;&lt;/view&gt;&lt;/template&gt;'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">invalid</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'test.mpx'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">code</span><span class="token operator">:</span> <span class="token string">'&lt;script&gt;function a (){ this.b = 1 }&lt;/script&gt;'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">errors</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'wrong'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre></div><ol start="2"><li>在lib/rules下写规则的详细，并且在lib/index下导出</li></ol> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> utils <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../utils'</span><span class="token punctuation">)</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'problem'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">docs</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">'test file'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">categories</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">''</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">'https://mpx-ecology.github.io/eslint-plugin-mpx/rules/test.html'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">fixable</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">schema</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">/** @param {RuleContext} context */</span>
+  <span class="token function">create</span><span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> utils<span class="token punctuation">.</span><span class="token function">defineTemplateBodyVisitor</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token comment">/** @param {VDirective} node */</span>
+      <span class="token string">&quot;VElement[name='input'] ~ VElement&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token string">'MemberExpression &gt; ThisExpression'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><ol start="3"><li>通过npm run test进行调试</li></ol> <p>如果您遇到困难，请记住您已经可以学习很多规则，如果您找不到正确的解决方案 - 请不要犹豫，提出issue解决问题。我们很乐意提供帮助！</p> <h2 id="灵活匹配节点"><a href="#灵活匹配节点" class="header-anchor">#</a> 🔍 灵活匹配节点</h2> <p>我们在编写规则的时候，想要匹配某个节点下的子节点或者兄弟节点，可以通过<a href="https://github.com/estools/esquery" target="_blank" rel="noopener noreferrer">esquery<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>提供的方式来编写我们的visitor</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/* 
+&lt;template&gt;
+  &lt;view class=&quot;a&quot;&gt;
+    &lt;input class=&quot;b&quot;&gt;&lt;/input&gt;
+    &lt;view class=&quot;c&quot;&gt;&lt;/view&gt;
+    &lt;view class=&quot;d&quot;&gt;&lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+*/</span>
+
+<span class="token function">create</span><span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> utils<span class="token punctuation">.</span><span class="token function">defineTemplateBodyVisitor</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 匹配属性为class的节点</span>
+    <span class="token string">&quot;VAttribute[key.name='class']&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 匹配属性为class值为a的节点</span>
+    <span class="token string">&quot;VAttribute[key.name='class'][value.value='a']&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 匹配tempalte节点下属性有class的所有节点</span>
+    <span class="token string">&quot;VElement[name='template'] VAttribute[key.name='class'&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 匹配tempalte节点的children节点为VElement类型的 (即为class=a的节点)</span>
+    <span class="token string">&quot;VElement[name='template'] &gt; VElement&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 匹配input节点所有兄弟节点 (即为class=c的节点和class=d的节点)</span>
+    <span class="token string">&quot;VElement[name='input'] ~ VElement&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 匹配input节点下一个兄弟节点 (即为class=c的节点)</span>
+    <span class="token string">&quot;VElement[name='input'] + VElement&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    <span class="token comment">// js模块同理，这里不过多展示</span>
+    <span class="token comment">// 匹配function中表达式的this表达式</span>
+    <span class="token string">'MemberExpression &gt; ThisExpression'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="内置工具函数"><a href="#内置工具函数" class="header-anchor">#</a> ⚡️ 内置工具函数</h2> <h3 id="visitor相关"><a href="#visitor相关" class="header-anchor">#</a> visitor相关</h3> <ul><li><a href="#defineTemplateBodyVisitor">defineTemplateBodyVisitor</a> (定义模版Visitor)</li> <li><a href="#wrapCoreRule">wrapCoreRule</a> (Eslint规则适配Template)</li> <li><a href="#executeOnMpx">executeOnMpx</a> (检测当前文件是否是mpx文件且是创建mpx方法)</li> <li><a href="#excuteOnMpxCreateApp">excuteOnMpxCreateApp</a> (检测是否是在createApp函数并且执行callback)</li> <li><a href="#excuteOnMpxCreateComponent">excuteOnMpxCreateComponent</a> (检测是否是在createComponent函数并且执行callback)</li> <li><a href="#excuteOnMpxCreatePage">excuteOnMpxCreatePage</a> (检测是否是在createPage函数并且执行callback)</li> <li><a href="#executeOnFunctionsWithoutReturn">executeOnFunctionsWithoutReturn</a> (查找所有没有返回值的函数)</li> <li><a href="#compositingVisitors">compositingVisitors</a> (合并Visitors)</li> <li><a href="#defineMpxVisitor">defineMpxVisitor</a> (定义处理程序以遍历 Mpx 对象)</li></ul> <h3 id="获取"><a href="#获取" class="header-anchor">#</a> 获取</h3> <ul><li><a href="#prevSibling">prevSibling</a> (获取给定元素的前一个兄弟元素)</li> <li><a href="#getAttribute">getAttribute</a> (获取具有给定名称的属性)</li> <li><a href="#getDirective">getDirective</a> (获取具有给定名称的指令)</li> <li><a href="#getDirectives">getDirectives</a> (获取具有给定名称的指令列表)</li> <li><a href="#getStaticPropertyName">getStaticPropertyName</a> (获取给定节点的属性名称)</li> <li><a href="#getStringLiteralValue">getStringLiteralValue</a> (获取给定节点的字符串)</li> <li><a href="#getComponentPropsFromOptions">getComponentPropsFromOptions</a> (通过查看所有组件的属性来获取所有道具)</li> <li><a href="#getComputedProperties">getComputedProperties</a> (通过查看所有组件的属性来获取所有计算属性)</li> <li><a href="#getMpxObjectType">getMpxObjectType</a> (如果是在创建mpx实例，则返回内部对象)</li> <li><a href="#*iterateProperties">*iterateProperties</a> (具有所有属性的返回generator)</li> <li><a href="#getMemberChaining">getMemberChaining</a> (获取 MemberExpression 的链接节点)</li> <li><a href="#findProperty">findProperty</a> (从给定的 ObjectExpression 节点中查找具有给定名称的属性)</li> <li><a href="#findMutating">findMutating</a> (检查给定节点是否有改变值的表达式)</li></ul> <h3 id="检测"><a href="#检测" class="header-anchor">#</a> 检测</h3> <ul><li><a href="#isDef">isDef</a> (检查给定值是否已定义)</li> <li><a href="#hasAttribute">hasAttribute</a> (检查给定的开始标签是否有特定的属性)</li> <li><a href="#hasDirective">hasDirective</a> (检查给定的开始标签是否有特定的指令)</li> <li><a href="#isEmptyValueDirective">isEmptyValueDirective</a> (检查给定的指令属性是否具有空值(<code>=&quot;&quot;</code>))</li> <li><a href="#isEmptyExpressionValueDirective">isEmptyExpressionValueDirective</a> (检查给定的指令属性是否有它们的空表达式值（例如<code>=&quot;&quot;</code>))</li> <li><a href="#prevElementHasIf">prevElementHasIf</a> (检查前一个兄弟元素是否有 <code>if</code> 或 <code>elif</code> 指令)</li> <li><a href="#isCustomComponent">isCustomComponent</a> (检查给定节点是否是自定义组件)</li> <li><a href="#isMpElementName">isMpElementName</a> (检查给定名称是否是小程序元素)</li> <li><a href="#isMpxFile">isMpxFile</a> (检测文件是不是.mpx后缀的文件)</li> <li><a href="#isSingleLine">isSingleLine</a> (检测是否在同一行)</li> <li><a href="#hasInvalidEOF">hasInvalidEOF</a> (检查程序的templateBody是否有无效的EOF)</li> <li><a href="#editDistance">editDistance</a> (返回两个字符串editdistanc)</li> <li><a href="#isProperty">isProperty</a> (检测节点是否为property节点)</li> <li><a href="#isVElement">isVElement</a> (检测节点是否为VElement节点)</li> <li><a href="#isThis">isThis</a> (检查给定节点是 <code>this</code> 还是存储 <code>this</code> 的变量)</li> <li><a href="#equalTokens">equalTokens</a> (检查两个给定节点的令牌是否相同)</li></ul> <p><a id="defineTemplateBodyVisitor"></a> <br></p> <h3 id="definetemplatebodyvisitor"><a href="#definetemplatebodyvisitor" class="header-anchor">#</a> defineTemplateBodyVisitor</h3> <blockquote><p>定义模版Visitor,匹配template和js的节点进行规则处理</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/* @param context 解析器的上下文
+ * @param templateBodyVisitor 遍历模板的visitor.
+ * @param [scriptVisitor] 遍历script的visitor.
+ * @returns {RuleListener} 合并的visitor.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">defineTemplateBodyVisitor</span><span class="token punctuation">(</span>
+  <span class="token parameter"><span class="token literal-property property">context</span><span class="token operator">:</span> RuleContext<span class="token punctuation">,</span>
+  <span class="token literal-property property">templateBodyVisitor</span><span class="token operator">:</span> TemplateListener<span class="token punctuation">,</span>
+  scriptVisitor<span class="token operator">?</span><span class="token operator">:</span> RuleListener</span>
+<span class="token punctuation">)</span><span class="token operator">:</span> RuleListener
+
+<span class="token comment">// example</span>
+<span class="token function">create</span><span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> hasInvalidEOF <span class="token operator">=</span> <span class="token keyword">null</span>
+  <span class="token keyword">return</span> <span class="token function">defineTemplateBodyVisitor</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;VAttribute[directive=true][key.name.name='if']&quot;</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 检查程序的templateBody是否有无效的EOF，有的话不走了</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>hasInvalidEOF<span class="token punctuation">)</span> <span class="token keyword">return</span>
+      <span class="token comment">// 检测wx:if和wx:else是否在同一个标签</span>
+      <span class="token keyword">const</span> element <span class="token operator">=</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>parent
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>utils<span class="token punctuation">.</span><span class="token function">hasDirective</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> <span class="token string">'else'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        context<span class="token punctuation">.</span><span class="token function">report</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          node<span class="token punctuation">,</span>
+          <span class="token literal-property property">loc</span><span class="token operator">:</span> node<span class="token punctuation">.</span>loc<span class="token punctuation">,</span>
+          <span class="token literal-property property">message</span><span class="token operator">:</span>
+            <span class="token string">&quot;'wx:if' and 'wx:else' directives can't exist on the same element. You may want 'wx:elif' directives.&quot;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token string">'Program'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      hasInvalidEOF <span class="token operator">=</span> utils<span class="token punctuation">.</span><span class="token function">hasInvalidEOF</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span> 
+<span class="token punctuation">}</span>
+</code></pre></div><p><a id="wrapCoreRule"></a> <br></p> <h3 id="wrapcorerule"><a href="#wrapcorerule" class="header-anchor">#</a> wrapCoreRule</h3> <blockquote><p>Eslint规则适配Template,可以让eslint规则检测tempalte中的表达式</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+   * @callback WrapCoreRuleCreate
+   * @param {RuleContext} ruleContext
+   * @param {WrapCoreRuleCreateContext} wrapContext
+   * @returns {TemplateListener}
+   *
+   * @typedef {object} WrapCoreRuleCreateContext
+   * @property {RuleListener} coreHandlers
+   */</span>
+  <span class="token comment">/**
+   * @callback WrapCoreRulePreprocess
+   * @param {RuleContext} ruleContext
+   * @param {WrapCoreRulePreprocessContext} wrapContext
+   * @returns {void}
+   *
+   * @typedef {object} WrapCoreRulePreprocessContext
+   * @property { (override: Partial&lt;RuleContext&gt;) =&gt; RuleContext } wrapContextToOverrideProperties 重写规则的context
+   * @property { (visitor: TemplateListener) =&gt; void } defineVisitor 定义template的Visitor
+   */</span>
+  <span class="token comment">/**
+   * 让eslint core里的规则适用于mpx文件
+   * @param {string} coreRuleName core里的规则名字
+   * @param {Object} [options] 规则配置项
+   * @param {string[]} [options.categories] 规则的类别
+   * @param {boolean} [options.skipDynamicArguments] 如果为true，则跳过动态参数
+   * @param {boolean} [options.skipDynamicArgumentsReport] 如果“true”，则跳过动态参数中的报告。
+   * @param {WrapCoreRulePreprocess} [options.preprocess] 调用核心规则创建的预处理。
+   * @param {WrapCoreRuleCreate} [options.create] 如果定义，则扩展核心规则。
+   * @returns {RuleModule} 包装的规则实现。
+   */</span>
+
+<span class="token keyword">function</span> <span class="token function">wrapCoreRule</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">coreRuleName</span><span class="token operator">:</span> string<span class="token punctuation">,</span> <span class="token literal-property property">options</span><span class="token operator">:</span> Object</span><span class="token punctuation">)</span><span class="token operator">:</span> RuleModule
+
+<span class="token comment">// example</span>
+<span class="token comment">// eslint-disable-next-line</span>
+<span class="token comment">// 让eqeqeq在template中的属性中生效</span>
+<span class="token comment">// &lt;view wx:if=&quot;{{ a === 1 }}&quot;&gt;&lt;/view&gt;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">wrapCoreRule</span><span class="token punctuation">(</span><span class="token string">'eqeqeq'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">applyDocument</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="isDef"></a> <br></p> <h3 id="isdef"><a href="#isdef" class="header-anchor">#</a> isDef</h3> <blockquote><p>检查给定值是否已定义。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @template T
+ * @param {T | null | undefined} v
+ * @returns {v is T}
+ */</span>
+<span class="token keyword">function</span> isDef<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>v<span class="token operator">:</span><span class="token constant">T</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// node 不为null就返回true</span>
+<span class="token comment">// isDef(null) =&gt; false</span>
+<span class="token comment">// isDef(undefined) = &gt; true</span>
+<span class="token comment">// isDef({ node }) =&gt; true</span>
+
+</code></pre></div><p><a id="prevSibling"></a> <br></p> <h3 id="prevsibling"><a href="#prevsibling" class="header-anchor">#</a> prevSibling</h3> <blockquote><p>获取给定元素的前一个兄弟元素。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 获取上一个兄弟元素的元素节点。
+ * @returns {VElement|null} 上一个兄弟元素。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">prevSibling</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> VElement</span><span class="token punctuation">)</span><span class="token operator">:</span> VElement<span class="token operator">|</span><span class="token keyword">null</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view&gt;a&lt;/view&gt;&lt;view&gt;b&lt;/view&gt;</span>
+<span class="token comment">// prevSibling(node) 如果node为b，则返回a</span>
+</code></pre></div><p><a id="hasAttribute"></a> <br></p> <h3 id="hasattribute"><a href="#hasattribute" class="header-anchor">#</a> hasAttribute</h3> <blockquote><p>检查给定的开始标签是否有特定的属性。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的属性名称。
+ * @param {string} [value] 要检查的属性值。
+ * @returns {boolean} `true`代表开始标签具有属性。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">hasAttribute</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span>string<span class="token punctuation">,</span> value<span class="token operator">?</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean 
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view class=&quot;item&quot;&gt;&lt;/view&gt;</span>
+<span class="token function">hasAttribute</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'class'</span><span class="token punctuation">,</span> <span class="token string">'item'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span>
+</code></pre></div><p><a id="hasDirective"></a> <br></p> <h3 id="hasdirective"><a href="#hasdirective" class="header-anchor">#</a> hasDirective</h3> <blockquote><p>检查给定的开始标签是否有特定的指令。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的指令名称。
+ * @param {string} [argument] 要检查的指令参数。
+ * @returns {boolean} `true`代表开始标签具有指令。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">hasDirective</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span>string<span class="token punctuation">,</span> argument<span class="token operator">?</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view wx:if=&quot;a&quot;&gt;&lt;/view&gt;</span>
+<span class="token function">hasDirective</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'if'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span>
+</code></pre></div><p><a id="isEmptyValueDirective"></a> <br></p> <h3 id="isemptyvaluedirective"><a href="#isemptyvaluedirective" class="header-anchor">#</a> isEmptyValueDirective</h3> <blockquote><p>检查给定的指令属性是否具有空值（<code>=&quot;&quot;、=&quot;{{}}&quot;</code>）。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VDirective} node 要检查的指令属性节点。
+ * @param {RuleContext} context 使用解析器服务的规则上下文。
+ * @returns {boolean} `true` 代表指令属性的值为空（`=&quot;&quot;`）。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isEmptyValueDirective</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VDirective<span class="token punctuation">,</span> <span class="token literal-property property">context</span><span class="token operator">:</span>RuleContext</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isEmptyValueDirective</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+<span class="token comment">// wx:if=&quot;&quot; =&gt; true</span>
+<span class="token comment">// wx:if=&quot;{{}}&quot; =&gt; true</span>
+<span class="token comment">// wx:if=&quot;{{a}}&quot; =&gt; false</span>
+</code></pre></div><p><a id="isEmptyExpressionValueDirective"></a> <br></p> <h3 id="isemptyexpressionvaluedirective"><a href="#isemptyexpressionvaluedirective" class="header-anchor">#</a> isEmptyExpressionValueDirective</h3> <blockquote><p>检查给定的指令属性是否有它们的空表达式值（例如<code>=&quot;&quot;</code>）。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VDirective} node 要检查的指令属性节点。
+ * @param {RuleContext} context T使用解析器服务的规则上下文。
+ * @returns {boolean} `true` 如果指令属性的表达式值为空。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isEmptyExpressionValueDirective</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VDirective<span class="token punctuation">,</span> <span class="token literal-property property">context</span><span class="token operator">:</span>RuleContext</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isEmptyExpressionValueDirective</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+<span class="token comment">// wx:if=&quot;&quot; =&gt; true</span>
+<span class="token comment">// 方法待改进</span>
+</code></pre></div><p><a id="getAttribute"></a> <br></p> <h3 id="getattribute"><a href="#getattribute" class="header-anchor">#</a> getAttribute</h3> <blockquote><p>获取具有给定名称的属性。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的属性名称。
+ * @param {string} [value] 要检查的属性值。
+ * @returns {VAttribute | null} 找到的属性。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span>string<span class="token punctuation">,</span> <span class="token literal-property property">value</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span>VAttribute<span class="token operator">|</span><span class="token keyword">null</span> <span class="token punctuation">{</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view class=&quot;item&quot;&gt;&lt;/view&gt;</span>
+<span class="token function">getAttribute</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'class'</span><span class="token punctuation">,</span> <span class="token string">'item'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> VAttribute
+</code></pre></div><p><a id="getDirective"></a> <br></p> <h3 id="getdirective"><a href="#getdirective" class="header-anchor">#</a> getDirective</h3> <blockquote><p>获取具有给定名称的指令。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @param {string} name 要检查的指令名称。
+ * @param {string} [value] 要检查的指令值。
+ * @returns {VAttribute | null} 找到的指令。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getDirective</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span>string<span class="token punctuation">,</span> value<span class="token operator">?</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span>VAttribute<span class="token operator">|</span><span class="token keyword">null</span> <span class="token punctuation">{</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view wx:if=&quot;{{a}}&quot;&gt;</span>
+<span class="token function">getDirective</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'if'</span><span class="token punctuation">,</span> <span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> VAttribute
+</code></pre></div><p><a id="getDirectives"></a> <br></p> <h3 id="getdirectives"><a href="#getdirectives" class="header-anchor">#</a> getDirectives</h3> <blockquote><p>获取具有给定名称的指令列表。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement | VStartTag} node 要检查的开始标记节点。
+ * @param {string} name 要检查的指令名称。
+ * @returns {VDirective[]} 指令的数组。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getDirectives</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement<span class="token operator">|</span> VStartTag<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span>VDirective<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view wx:if=&quot;{{a}}&quot;&gt;&lt;view wx:if=&quot;{{b}}&quot;&gt;&lt;/view&gt;&lt;/view&gt;</span>
+<span class="token function">getDirectives</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'if'</span><span class="token punctuation">)</span>
+<span class="token comment">// 返回所有if的节点</span>
+</code></pre></div><p><a id="prevElementHasIf"></a> <br></p> <h3 id="prevelementhasif"><a href="#prevelementhasif" class="header-anchor">#</a> prevElementHasIf</h3> <blockquote><p>检查前一个兄弟元素是否有 <code>if</code> 或 <code>elif</code> 指令。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code> <span class="token comment">/**
+   * @param {VElement} node 要检查的元素节点。
+   * @returns {boolean} 如果前一个兄弟元素有 `if` 或 `elif` 指令，则为 `true`。
+   */</span>
+<span class="token keyword">function</span> <span class="token function">prevElementHasIf</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span>VElement</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">prevElementHasIf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+<span class="token comment">// &lt;view&gt;&lt;/view&gt; =&gt; false</span>
+<span class="token comment">// &lt;view wx:if=&quot;{{a}}&quot;&gt;&lt;/view&gt; =&gt; false</span>
+<span class="token comment">// &lt;view wx:elif=&quot;{{b}}&quot;&gt;&lt;/view&gt; =&gt; true</span>
+</code></pre></div><p><a id="isCustomComponent"></a> <br></p> <h3 id="iscustomcomponent"><a href="#iscustomcomponent" class="header-anchor">#</a> isCustomComponent</h3> <blockquote><p>检查给定节点是否是自定义组件。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement} node 要检查的开始标记节点。
+ * @returns {boolean} `true` 如果节点是自定义组件。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isCustomComponent</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> VElement</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isCustomComponent</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+<span class="token comment">// &lt;component is=&quot;a&quot; /&gt; =&gt; true</span>
+</code></pre></div><p><a id="isMpElementName"></a> <br></p> <h3 id="ismpelementname"><a href="#ismpelementname" class="header-anchor">#</a> isMpElementName</h3> <blockquote><p>检查给定名称是否是小程序元素。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {string} name 要检查的名称。
+  * @returns {boolean} `true` 如果名称是小程序元素名称。
+  */</span>
+<span class="token keyword">function</span> <span class="token function">isMpElementName</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">name</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token function">isMpElementName</span><span class="token punctuation">(</span><span class="token string">'view'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span>
+<span class="token function">isMpElementName</span><span class="token punctuation">(</span><span class="token string">'iframe'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span>
+</code></pre></div><p><a id="getStaticPropertyName"></a> <br></p> <h3 id="getstaticpropertyname"><a href="#getstaticpropertyname" class="header-anchor">#</a> getStaticPropertyName</h3> <blockquote><p>获取给定节点的属性名称。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {Property|AssignmentProperty|MethodDefinition|MemberExpression} node - 要获取的节点。
+ * @return {string|null} 属性名称（如果是静态的）。 否则为空。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getStaticPropertyName</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> Property<span class="token operator">|</span>AssignmentProperty<span class="token operator">|</span>MethodDefinition<span class="token operator">|</span>MemberExpression</span><span class="token punctuation">)</span><span class="token operator">:</span> string<span class="token operator">|</span><span class="token keyword">null</span>
+
+<span class="token comment">// example</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+  <span class="token function">createComponent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">computed</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token comment">// getStaticPropertyName(node) =&gt; computed</span>
+      <span class="token function-variable function">foo</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// getStaticPropertyName(node) =&gt; foo</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+</code></pre></div><p><a id="getStringLiteralValue"></a> <br></p> <h3 id="getstringliteralvalue"><a href="#getstringliteralvalue" class="header-anchor">#</a> getStringLiteralValue</h3> <blockquote><p>获取给定节点的字符串。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code> <span class="token comment">/**
+   * @param {Literal|TemplateLiteral} node - 要获取的节点。
+   * @return {string|null} 如果是静态的，则为字符串。 否则为空。
+   */</span>
+<span class="token keyword">function</span> <span class="token function">getStringLiteralValue</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> Literal<span class="token operator">|</span>TemplateLiteral</span><span class="token punctuation">)</span><span class="token operator">:</span> string<span class="token operator">|</span><span class="token keyword">null</span>
+
+<span class="token comment">// example</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+  <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span> <span class="token comment">// getStringLiteralValue(node) true</span>
+        <span class="token operator">?</span> <span class="token number">1</span> <span class="token comment">// getStringLiteralValue(node) 1</span>
+        <span class="token operator">:</span> <span class="token number">2</span> <span class="token comment">// getStringLiteralValue(node) 2</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+</code></pre></div><p><a id="getComponentPropsFromOptions"></a> <br></p> <h3 id="getcomponentpropsfromoptions"><a href="#getcomponentpropsfromoptions" class="header-anchor">#</a> getComponentPropsFromOptions</h3> <blockquote><p>通过查看所有组件的属性来获取所有道具</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ObjectExpression} componentObject 具有组件定义的对象
+ * @return {(ComponentArrayProp | ComponentObjectProp | ComponentUnknownProp)[]} 组件道具数组
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getComponentPropsFromOptions</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">componentObject</span><span class="token operator">:</span> ObjectExpression</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">(</span>ComponentArrayProp <span class="token operator">|</span> ComponentObjectProp <span class="token operator">|</span> ComponentUnknownProp<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment">// example</span>
+<span class="token function">createComponent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">properties</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">a</span><span class="token operator">:</span> String <span class="token comment">// getComponentPropsFromOptions(node) =&gt; [propertiesNode...]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="getComputedProperties"></a> <br></p> <h3 id="getcomputedproperties"><a href="#getcomputedproperties" class="header-anchor">#</a> getComputedProperties</h3> <blockquote><p>通过查看所有组件的属性来获取所有计算属性</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ObjectExpression} componentObject 具有组件定义的对象
+ * @return {ComponentComputedProperty[]} 计算属性数组，格式为：[{key: String, value: ASTNode}]
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getComputedProperties</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">componentObject</span><span class="token operator">:</span>ObjectExpression</span><span class="token punctuation">)</span><span class="token operator">:</span> ComponentComputedProperty<span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment">// example</span>
+<span class="token function">createComponent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">computed</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// getComponentPropsFromOptions(node) =&gt; [fooNode]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="isMpxFile"></a> <br></p> <h3 id="ismpxfile"><a href="#ismpxfile" class="header-anchor">#</a> isMpxFile</h3> <blockquote><p>检测文件是不是.mpx后缀的文件</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {string} path 文件路径
+ * @return {boolean} 如果是mpx文件则为true否则为fasle
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isMpxFile</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">path</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isMpxFile</span><span class="token punctuation">(</span><span class="token string">'/src/index.mpx'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span>
+<span class="token function">isMpxFile</span><span class="token punctuation">(</span><span class="token string">'/src/index.vue'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span>
+</code></pre></div><p><a id="compositingVisitors"></a> <br></p> <h3 id="compositingvisitors"><a href="#compositingvisitors" class="header-anchor">#</a> compositingVisitors</h3> <blockquote><p>合并Visitors</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @template T
+ * @param {T} visitor
+ * @param {...(TemplateListener | RuleListener | NodeListener)} visitors
+ * @returns {T}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">compositingVisitors</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">visitor</span><span class="token operator">:</span><span class="token constant">T</span><span class="token punctuation">,</span><span class="token operator">...</span>visitors<span class="token operator">:</span></span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span>
+
+<span class="token comment">// example</span>
+<span class="token function">compositingVisitors</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">'VElement'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* doSomething */</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+  <span class="token string">'VElement'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* doSomething */</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span>
+</code></pre></div><p><a id="executeOnMpx"></a> <br></p> <h3 id="executeonmpx"><a href="#executeonmpx" class="header-anchor">#</a> executeOnMpx</h3> <blockquote><p>检测当前文件是否是mpx文件且是创建mpx方法</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) =&gt; void } cb 回调函数
+  */</span>
+<span class="token keyword">function</span> <span class="token function">executeOnMpx</span><span class="token punctuation">(</span>context<span class="token operator">:</span> RuleContext<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> MpxObjectType</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">/* 
+ * createComponent({
+ *  data: {},
+ *  methods: {}  
+ * }) 
+ */</span>
+<span class="token function">executeOnMpx</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">node<span class="token punctuation">,</span> type</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> watchNode <span class="token operator">=</span> utils<span class="token punctuation">.</span><span class="token function">findProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'methods'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>watchNode<span class="token punctuation">)</span> <span class="token keyword">return</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="excuteOnMpxCreateApp"></a> <br></p> <h3 id="excuteonmpxcreateapp"><a href="#excuteonmpxcreateapp" class="header-anchor">#</a> excuteOnMpxCreateApp</h3> <blockquote><p>检测是否是在createApp函数并且执行callback</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) =&gt; void } cb 回调函数
+  */</span>
+<span class="token keyword">function</span> <span class="token function">excuteOnMpxCreateApp</span><span class="token punctuation">(</span>context<span class="token operator">:</span> RuleContext<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> MpxObjectType</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">/* 
+ * createApp({
+ *  onLaunch() {}
+ * }) 
+ */</span>
+<span class="token function">excuteOnMpxCreateApp</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">node<span class="token punctuation">,</span> type</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> onLanuchNode <span class="token operator">=</span> utils<span class="token punctuation">.</span><span class="token function">findProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'onLaunch'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onLanuchNode<span class="token punctuation">)</span> <span class="token keyword">return</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="excuteOnMpxCreateComponent"></a> <br></p> <h3 id="excuteonmpxcreatecomponent"><a href="#excuteonmpxcreatecomponent" class="header-anchor">#</a> excuteOnMpxCreateComponent</h3> <blockquote><p>检测是否是在createComponent函数并且执行callback</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) =&gt; void } cb 回调函数
+  */</span>
+<span class="token keyword">function</span> <span class="token function">excuteOnMpxCreateComponent</span><span class="token punctuation">(</span>context<span class="token operator">:</span> RuleContext<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> MpxObjectType</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">/* 
+ * createComponent({
+ *  properties:{}
+ * }) 
+ */</span>
+<span class="token function">excuteOnMpxCreateComponent</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">node<span class="token punctuation">,</span> type</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> propertiesNode <span class="token operator">=</span> utils<span class="token punctuation">.</span><span class="token function">findProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'properties'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>propertiesNode<span class="token punctuation">)</span> <span class="token keyword">return</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="excuteOnMpxCreatePage"></a> <br></p> <h3 id="excuteonmpxcreatepage"><a href="#excuteonmpxcreatepage" class="header-anchor">#</a> excuteOnMpxCreatePage</h3> <blockquote><p>检测是否是在createPage函数并且执行callback</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {RuleContext} context ESLint 规则上下文对象。
+  * @param { (node: ObjectExpression, type: MpxObjectType) =&gt; void } cb 回调函数
+  */</span>
+<span class="token keyword">function</span> <span class="token function">excuteOnMpxCreatePage</span><span class="token punctuation">(</span>context<span class="token operator">:</span> RuleContext<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> MpxObjectType</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">/* 
+ * createPage({
+ *  onPageScroll:{}
+ * }) 
+ */</span>
+<span class="token function">excuteOnMpxCreatePage</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">node<span class="token punctuation">,</span> type</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> onPageScrollNode <span class="token operator">=</span> utils<span class="token punctuation">.</span><span class="token function">findProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'onPageScroll'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onPageScrollNode<span class="token punctuation">)</span> <span class="token keyword">return</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="getMpxObjectType"></a> <br></p> <h3 id="getmpxobjecttype"><a href="#getmpxobjecttype" class="header-anchor">#</a> getMpxObjectType</h3> <blockquote><p>如果是在创建mpx实例，则返回内部对象</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+  * @param {ObjectExpression} node 检测的节点
+  * @returns { MpxObjectType | null } Mpx定义的节点
+  */</span>
+<span class="token keyword">function</span> <span class="token function">getMpxObjectType</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression</span><span class="token punctuation">)</span><span class="token operator">:</span> MpxObjectType <span class="token operator">|</span> <span class="token keyword">null</span> 
+
+<span class="token comment">// example</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/** @param {ObjectExpression} node */</span>
+  <span class="token string">'ObjectExpression:exit'</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> type <span class="token operator">=</span> <span class="token function">getMpxObjectType</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>type <span class="token operator">||</span> type <span class="token operator">!==</span> <span class="token string">'createComponent'</span><span class="token punctuation">)</span> <span class="token keyword">return</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><a id="defineMpxVisitor"></a> <br></p> <h3 id="definempxvisitor"><a href="#definempxvisitor" class="header-anchor">#</a> defineMpxVisitor</h3> <blockquote><p>定义处理程序以遍历 Mpx 对象。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * 定义处理程序以遍历 Mpx 对象。
+ * Visitor可以定义一些特别的事件
+ *
+ * - `onMpxObjectEnter` ... 找到 Mpx 对象时的事件。
+ * - `onMpxObjectExit` ... Mpx 对象访问结束时的事件。
+ * - `onSetupFunctionEnter` ... 找到设置功能时的事件。
+ * - `onRenderFunctionEnter` ... 找到渲染函数时的事件。
+ *
+ * @param {RuleContext} context ESLint 规则上下文对象。
+ * @param {MpxVisitor} visitor 访问者遍历 Mpx 对象。
+ */</span>
+<span class="token keyword">function</span> <span class="token function">defineMpxVisitor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">context</span><span class="token operator">:</span>RuleContext<span class="token punctuation">,</span> <span class="token literal-property property">visitor</span><span class="token operator">:</span> MpxVisitor</span><span class="token punctuation">)</span>
+
+<span class="token comment">// example</span>
+<span class="token function">defineMpxVisitor</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token function">onMpxObjectEnter</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 把所有computed里的属性收集起来</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> computedProperty <span class="token keyword">of</span> utils<span class="token punctuation">.</span><span class="token function">getComputedProperties</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      computedProperties<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>computedProperty<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="*iterateProperties"></a> <br></p> <h3 id="iterateproperties"><a href="#iterateproperties" class="header-anchor">#</a> *iterateProperties</h3> <blockquote><p>具有所有属性的返回generator</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ObjectExpression} node 检测的节点
+ * @param {Set&lt;GroupName&gt;} groups 需要检测的属性
+ * @returns {IterableIterator&lt;ComponentPropertyData&gt;}
+ */</span>
+<span class="token keyword">function</span> <span class="token operator">*</span><span class="token function">iterateProperties</span><span class="token punctuation">(</span>node<span class="token operator">:</span>ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">groups</span><span class="token operator">:</span> Set<span class="token operator">&lt;</span>GroupName<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span>IterableIterator<span class="token operator">&lt;</span>ComponentPropertyData<span class="token operator">&gt;</span>
+
+<span class="token comment">// example</span>
+<span class="token function">executeOnMpx</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> properties <span class="token operator">=</span> <span class="token function">iterateProperties</span><span class="token punctuation">(</span>
+    obj<span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'properties'</span><span class="token punctuation">,</span> <span class="token string">'computed'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> o <span class="token keyword">of</span> properties<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="executeOnFunctionsWithoutReturn"></a> <br></p> <h3 id="executeonfunctionswithoutreturn"><a href="#executeonfunctionswithoutreturn" class="header-anchor">#</a> executeOnFunctionsWithoutReturn</h3> <blockquote><p>查找所有没有返回值的函数</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {boolean} treatUndefinedAsUnspecified
+ * @param { (node: ESNode) =&gt; void } cb 回调函数
+ * @returns {RuleListener}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">executeOnFunctionsWithoutReturn</span><span class="token punctuation">(</span>treatUndefinedAsUnspecified<span class="token operator">:</span>boolean<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ESNode</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span><span class="token operator">:</span>RuleListener
+</code></pre></div><p>example</p> <p>参见<a href="https://github.com/mpx-ecology/eslint-plugin-mpx/blob/master/lib/rules/return-in-computed-property.js" target="_blank" rel="noopener noreferrer">return-in-computed-property<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p><a id="isSingleLine"></a> <br></p> <h3 id="issingleline"><a href="#issingleline" class="header-anchor">#</a> isSingleLine</h3> <blockquote><p>检测是否在同一行</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ASTNode} node
+ * @returns {boolean}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isSingleLine</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ASTNode</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isSingleLine</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> 
+<span class="token comment">// &lt;view&gt;a&lt;/view&gt; &lt;view&gt;b&lt;/view&gt; true</span>
+<span class="token comment">// &lt;view&gt;a&lt;/view&gt;</span>
+<span class="token comment">// &lt;view&gt;b&lt;/view&gt; false</span>
+
+</code></pre></div><p><a id="hasInvalidEOF"></a> <br></p> <h3 id="hasinvalideof"><a href="#hasinvalideof" class="header-anchor">#</a> hasInvalidEOF</h3> <blockquote><p>检查程序的templateBody是否有无效的EOF。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ASTNode} node
+ * @returns {boolean}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">hasInvalidEOF</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ASTNode</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;template&gt;&lt;view class=&quot;&quot; true</span>
+<span class="token comment">// &lt;template&gt;&lt;view class=&quot;&quot;&gt;&lt;/template&gt; false</span>
+<span class="token function">hasInvalidEOF</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> 
+</code></pre></div><p><a id="getMemberChaining"></a> <br></p> <h3 id="getmemberchaining"><a href="#getmemberchaining" class="header-anchor">#</a> getMemberChaining</h3> <blockquote><p>获取 MemberExpression 的链接节点。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param  {ESNode} node 解析的节点
+ * @return {[ESNode, ...MemberExpression[]]} 链接节点
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getMemberChaining</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ESNode</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">[</span>ESNode<span class="token punctuation">,</span> <span class="token operator">...</span>MemberExpression<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+<span class="token comment">// example</span>
+<span class="token function">getMemberChaining</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> 
+<span class="token comment">// const test = this.lorem['ipsum'].foo.bar` =&gt; [this, lorem, ipsum, foo, bar] 都为相应的节点</span>
+</code></pre></div><p><a id="editDistance"></a> <br></p> <h3 id="editdistance"><a href="#editdistance" class="header-anchor">#</a> editDistance</h3> <blockquote><p>返回两个字符串editdistance</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {string} a string a to compare
+ * @param {string} b string b to compare
+ * @returns {number}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">editDistance</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">a</span><span class="token operator">:</span>string<span class="token punctuation">,</span> <span class="token literal-property property">b</span><span class="token operator">:</span>string</span><span class="token punctuation">)</span><span class="token operator">:</span>number
+
+<span class="token comment">// example</span>
+<span class="token comment">// 对比两字符串差多少个字符</span>
+<span class="token function">editDistance</span><span class="token punctuation">(</span><span class="token string">'book'</span><span class="token punctuation">,</span> <span class="token string">'back'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">2</span> 
+<span class="token function">editDistance</span><span class="token punctuation">(</span><span class="token string">'methods'</span><span class="token punctuation">,</span> <span class="token string">'metho'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">2</span> 
+<span class="token function">editDistance</span><span class="token punctuation">(</span><span class="token string">'computed'</span><span class="token punctuation">,</span> <span class="token string">'comput'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">2</span> 
+</code></pre></div><p><a id="isProperty"></a> <br></p> <h3 id="isproperty"><a href="#isproperty" class="header-anchor">#</a> isProperty</h3> <blockquote><p>检测节点是否为property节点</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {Property | SpreadElement} node
+ * @returns {node is Property}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isProperty</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> Property <span class="token operator">|</span> SpreadElement</span><span class="token punctuation">)</span><span class="token operator">:</span>boolean
+
+<span class="token comment">// example</span>
+<span class="token function">isProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token literal-property property">a</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token comment">// true</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">a</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// false</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><p><a id="isVElement"></a> <br></p> <h3 id="isvelement"><a href="#isvelement" class="header-anchor">#</a> isVElement</h3> <blockquote><p>检测节点是否为VElement节点</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {VElement | VExpressionContainer | VText} node
+ * @returns {node is VElement}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isVElement</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> VElement <span class="token operator">|</span> VExpressionContainer <span class="token operator">|</span> VText</span><span class="token punctuation">)</span><span class="token operator">:</span>boolean
+
+<span class="token comment">// example</span>
+<span class="token comment">// &lt;view class=&quot;a&quot;&gt;&lt;/view&gt; 如果node是view =&gt; true 如果node是class =&gt; false</span>
+<span class="token function">isVElement</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+</code></pre></div><p><a id="findProperty"></a> <br></p> <h3 id="findproperty"><a href="#findproperty" class="header-anchor">#</a> findProperty</h3> <blockquote><p>从给定的 ObjectExpression 节点中查找具有给定名称的属性。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ObjectExpression} node
+ * @param {string} name
+ * @param { (p: Property) =&gt; boolean } [filter]
+ * @returns { (Property) | null}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">findProperty</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ObjectExpression<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> string<span class="token punctuation">,</span> filter<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">p</span><span class="token operator">:</span> Property</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> boolean</span><span class="token punctuation">)</span><span class="token operator">:</span><span class="token punctuation">(</span>Property<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token keyword">null</span>
+
+<span class="token comment">// example</span>
+<span class="token comment">// 查找节点中的watch  过滤name=methods的节点</span>
+<span class="token function">findProperty</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'watch'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> n<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">'methods'</span><span class="token punctuation">)</span>
+</code></pre></div><p><a id="isThis"></a> <br></p> <h3 id="isthis"><a href="#isthis" class="header-anchor">#</a> isThis</h3> <blockquote><p>检查给定节点是 <code>this</code> 还是存储 <code>this</code> 的变量。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param  {ESNode} node 检测的节点
+ * @param {RuleContext} context 规则上下文
+ * @returns {boolean} 如果给的节点是this节点为true
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isThis</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">node</span><span class="token operator">:</span> ESNode<span class="token punctuation">,</span> <span class="token literal-property property">context</span><span class="token operator">:</span> RuleContext</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// example</span>
+<span class="token keyword">function</span> <span class="token function">a</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment">// true</span>
+  <span class="token keyword">var</span> that <span class="token operator">=</span> <span class="token keyword">this</span> <span class="token comment">// true</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment">// false</span>
+<span class="token punctuation">}</span>
+<span class="token function">isThis</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+</code></pre></div><p><a id="findMutating"></a> <br></p> <h3 id="findmutating"><a href="#findmutating" class="header-anchor">#</a> findMutating</h3> <blockquote><p>检查给定节点是否有改变值的表达式</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {MemberExpression|Identifier} props
+ * @returns { { kind: 'assignment' | 'update' | 'call' , node: ESNode, pathNodes: MemberExpression[] } | null }
+ */</span>
+<span class="token keyword">function</span> <span class="token function">findMutating</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">props</span><span class="token operator">:</span> MemberExpression<span class="token operator">|</span>Identifier</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">kind</span><span class="token operator">:</span> <span class="token string">'assignment'</span> <span class="token operator">|</span> <span class="token string">'update'</span> <span class="token operator">|</span> <span class="token string">'call'</span> <span class="token punctuation">,</span> <span class="token literal-property property">node</span><span class="token operator">:</span> ESNode<span class="token punctuation">,</span> <span class="token literal-property property">pathNodes</span><span class="token operator">:</span> MemberExpression<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">}</span> <span class="token operator">|</span> <span class="token keyword">null</span>
+
+<span class="token comment">// example</span>
+<span class="token function">findMutating</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+<span class="token comment">// this.x += 1</span>
+<span class="token comment">// this.x++</span>
+<span class="token comment">// this.x.push(1)</span>
+<span class="token comment">// 这种值发生改变的会被选中</span>
+</code></pre></div><p><a id="equalTokens"></a> <br></p> <h3 id="equaltokens"><a href="#equaltokens" class="header-anchor">#</a> equalTokens</h3> <blockquote><p>检查两个给定节点的令牌是否相同。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {ASTNode} left 第一个节点
+ * @param {ASTNode} right 第二个节点
+ * @param {ParserServices.TokenStore | SourceCode} sourceCode 源码
+ * @returns {boolean} 是否相等
+ */</span>
+<span class="token keyword">function</span> <span class="token function">equalTokens</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">left</span><span class="token operator">:</span> ASTNode<span class="token punctuation">,</span> <span class="token literal-property property">right</span><span class="token operator">:</span> ASTNode<span class="token punctuation">,</span> <span class="token literal-property property">sourceCode</span><span class="token operator">:</span> ParserServices<span class="token punctuation">.</span>TokenStore <span class="token operator">|</span> SourceCode</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean
+
+<span class="token comment">// &lt;view wx:if=&quot;{{a}}&quot;&gt;</span>
+<span class="token comment">// &lt;view wx:elif=&quot;{{b}}&quot;&gt;</span>
+<span class="token comment">// &lt;view wx:elif=&quot;{{b}}&quot;&gt;</span>
+<span class="token comment">// equalTokens(anode, bnode, '&lt;view wx:...') false</span>
+<span class="token comment">// equalTokens(bnode, bnode, '&lt;view wx:...') true</span>
+<span class="token function">equalTokens</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> sourceCode<span class="token punctuation">)</span>
+</code></pre></div><h2 id="使用-typescript-进行-jsdoc-类型检查"><a href="#使用-typescript-进行-jsdoc-类型检查" class="header-anchor">#</a> ✅ 使用 TypeScript 进行 JSDoc 类型检查</h2> <p>我们通过 TypeScript 和 JSDoc 启用了类型检查。
+执行类型检查的命令是：<code>npm run tsc</code></p> <p>这只是为了帮助您编写规则，而不是进行严格的类型检查。 如果您发现难以解决类型检查警告，请随意使用 <code>// @ts-nocheck</code> 和 <code>// @ts-ignore</code> 注释来抑制警告。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/eslint-plugin-mpx/user-guide/" class="prev">
+        用户指南
+      </a></span> <span class="next"><a href="/eslint-plugin-mpx/rules/">
+        规则
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/eslint-plugin-mpx/assets/js/app.a3e24e15.js" defer></script><script src="/eslint-plugin-mpx/assets/js/4.b707e725.js" defer></script><script src="/eslint-plugin-mpx/assets/js/2.5fbb3ed0.js" defer></script><script src="/eslint-plugin-mpx/assets/js/1.2a6cc3b8.js" defer></script><script src="/eslint-plugin-mpx/assets/js/29.9e6e7cb4.js" defer></script><script src="/eslint-plugin-mpx/assets/js/21.840b1623.js" defer></script>
+  </body>
+</html>
