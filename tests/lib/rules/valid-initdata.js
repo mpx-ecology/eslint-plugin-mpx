@@ -64,6 +64,17 @@ ruleTester.run('valid-initdata', rule, {
         <abc inc="{{inc}}" num="{{num}}" show="{{show}}">
       </template>
       `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <template>
+      </template>
+      <script>
+        const { computed } = require('@mpxjs/core')
+      </script>
+      `,
+      errors: [{ messageId: 'missingValue' }]
     }
   ],
 
