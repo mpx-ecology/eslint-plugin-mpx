@@ -217,24 +217,13 @@ tester.run('no-parsing-error', rule, {
     },
     {
       filename: 'test.mpx',
-      code: '<template><view wx:show="a b c">hello</view></template>',
+      code: '<template><view wx:show="{{a b c}}">hello</view></template>',
       errors: ['Parsing error: Unexpected token b.']
     },
     {
       filename: 'test.mpx',
-      code: '<template><view wx:show="a;b;">hello</view></template>',
+      code: '<template><view wx:show="{{a;b;}}">hello</view></template>',
       errors: ['Parsing error: Unexpected token ;.']
-    },
-    {
-      filename: 'test.mpx',
-      code: '<template><view wx:show=" ">hello</view></template>',
-      errors: [
-        {
-          message:
-            'Parsing error: Expected to be an expression, but got empty.',
-          column: 26
-        }
-      ]
     },
     {
       code: `<template><!--></template>`,

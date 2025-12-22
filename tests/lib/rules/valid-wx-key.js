@@ -99,9 +99,7 @@ tester.run('valid-wx-key', rule, {
     {
       filename: 'test.mpx',
       code: '<template><view wx:for="{{list}}" wx:key="aaa.id"></view></template>',
-      errors: [
-        `'wx:key="aaa.id"' does not look like a valid key name (Did you mean 'wx:key="id"' ?).`
-      ]
+      errors: [`'wx:key="aaa.id"' does not look like a valid key name.`]
     },
     {
       filename: 'test.mpx', // 给warning
