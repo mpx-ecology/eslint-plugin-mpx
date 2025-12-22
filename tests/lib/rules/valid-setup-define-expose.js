@@ -56,6 +56,31 @@ tester.run('valid-setup-define-expose', rule, {
       filename: 'test.mpx',
       code: `
       <script setup>
+        import { ref } from '@mpx/core'
+        // 正常导出检测
+        const count = ref(0)
+        const num = ref(0)
+        const inc = () => {
+          count.value++
+        }
+        const show = true
+        defineExpose({
+          show,
+          num,
+          inc,
+          fnName: 'inc'
+        })
+      </script>
+
+      <template>
+        <view wx:if="{{show}}" num="{{num}}" bindtap="{{fnName}}" />
+      </template>
+      `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
         // 从非 @mpxjs/core 中导入的变量默认return
         import { count, inc } from './useCount'
        defineExpose({
@@ -243,6 +268,21 @@ tester.run('valid-setup-define-expose', rule, {
       </script>
       <template>
         <view bindtap="inc" />
+      </template>
+      `,
+      errors: [{ messageId: 'unexpected' }]
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+        const inc = () => {
+          count.value++
+        }
+        defineExpose({})
+      </script>
+      <template>
+        <view bindtap="{{inc}}" />
       </template>
       `,
       errors: [{ messageId: 'unexpected' }]
