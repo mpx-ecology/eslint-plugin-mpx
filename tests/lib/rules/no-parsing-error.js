@@ -202,7 +202,9 @@ tester.run('no-parsing-error', rule, {
     },
     '<template><view/></template>',
     '<template><view wx:show="">hello</view></template>',
-    '<template><view>{{ }}</view></template>'
+    '<template><view>{{ }}</view></template>',
+    '<template><view bindtab="fn"></view></template>',
+    '<template><view bindtab="{{fnName}}"></view></template>'
   ],
   invalid: [
     {
