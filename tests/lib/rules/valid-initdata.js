@@ -46,6 +46,27 @@ ruleTester.run('valid-initdata', rule, {
       filename: 'test.mpx',
       code: `
       <script>
+        createComponent({
+          data: {
+            condition: true
+          }
+        })
+      </script>
+      <template>
+        <view>
+          <custom-component
+            prop="{{
+              condition ? 'value1' : 'value2'
+            }}"
+          />
+        </view>
+      </template>
+      `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script>
           createComponent({
               initData: {
                   show: true,
@@ -197,6 +218,55 @@ ruleTester.run('valid-initdata', rule, {
         }
       })
       </script>
+      `,
+      errors: [{ messageId: 'missingValue' }]
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
+        defineExpose({
+          userInfo
+        })
+        defineOptions({
+          initData: {
+            userName: ''
+          }
+        })
+      </script>
+      <template>
+        <view>
+          <custom-component
+            data="{{
+              userInfo.name
+            }}"
+          />
+        </view>
+      </template>
+      `,
+      errors: [{ messageId: 'unexpected' }]
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script>
+      createComponent({
+        computed: {
+          userInfo() {
+            return { name: 'test' }
+          }
+        }
+      })
+      </script>
+      <template>
+        <view>
+          <custom-component
+            data="{{
+              userInfo
+            }}"
+          />
+        </view>
+      </template>
       `,
       errors: [{ messageId: 'missingValue' }]
     }
