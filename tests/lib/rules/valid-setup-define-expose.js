@@ -232,6 +232,28 @@ tester.run('valid-setup-define-expose', rule, {
       filename: 'test.mpx',
       code: `
       <script setup>
+        onReactHooksExec(() => {
+          const [count, setCount] = useState(0)
+          const onTouchEnd = () => {
+            console.log("trigger event: onTouchEnd")
+            setCount((count) => count + 1)
+          }
+          return {
+            count,
+            onTouchEnd,
+          }
+        })
+      </script>
+
+      <template>
+        <view num="{{count}}" bindtap="onTouchEnd"/>
+      </template>
+      `
+    },
+    {
+      filename: 'test.mpx',
+      code: `
+      <script setup>
         const props = withDefaults(defineProps(), {
           show: false,
           num: 0
