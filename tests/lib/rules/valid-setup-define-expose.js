@@ -136,7 +136,9 @@ tester.run('valid-setup-define-expose', rule, {
       })
       </script>
       <template>
-        <view wx:ref="forref" wx:for-item="idx" wx:key="index" wx:for="{{list}}"/>
+        <view wx:ref="forref" wx:for-item="xitem" wx:for-index="idx" wx:key="index" wx:for="{{list}}" >
+          {{ idx }} {{ xitem }}
+        </view>
       </template>
       `
     },
